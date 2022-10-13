@@ -3,14 +3,37 @@ final float DRAG=0.99;
 final float GRAVITY=0.981;
 final float LENGTH=20;
 final float RADIUS=10;
-final int ROPE_COUNT=7;
-final int STIFFNESS=1000;
+final int ROPE_COUNT=2;
+final int STIFFNESS=2000;
+final int SHAPE_RADIUS=40;
 
 
 
 ArrayList<Constraint> cl;
 ArrayList<Point> pl;
 Point e;
+
+
+
+void _link_points(Point a,Point b){
+	cl.add(new Constraint(a,b,sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y))));
+}
+
+
+
+Point _generate_symmetric_shape(float x,float y,float r,int sides){
+	Point points[]=new Point[sides];
+	for (int i=0;i<sides;i++){
+		Point a=new Point(x+r*cos(TWO_PI/sides*i),y+r*sin(TWO_PI/sides*i),false);
+		points[i]=a;
+		pl.add(a);
+		for (int j=0;j<i;j++){
+			Point b=points[j];
+			cl.add(new Constraint(a,b,sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y))));
+		}
+	}
+	return points[0];
+}
 
 
 
@@ -36,6 +59,9 @@ void setup(){
 		e=n;
 	}
 	e=pl.get(COUNT+ROPE_COUNT);
+	cl.add(new Constraint(_generate_symmetric_shape(width/2,0,SHAPE_RADIUS,5),e,LENGTH));
+	// cl.remove(cl.size()-1);
+	e=pl.get(pl.size()-1);
 }
 
 
