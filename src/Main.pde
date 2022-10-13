@@ -1,11 +1,11 @@
 final int COUNT=50;
 final float DRAG=0.95;
-final float GRAVITY=9.81;
+final float GRAVITY=0.981;
 final float LENGTH=20;
 final float RADIUS=10;
 final int ROPE_COUNT=5;
 final int SHAPE_RADIUS=40;
-final float SCALE=0.03125;
+final float SCALE=1e-2f;
 
 
 
