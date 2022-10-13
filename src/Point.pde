@@ -2,9 +2,11 @@ class Point{
 	float x;
 	float y;
 	boolean fixed;
-	float px;
-	float py;
-	PositionAccumulator accumulator;
+	float _prev_x;
+	float _prev_y;
+	float _delta_x;
+	float _delta_y;
+	int _delta_count;
 
 
 
@@ -12,39 +14,40 @@ class Point{
 		this.x=x;
 		this.y=y;
 		this.fixed=fixed;
-		this.px=x;
-		this.py=y;
-		this.accumulator=new PositionAccumulator();
+		this._prev_x=x;
+		this._prev_y=y;
+		this._delta_x=0;
+		this._delta_y=0;
+		this._delta_count=0;
 	}
 
 
 
-	void update(){
+	void update(float dt){
 		if (this.fixed){
-			this.px=this.x;
-			this.py=this.y;
 			return;
 		}
-		float vx=(this.x-this.px)*DRAG;
-		float vy=(this.y-this.py)*DRAG+GRAVITY;
-		this.px=this.x;
-		this.py=this.y;
-		this.x+=vx;
-		this.y+=vy;
-		if (this.y>height){
-			this.y=height;
-			this.py=this.y;
-		}
+		float vx=this.x-this._prev_x;
+		float vy=this.y-this._prev_y;
+		this._prev_x=this.x;
+		this._prev_y=this.y;
+		this.x+=vx*DRAG;
+		this.y+=vy*DRAG+GRAVITY*dt;
 	}
 
 
 
-	void update_pos(){
-		if (this.fixed){
-			return;
+	void constrain(){
+		if (this._delta_count!=0){
+			this.x+=this._delta_x/this._delta_count;
+			this.y+=this._delta_y/this._delta_count;
+			this._delta_count=0;
 		}
-		this.x+=this.accumulator.get_x();
-		this.y+=this.accumulator.get_y();
+		if (this.y>(height-RADIUS)*SCALE){
+			this.y=(height-RADIUS*2)*SCALE;
+			this._prev_x=this.x;
+			this._prev_y=this.y;
+		}
 	}
 
 
@@ -52,6 +55,6 @@ class Point{
 	void draw(){
 		noStroke();
 		fill((this.fixed?#43F949:#4f47fa));
-		circle(this.x,this.y,RADIUS*2);
+		circle(this.x/SCALE,this.y/SCALE,RADIUS*2);
 	}
 }
