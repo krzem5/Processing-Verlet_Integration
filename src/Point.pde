@@ -1,30 +1,26 @@
 class Point{
 	float x;
 	float y;
+	boolean fixed;
 	float px;
 	float py;
-	boolean f;
-	float dx;
-	float dy;
-	int dn;
+	PositionAccumulator accumulator;
 
 
 
-	Point(float x,float y,boolean f){
+	Point(float x,float y,boolean fixed){
 		this.x=x;
 		this.y=y;
+		this.fixed=fixed;
 		this.px=x;
 		this.py=y;
-		this.f=f;
-		this.dx=0;
-		this.dy=0;
-		this.dn=0;
+		this.accumulator=new PositionAccumulator();
 	}
 
 
 
 	void update(){
-		if (this.f){
+		if (this.fixed){
 			this.px=this.x;
 			this.py=this.y;
 			return;
@@ -44,21 +40,18 @@ class Point{
 
 
 	void update_pos(){
-		if (this.dn==0){
+		if (this.fixed){
 			return;
 		}
-		this.x+=this.dx/this.dn;
-		this.y+=this.dy/this.dn;
-		this.dx=0;
-		this.dy=0;
-		this.dn=0;
+		this.x+=this.accumulator.get_x();
+		this.y+=this.accumulator.get_y();
 	}
 
 
 
 	void draw(){
 		noStroke();
-		fill((this.f?#43F949:#4f47fa));
+		fill((this.fixed?#43F949:#4f47fa));
 		circle(this.x,this.y,RADIUS*2);
 	}
 }

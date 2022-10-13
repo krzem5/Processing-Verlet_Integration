@@ -15,12 +15,6 @@ Point e;
 
 
 
-void _link_points(Point a,Point b){
-	cl.add(new Constraint(a,b,sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y))));
-}
-
-
-
 Point _generate_symmetric_shape(float x,float y,float r,int sides){
 	Point points[]=new Point[sides];
 	for (int i=0;i<sides;i++){
@@ -50,7 +44,7 @@ void setup(){
 	}
 	n.x=width*3/4;
 	n.y=height/4;
-	n.f=true;
+	n.fixed=true;
 	e=pl.get(COUNT/2+1);
 	for (int i=0;i<ROPE_COUNT;i++){
 		n=new Point(0,0,false);
@@ -60,7 +54,7 @@ void setup(){
 	}
 	e=pl.get(COUNT+ROPE_COUNT);
 	cl.add(new Constraint(_generate_symmetric_shape(width/2,0,SHAPE_RADIUS,5),e,LENGTH));
-	// cl.remove(cl.size()-1);
+	cl.remove(cl.size()-1);
 	e=pl.get(pl.size()-1);
 }
 
@@ -71,12 +65,12 @@ void draw(){
 	if (mousePressed){
 		e.x=mouseX;
 		e.y=mouseY;
-		e.f=true;
 		e.px=e.x;
 		e.py=e.y;
+		e.fixed=true;
 	}
 	else{
-		e.f=false;
+		e.fixed=false;
 	}
 	for (Point p:pl){
 		p.update();
@@ -87,6 +81,9 @@ void draw(){
 		}
 		for (Point p:pl){
 			p.update_pos();
+		}
+		for (Point p:pl){
+			p.accumulator.reset();
 		}
 	}
 	for (Constraint c:cl){

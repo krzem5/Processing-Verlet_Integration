@@ -1,47 +1,39 @@
 class Constraint{
 	Point a;
 	Point b;
-	float l;
+	float length;
 
 
 
-	Constraint(Point a,Point b,float l){
+	Constraint(Point a,Point b,float length){
 		this.a=a;
 		this.b=b;
-		this.l=l;
+		this.length=length;
 	}
 
 
 
 	void update(){
-		if (this.a.f&&this.b.f){
+		if (this.a.fixed&&this.b.fixed){
 			return;
 		}
-		float dx=this.b.x-this.a.x;
-		float dy=this.b.y-this.a.y;
-		float m=sqrt(dx*dx+dy*dy);
-		if (m==0){
-			if (!this.a.f){
-				this.a.dx--;
+		float distance_x=this.b.x-this.a.x;
+		float distance_y=this.b.y-this.a.y;
+		float distance=sqrt(distance_x*distance_x+distance_y*distance_y);
+		if (distance==0){
+			if (!this.a.fixed){
+				this.a.x--;
 			}
-			if (!this.b.f){
-				this.b.dx++;
+			if (!this.b.fixed){
+				this.b.x++;
 			}
 			return;
 		}
-		m=this.l/(m*2)-0.5;
-		dx*=m;
-		dy*=m;
-		if (!this.a.f){
-			this.a.dx-=dx;
-			this.a.dy-=dy;
-			this.a.dn++;
-		}
-		if (!this.b.f){
-			this.b.dx+=dx;
-			this.b.dy+=dy;
-			this.b.dn++;
-		}
+		distance=this.length/(distance*2)-0.5;
+		distance_x*=distance;
+		distance_y*=distance;
+		this.a.accumulator.add(-distance_x,-distance_y);
+		this.b.accumulator.add(distance_x,distance_y);
 	}
 
 
