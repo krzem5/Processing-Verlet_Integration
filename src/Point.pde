@@ -44,7 +44,7 @@ class Point{
 			this._delta_count=0;
 		}
 		if (this.y>(height-RADIUS)*SCALE){
-			this.y=(height-RADIUS*2)*SCALE;
+			this.y=(height-RADIUS)*SCALE;
 			this._prev_x=this.x;
 			this._prev_y=this.y;
 		}
