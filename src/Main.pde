@@ -1,13 +1,13 @@
 final int COUNT=50;
 final float DRAG=0.95;
 final float GRAVITY=0.981;
-final float LENGTH=20;
+final float LENGTH=50;
 final float RADIUS=5;
 final int ROPE_COUNT=20;
 final int SHAPE_RADIUS=40;
 final float SCALE=1e-2f;
-final int CLOTH_X_POINTS=8;
-final int CLOTH_Y_POINTS=8;
+final int CLOTH_X_POINTS=16;
+final int CLOTH_Y_POINTS=16;
 
 
 
@@ -53,6 +53,7 @@ Point create_rope(Point a,Point b,int count){
 
 void setup(){
 	size(1920,1080);
+	_last_time=millis();
 	cl=new ArrayList<Constraint>();
 	pl=new ArrayList<Point>();
 	// Point a=new Point(width/4*SCALE,height/4*SCALE,true);
@@ -70,33 +71,34 @@ void setup(){
 	// create_rope(cb,e,20);
 	// create_rope(cc,e,20);
 	////////////////////////////////
-	Point a=new Point(width/2*SCALE,height/4*SCALE,true);
-	Point b=new Point(0,0,false);
-	create_rope(a,b,20);
-	// cl.add(new Constraint(a,b,50*SCALE,false,0.001));
-	pl.add(a);
-	pl.add(b);
-	e=b;
-	////////////////////////////////
-	// Point a=new Point(width/4*SCALE,0,true);
-	// Point b=new Point(width*3/4*SCALE,0,true);
+	// Point a=new Point(width/2*SCALE,height/4*SCALE,true);
+	// Point b=new Point(0,0,false);
+	// create_rope(a,b,20);
 	// pl.add(a);
 	// pl.add(b);
-	// create_rope(a,b,CLOTH_X_POINTS);
-	// cl.get(0).force=5;
-	// cl.get(cl.size()-1).force=5;
-	// for (int i=2;i<CLOTH_X_POINTS+2;i++){
-	// 	Point c=new Point(0,0,false);
-	// 	create_rope(pl.get(i),c,CLOTH_Y_POINTS);
-	// 	pl.add(c);
-	// 	if (i==2){
-	// 		continue;
-	// 	}
-	// 	for (int j=0;j<CLOTH_Y_POINTS+1;j++){
-	// 		cl.add(new Constraint(pl.get(CLOTH_X_POINTS+2+(i-3)*(CLOTH_Y_POINTS+1)+j),pl.get(CLOTH_X_POINTS+2+(i-2)*(CLOTH_Y_POINTS+1)+j),LENGTH*SCALE,false,1.0));
-	// 	}
-	// }
 	// e=b;
+	////////////////////////////////
+	for (int i=0;i<CLOTH_X_POINTS;i++){
+		for (int j=0;j<CLOTH_Y_POINTS;j++){
+			Point p=new Point(0,0,false);
+			if (i!=0){
+				cl.add(new Constraint(p,pl.get(pl.size()-CLOTH_Y_POINTS),LENGTH*SCALE,false,1.0));
+			}
+			if (j!=0){
+				cl.add(new Constraint(p,pl.get(pl.size()-1),LENGTH*SCALE,false,1.0));
+			}
+			pl.add(p);
+		}
+	}
+	Point a=pl.get(0);
+	a.x=width/4*SCALE;
+	a.y=height/6*SCALE;
+	a.fixed=true;
+	Point b=pl.get((CLOTH_X_POINTS-1)*CLOTH_Y_POINTS);
+	b.x=width*3/4*SCALE;
+	b.y=height/6*SCALE;
+	b.fixed=true;
+	e=b;
 	////////////////////////////////
 	// pl.add(new Point(width/4*SCALE,height/4*SCALE,true));
 	// Point n=null;
@@ -121,7 +123,6 @@ void setup(){
 	// e.y=height*2/3*SCALE;
 	// cl.add(new Constraint(_generate_symmetric_shape(width/2*SCALE,0,SHAPE_RADIUS*SCALE,3),e,LENGTH*SCALE,false,0.0025));
 	// e=pl.get(pl.size()-3);
-	// _last_time=millis();
 }
 
 
@@ -136,10 +137,6 @@ void draw(){
 		e.y=mouseY*SCALE;
 		e._prev_x=e.x;
 		e._prev_y=e.y;
-		// e.fixed=true;
-	}
-	else{
-		// e.fixed=false;
 	}
 	for (Point p:pl){
 		p.update(delta_time);
@@ -152,32 +149,26 @@ void draw(){
 			p.constrain();
 		}
 	}
-	for (Constraint c:cl){
-		c.draw();
-	}
-	for (Point p:pl){
-		p.draw();
-	}
-	// noStroke();
-	// fill(255,0,0);
-	// for (int i=3;i<CLOTH_X_POINTS+2;i++){
-	// 	for (int j=1;j<CLOTH_Y_POINTS+1;j++){
-	// 		beginShape();
-	// 		Point p=pl.get(CLOTH_X_POINTS+2+(i-3)*(CLOTH_Y_POINTS+1)+j-1);
-	// 		vertex(p.x/SCALE,p.y/SCALE);
-	// 		p=pl.get(CLOTH_X_POINTS+2+(i-2)*(CLOTH_Y_POINTS+1)+j-1);
-	// 		vertex(p.x/SCALE,p.y/SCALE);
-	// 		p=pl.get(CLOTH_X_POINTS+2+(i-3)*(CLOTH_Y_POINTS+1)+j);
-	// 		vertex(p.x/SCALE,p.y/SCALE);
-	// 		endShape();
-	// 		beginShape();
-	// 		p=pl.get(CLOTH_X_POINTS+2+(i-2)*(CLOTH_Y_POINTS+1)+j-1);
-	// 		vertex(p.x/SCALE,p.y/SCALE);
-	// 		p=pl.get(CLOTH_X_POINTS+2+(i-2)*(CLOTH_Y_POINTS+1)+j);
-	// 		vertex(p.x/SCALE,p.y/SCALE);
-	// 		p=pl.get(CLOTH_X_POINTS+2+(i-3)*(CLOTH_Y_POINTS+1)+j);
-	// 		vertex(p.x/SCALE,p.y/SCALE);
-	// 		endShape();
-	// 	}
+	// for (Constraint c:cl){
+	// 	c.draw();
 	// }
+	// for (Point p:pl){
+	// 	p.draw();
+	// }
+	noStroke();
+	fill(255,0,0,200);
+	beginShape(QUADS);
+	for (int i=1;i<CLOTH_X_POINTS;i++){
+		for (int j=1;j<CLOTH_Y_POINTS;j++){
+			Point p=pl.get((i-1)*CLOTH_Y_POINTS+j-1);
+			vertex(p.x/SCALE,p.y/SCALE);
+			p=pl.get(i*CLOTH_Y_POINTS+j-1);
+			vertex(p.x/SCALE,p.y/SCALE);
+			p=pl.get(i*CLOTH_Y_POINTS+j);
+			vertex(p.x/SCALE,p.y/SCALE);
+			p=pl.get((i-1)*CLOTH_Y_POINTS+j);
+			vertex(p.x/SCALE,p.y/SCALE);
+		}
+	}
+	endShape();
 }
