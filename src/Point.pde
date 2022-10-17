@@ -54,7 +54,11 @@ class Point{
 
 	void draw(){
 		noStroke();
-		fill((this.fixed?#43F949:#4f47fa));
+		fill((this.fixed?#43f949:#4f47fa));
 		circle(this.x/SCALE,this.y/SCALE,RADIUS*2);
+		if (e==this){
+			fill(#ef1c98);
+			circle(this.x/SCALE,this.y/SCALE,RADIUS*3);
+		}
 	}
 }

@@ -7,13 +7,13 @@ final int ROPE_COUNT=20;
 final int SHAPE_RADIUS=40;
 final float SCALE=1e-2f;
 final int CLOTH_X_POINTS=16;
-final int CLOTH_Y_POINTS=16;
+final int CLOTH_Y_POINTS=14;
 
 
 
 ArrayList<Constraint> cl;
 ArrayList<Point> pl;
-Point e;
+Point e=null;
 float _last_time;
 
 
@@ -90,6 +90,22 @@ void setup(){
 			pl.add(p);
 		}
 	}
+	for (int i=0;i<CLOTH_X_POINTS;i++){
+		Point p=new Point(0,0,false);
+		cl.add(new Constraint(p,pl.get(i*CLOTH_Y_POINTS+CLOTH_Y_POINTS-1),LENGTH*0.5*SCALE,false,1.0));
+		pl.add(p);
+		p=new Point(0,0,false);
+		cl.add(new Constraint(p,pl.get(i*CLOTH_Y_POINTS),LENGTH*0.5*SCALE,false,1.0));
+		pl.add(p);
+	}
+	for (int i=0;i<CLOTH_Y_POINTS;i++){
+		Point p=new Point(0,0,false);
+		cl.add(new Constraint(p,pl.get(i),LENGTH*0.5*SCALE,false,1.0));
+		pl.add(p);
+		p=new Point(0,0,false);
+		cl.add(new Constraint(p,pl.get(i+CLOTH_Y_POINTS*(CLOTH_X_POINTS-1)),LENGTH*0.5*SCALE,false,1.0));
+		pl.add(p);
+	}
 	Point a=pl.get(0);
 	a.x=width/4*SCALE;
 	a.y=height/6*SCALE;
@@ -98,7 +114,6 @@ void setup(){
 	b.x=width*3/4*SCALE;
 	b.y=height/6*SCALE;
 	b.fixed=true;
-	e=b;
 	////////////////////////////////
 	// pl.add(new Point(width/4*SCALE,height/4*SCALE,true));
 	// Point n=null;
@@ -133,13 +148,31 @@ void draw(){
 	_last_time=time;
 	background(0);
 	if (mousePressed){
+		if (e==null){
+			float d=width*width+height*height;
+			for (int i=0;i<pl.size();i++){
+				Point p=pl.get(i);
+				float pd=(p.x-mouseX*SCALE)*(p.x-mouseX*SCALE)+(p.y-mouseY*SCALE)*(p.y-mouseY*SCALE);
+				if (pd<d){
+					d=pd;
+					e=p;
+				}
+			}
+		}
 		e.x=mouseX*SCALE;
 		e.y=mouseY*SCALE;
 		e._prev_x=e.x;
 		e._prev_y=e.y;
 	}
+	else{
+		e=null;
+	}
+	float wind=((0.5+sin(time/5000))*(0.7+sin(time/370))*(0.5+cos(time/4100)))*0.6*SCALE;
 	for (Point p:pl){
 		p.update(delta_time);
+		if (!p.fixed){
+			p.x+=wind;
+		}
 	}
 	for (int i=0;i<400;i++){
 		for (Constraint c:cl){
@@ -149,12 +182,12 @@ void draw(){
 			p.constrain();
 		}
 	}
-	// for (Constraint c:cl){
-	// 	c.draw();
-	// }
-	// for (Point p:pl){
-	// 	p.draw();
-	// }
+	for (Constraint c:cl){
+		c.draw();
+	}
+	for (Point p:pl){
+		p.draw();
+	}
 	noStroke();
 	fill(255,0,0,200);
 	beginShape(QUADS);
