@@ -149,11 +149,11 @@ void draw(){
 	background(0);
 	if (mousePressed){
 		if (e==null){
-			float d=width*width+height*height;
+			float d=0.0;
 			for (int i=0;i<pl.size();i++){
 				Point p=pl.get(i);
 				float pd=(p.x-mouseX*SCALE)*(p.x-mouseX*SCALE)+(p.y-mouseY*SCALE)*(p.y-mouseY*SCALE);
-				if (pd<d){
+				if (i==0||pd<d){
 					d=pd;
 					e=p;
 				}
