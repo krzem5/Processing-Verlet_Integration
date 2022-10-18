@@ -7,13 +7,13 @@ import zipfile
 
 
 SETUP_FUNC_REGEX=re.compile(br"(?:^|\s|;)void\s+setup\s*\([^\)]*?\)\s*\{",re.M)
-FUNCTION_DECLARATION_REGEX=re.compile(br"((?:^|\s|;)\s*)((?:public|private|protected|final|static|abstract|transient|synchronized|volatile)\s+)*([a-zA-Z0-9_]+)(?:\s*\[\s*\])?\s+[a-zA-Z0-9_]+\s*\(",re.M)
+FUNCTION_DECLARATION_REGEX=re.compile(br"((?:^|\s|;)\s*)((?:(?:public|private|protected|final|static|abstract|transient|synchronized|volatile)\s+)*)([a-zA-Z0-9_]+)(?:\s*\[\s*\])?\s+[a-zA-Z0-9_]+\s*\(",re.M)
 IMPORT_REGEX=re.compile(br"(?:^|\s|;)(import\s+(?:static\s+)?[a-zA-Z0-9_$.]+(?:\.\*)?)")
 FLOAT_REGEX=re.compile(br"[0-9]*\.[0-9]+\b")
 PROCESSING_SETTING_METHODS=[b"smooth",b"noSmooth",b"size",b"pixelDensity",b"fullScreen"]
 IDENTIFIER_CHARS=b"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
 WHITE_SPACE_CHARS=b" \t\n\r\f\v"
-KEYWORDS=[b"abstract",b"assert",B"break",b"case",b"catch",b"class",b"const",b"continue",b"default",b"do",b"else",b"enum",b"extends",b"final",b"finally",b"for",b"goto",b"implements",b"import",b"instanceof",b"interface",b"native",b"new",b"non-sealed",b"package",b"private",b"protected",b"publice",b"return",b"static",b"strictfp",b"super",b"switch",b"synchronized",b"this",b"throw",b"throws",b"transient",b"try",b"volatile",b"while"]
+KEYWORDS=[b"abstract",b"assert",B"break",b"case",b"catch",b"class",b"const",b"continue",b"default",b"do",b"else",b"enum",b"extends",b"final",b"finally",b"for",b"goto",b"implements",b"import",b"instanceof",b"interface",b"native",b"new",b"non-sealed",b"package",b"private",b"protected",b"public",b"return",b"static",b"strictfp",b"super",b"switch",b"synchronized",b"this",b"throw",b"throws",b"transient",b"try",b"volatile",b"while"]
 
 
 

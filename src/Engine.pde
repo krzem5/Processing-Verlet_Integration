@@ -32,7 +32,7 @@ class Engine{
 
 	void update(float delta_time){
 		this.mouse_handler.update();
-		float wind=((0.5+sin(millis()/5000))*(0.7+sin(millis()/370))*(0.5+cos(millis()/4100)))*0.6*SCALE;
+		float wind=Util.generate_wind_wave(millis())*0.6*SCALE;
 		for (Point p:this.points){
 			p.update(delta_time);
 			if ((this.flags&FLAG_ENABLE_WIND)!=0&&!p.fixed){
@@ -58,7 +58,7 @@ class Engine{
 			float py=pmouseY*SCALE;
 			for (int i=0;i<this.connections.size();i++){
 				Connection c=this.connections.get(i);
-				if (c.a==this.dragged_point||c.b==this.dragged_point||(_is_counterclockwise(c.a.x,c.a.y,px,py,x,y)!=_is_counterclockwise(c.b.x,c.b.y,px,py,x,y)&&_is_counterclockwise(c.a.x,c.a.y,c.b.x,c.b.y,px,py)!=_is_counterclockwise(c.a.x,c.a.y,c.b.x,c.b.y,x,y))){
+				if (c.a==this.dragged_point||c.b==this.dragged_point||Util.line_intersection(c.a.x,c.a.y,c.b.x,c.b.y,px,py,x,y)){
 					this.connections.remove(i);
 					i--;
 				}
@@ -118,11 +118,5 @@ class Engine{
 			circle(this.dragged_point.x/SCALE,this.dragged_point.y/SCALE,RADIUS*3);
 		}
 		this.ui.draw();
-	}
-
-
-
-	private boolean _is_counterclockwise(float ax,float ay,float bx,float by,float cx,float cy){
-		return (cy-ay)*(bx-ax)>(by-ay)*(cx-ax);
 	}
 }
