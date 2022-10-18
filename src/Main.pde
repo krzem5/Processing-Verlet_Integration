@@ -15,39 +15,7 @@ ArrayList<Point> point_list;
 CollisionGrid collision_grid;
 Point dragged_point=null;
 float _last_time;
-
-
-
-Point _generate_symmetric_shape(float x,float y,float r,int sides){
-	Point points[]=new Point[sides];
-	for (int i=0;i<sides;i++){
-		Point a=new Point(x+r*cos(TWO_PI/sides*i),y+r*sin(TWO_PI/sides*i),false,true);
-		points[i]=a;
-		point_list.add(a);
-		for (int j=0;j<i;j++){
-			Point b=points[j];
-			constraint_list.add(new Constraint(a,b,sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y)),true,1.0));
-		}
-	}
-	return points[0];
-}
-
-
-
-Point create_rope(Point a,Point b,int count){
-	Point out=a;
-	for (int i=0;i<count;i++){
-		Point n=new Point(0,0,false,true);
-		point_list.add(n);
-		constraint_list.add(new Constraint(a,n,LENGTH*SCALE,false,1));
-		if (i*2==count){
-			out=n;
-		}
-		a=n;
-	}
-	constraint_list.add(new Constraint(a,b,LENGTH*SCALE,false,1));
-	return out;
-}
+boolean dragged_point_was_fixed;
 
 
 
@@ -122,8 +90,13 @@ void draw(){
 		dragged_point.y=mouseY*SCALE;
 		dragged_point._prev_x=dragged_point.x;
 		dragged_point._prev_y=dragged_point.y;
+		dragged_point_was_fixed=dragged_point.fixed;
+		dragged_point.fixed=true;
 	}
 	else{
+		if (dragged_point!=null){
+			dragged_point.fixed=dragged_point_was_fixed;
+		}
 		dragged_point=null;
 	}
 	float wind=((0.5+sin(time/5000))*(0.7+sin(time/370))*(0.5+cos(time/4100)))*0.6*SCALE;
