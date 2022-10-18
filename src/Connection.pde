@@ -21,7 +21,7 @@ class Connection{
 		}
 		float distance_x=this.b.x-this.a.x;
 		float distance_y=this.b.y-this.a.y;
-		float distance=sqrt(distance_x*distance_x+distance_y*distance_y);
+		float distance=distance_x*distance_x+distance_y*distance_y;
 		if (distance==0){
 			if (!this.a.fixed){
 				this.a.x--;
@@ -31,9 +31,10 @@ class Connection{
 			}
 			return;
 		}
-		if (!this.fixed&&distance<=this.length){
+		if (!this.fixed&&distance<=this.length*this.length){
 			return;
 		}
+		distance=sqrt(distance);
 		distance=(distance-this.length)/distance*0.5;
 		distance_x*=distance;
 		distance_y*=distance;
