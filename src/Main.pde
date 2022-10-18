@@ -31,6 +31,12 @@ int flags=FLAG_DRAW_MATERIAL|FLAG_ENABLE_WIND;
 
 
 
+boolean _is_counterclockwise(float ax,float ay,float bx,float by,float cx,float cy){
+	return (cy-ay)*(bx-ax)>(by-ay)*(cx-ax);
+}
+
+
+
 void setup(){
 	size(1920,1080);
 	_last_time=millis();
@@ -41,10 +47,10 @@ void setup(){
 		for (int j=0;j<CLOTH_Y_POINTS;j++){
 			Point p=new Point(0,0,false,false);
 			if (i!=0){
-				constraint_list.add(new Constraint(p,point_list.get(point_list.size()-CLOTH_Y_POINTS),LENGTH*SCALE,false,1.0));
+				constraint_list.add(new Constraint(p,point_list.get(point_list.size()-CLOTH_Y_POINTS),LENGTH*SCALE,false));
 			}
 			if (j!=0){
-				constraint_list.add(new Constraint(p,point_list.get(point_list.size()-1),LENGTH*SCALE,false,1.0));
+				constraint_list.add(new Constraint(p,point_list.get(point_list.size()-1),LENGTH*SCALE,false));
 			}
 			point_list.add(p);
 		}
@@ -52,20 +58,20 @@ void setup(){
 	for (int i=0;i<CLOTH_X_POINTS;i++){
 		for (int j=0;j<POINTS_PER_EDGE_VERTEX;j++){
 			Point p=new Point(0,0,false,true);
-			constraint_list.add(new Constraint(p,point_list.get(i*CLOTH_Y_POINTS+CLOTH_Y_POINTS-1),LENGTH*0.5*SCALE,true,1.0));
+			constraint_list.add(new Constraint(p,point_list.get(i*CLOTH_Y_POINTS+CLOTH_Y_POINTS-1),LENGTH*0.5*SCALE,true));
 			point_list.add(p);
 			p=new Point(0,0,false,true);
-			constraint_list.add(new Constraint(p,point_list.get(i*CLOTH_Y_POINTS),LENGTH*0.5*SCALE,true,1.0));
+			constraint_list.add(new Constraint(p,point_list.get(i*CLOTH_Y_POINTS),LENGTH*0.5*SCALE,true));
 			point_list.add(p);
 		}
 	}
 	for (int i=1;i<CLOTH_Y_POINTS-1;i++){
 		for (int j=0;j<POINTS_PER_EDGE_VERTEX;j++){
 			Point p=new Point(0,0,false,true);
-			constraint_list.add(new Constraint(p,point_list.get(i),LENGTH*0.5*SCALE,true,1.0));
+			constraint_list.add(new Constraint(p,point_list.get(i),LENGTH*0.5*SCALE,true));
 			point_list.add(p);
 			p=new Point(0,0,false,true);
-			constraint_list.add(new Constraint(p,point_list.get(i+CLOTH_Y_POINTS*(CLOTH_X_POINTS-1)),LENGTH*0.5*SCALE,true,1.0));
+			constraint_list.add(new Constraint(p,point_list.get(i+CLOTH_Y_POINTS*(CLOTH_X_POINTS-1)),LENGTH*0.5*SCALE,true));
 			point_list.add(p);
 		}
 	}
@@ -182,23 +188,11 @@ void draw(){
 	if ((flags&FLAG_BREAK_CONNECTIONS)!=0){
 		float x=mouseX*SCALE;
 		float y=mouseY*SCALE;
+		float px=pmouseX*SCALE;
+		float py=pmouseY*SCALE;
 		for (int i=0;i<constraint_list.size();i++){
 			Constraint c=constraint_list.get(i);
-			float dx=c.b.x-c.a.x;
-			float dy=c.b.y-c.a.y;
-			float length_sq=dx*dx+dy*dy;
-			float px=c.a.x;
-			float py=c.a.y;
-			if (length_sq>0){
-				dx=c.b.x-c.a.x;
-				dy=c.b.y-c.a.y;
-				float t=min(1,max(0,((x-c.a.x)*dx+(y-c.a.y)*dy)/length_sq));
-				px+=t*dx;
-				py+=t*dy;
-			}
-			dx=x-px;
-			dy=y-py;
-			if (sqrt(dx*dx+dy*dy)<MAX_BREAK_DIST*SCALE){
+			if (_is_counterclockwise(c.a.x,c.a.y,px,py,x,y)!=_is_counterclockwise(c.b.x,c.b.y,px,py,x,y)&&_is_counterclockwise(c.a.x,c.a.y,c.b.x,c.b.y,px,py)!=_is_counterclockwise(c.a.x,c.a.y,c.b.x,c.b.y,x,y)){
 				constraint_list.remove(i);
 				i--;
 			}
@@ -226,7 +220,7 @@ void draw(){
 				}
 			}
 			if (target!=null){
-				constraint_list.add(new Constraint(dragged_point,target,LENGTH*SCALE,((flags&FLAG_STRONG_BONDS)!=0?true:false),1.0));
+				constraint_list.add(new Constraint(dragged_point,target,LENGTH*SCALE,((flags&FLAG_STRONG_BONDS)!=0?true:false)));
 			}
 		}
 	}

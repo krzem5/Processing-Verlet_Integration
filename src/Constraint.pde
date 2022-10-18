@@ -3,16 +3,14 @@ class Constraint{
 	Point b;
 	float length;
 	boolean fixed;
-	float force;
 
 
 
-	Constraint(Point a,Point b,float length,boolean fixed,float force){
+	Constraint(Point a,Point b,float length,boolean fixed){
 		this.a=a;
 		this.b=b;
 		this.length=length;
 		this.fixed=fixed;
-		this.force=force;
 	}
 
 
@@ -36,7 +34,7 @@ class Constraint{
 		if (!this.fixed&&distance<=this.length){
 			return;
 		}
-		distance=(distance-this.length)/distance*0.5*this.force;
+		distance=(distance-this.length)/distance*0.5;
 		distance_x*=distance;
 		distance_y*=distance;
 		if (!this.a.fixed){
