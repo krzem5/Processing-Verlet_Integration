@@ -46,27 +46,29 @@ class CollisionGrid{
 					while (b!=null){
 						float dx=b.x-a.x;
 						float dy=b.y-a.y;
-						float dist=dx*dx+dy*dy;
-						if (dist==0){
+						if (dx==0&&dy==0){
 							if (!a.fixed){
-								a.x+=1;
+								a.x++;
 							}
 							if (!b.fixed){
-								b.x-=1;
+								b.x--;
 							}
 						}
-						else if (dist<4*RADIUS*RADIUS*SCALE*SCALE){
-							dist=sqrt(dist);
-							dist=(dist-2*RADIUS*SCALE)/dist*0.5;
-							dx*=dist;
-							dy*=dist;
-							if (!a.fixed){
-								a.x+=dx;
-								a.y+=dy;
-							}
-							if (!b.fixed){
-								b.x-=dx;
-								b.y-=dy;
+						else{
+							float dist=dx*dx+dy*dy;
+							if (dist<4*RADIUS*RADIUS*SCALE*SCALE){
+								dist=sqrt(dist);
+								dist=(dist-2*RADIUS*SCALE)/dist*0.5;
+								dx*=dist;
+								dy*=dist;
+								if (!a.fixed){
+									a.x+=dx;
+									a.y+=dy;
+								}
+								if (!b.fixed){
+									b.x-=dx;
+									b.y-=dy;
+								}
 							}
 						}
 						b=b._next_point;
