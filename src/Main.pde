@@ -191,7 +191,7 @@ void draw(){
 		float py=pmouseY*SCALE;
 		for (int i=0;i<constraint_list.size();i++){
 			Constraint c=constraint_list.get(i);
-			if (_is_counterclockwise(c.a.x,c.a.y,px,py,x,y)!=_is_counterclockwise(c.b.x,c.b.y,px,py,x,y)&&_is_counterclockwise(c.a.x,c.a.y,c.b.x,c.b.y,px,py)!=_is_counterclockwise(c.a.x,c.a.y,c.b.x,c.b.y,x,y)){
+			if (c.a==dragged_point||c.b==dragged_point||(_is_counterclockwise(c.a.x,c.a.y,px,py,x,y)!=_is_counterclockwise(c.b.x,c.b.y,px,py,x,y)&&_is_counterclockwise(c.a.x,c.a.y,c.b.x,c.b.y,px,py)!=_is_counterclockwise(c.a.x,c.a.y,c.b.x,c.b.y,x,y))){
 				constraint_list.remove(i);
 				i--;
 			}
