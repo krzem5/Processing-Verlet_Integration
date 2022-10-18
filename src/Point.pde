@@ -2,6 +2,7 @@ class Point{
 	float x;
 	float y;
 	boolean fixed;
+	boolean has_collision;
 	float _prev_x;
 	float _prev_y;
 	float _delta_x;
@@ -10,10 +11,11 @@ class Point{
 
 
 
-	Point(float x,float y,boolean fixed){
+	Point(float x,float y,boolean fixed,boolean has_collision){
 		this.x=x;
 		this.y=y;
 		this.fixed=fixed;
+		this.has_collision=has_collision;
 		this._prev_x=x;
 		this._prev_y=y;
 		this._delta_x=0;
@@ -43,7 +45,19 @@ class Point{
 			this.y+=this._delta_y/this._delta_count;
 			this._delta_count=0;
 		}
-		if (this.y>(height-RADIUS)*SCALE){
+		if (this.x<RADIUS*SCALE){
+			this.x=RADIUS*SCALE;
+			this._prev_x=this.x;
+		}
+		else if (this.x>(width-RADIUS)*SCALE){
+			this.x=(width-RADIUS)*SCALE;
+			this._prev_x=this.x;
+		}
+		if (this.y<RADIUS*SCALE){
+			this.y=RADIUS*SCALE;
+			this._prev_y=this.y;
+		}
+		else if (this.y>(height-RADIUS)*SCALE){
 			this.y=(height-RADIUS)*SCALE;
 			this._prev_x=this.x;
 			this._prev_y=this.y;

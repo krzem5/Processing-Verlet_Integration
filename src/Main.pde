@@ -13,6 +13,7 @@ final int CLOTH_Y_POINTS=10;
 
 ArrayList<Constraint> constraint_list;
 ArrayList<Point> point_list;
+CollisionGrid collision_grid;
 Point dragged_point=null;
 float _last_time;
 
@@ -21,7 +22,7 @@ float _last_time;
 Point _generate_symmetric_shape(float x,float y,float r,int sides){
 	Point points[]=new Point[sides];
 	for (int i=0;i<sides;i++){
-		Point a=new Point(x+r*cos(TWO_PI/sides*i),y+r*sin(TWO_PI/sides*i),false);
+		Point a=new Point(x+r*cos(TWO_PI/sides*i),y+r*sin(TWO_PI/sides*i),false,true);
 		points[i]=a;
 		point_list.add(a);
 		for (int j=0;j<i;j++){
@@ -37,7 +38,7 @@ Point _generate_symmetric_shape(float x,float y,float r,int sides){
 Point create_rope(Point a,Point b,int count){
 	Point out=a;
 	for (int i=0;i<count;i++){
-		Point n=new Point(0,0,false);
+		Point n=new Point(0,0,false,true);
 		point_list.add(n);
 		constraint_list.add(new Constraint(a,n,LENGTH*SCALE,false,1));
 		if (i*2==count){
@@ -56,6 +57,7 @@ void setup(){
 	_last_time=millis();
 	constraint_list=new ArrayList<Constraint>();
 	point_list=new ArrayList<Point>();
+	collision_grid=new CollisionGrid(width,height,100,100);
 	// Point a=new Point(width/4*SCALE,height/4*SCALE,true);
 	// Point b=new Point(width*3/4*SCALE,height/4*SCALE,true);
 	// Point c=new Point(width/2*SCALE,height*3/4*SCALE,true);
@@ -80,7 +82,7 @@ void setup(){
 	////////////////////////////////
 	for (int i=0;i<CLOTH_X_POINTS;i++){
 		for (int j=0;j<CLOTH_Y_POINTS;j++){
-			Point p=new Point(0,0,false);
+			Point p=new Point(0,0,false,false);
 			if (i!=0){
 				constraint_list.add(new Constraint(p,point_list.get(point_list.size()-CLOTH_Y_POINTS),LENGTH*SCALE,false,1.0));
 			}
@@ -92,20 +94,20 @@ void setup(){
 	}
 	for (int i=0;i<CLOTH_X_POINTS;i++){
 		for (int j=0;j<2;j++){
-			Point p=new Point(0,0,false);
+			Point p=new Point(0,0,false,true);
 			constraint_list.add(new Constraint(p,point_list.get(i*CLOTH_Y_POINTS+CLOTH_Y_POINTS-1),LENGTH*0.5*SCALE,true,1.0));
 			point_list.add(p);
-			p=new Point(0,0,false);
+			p=new Point(0,0,false,true);
 			constraint_list.add(new Constraint(p,point_list.get(i*CLOTH_Y_POINTS),LENGTH*0.5*SCALE,true,1.0));
 			point_list.add(p);
 		}
 	}
 	for (int i=1;i<CLOTH_Y_POINTS-1;i++){
 		for (int j=0;j<2;j++){
-			Point p=new Point(0,0,false);
+			Point p=new Point(0,0,false,true);
 			constraint_list.add(new Constraint(p,point_list.get(i),LENGTH*0.5*SCALE,true,1.0));
 			point_list.add(p);
-			p=new Point(0,0,false);
+			p=new Point(0,0,false,true);
 			constraint_list.add(new Constraint(p,point_list.get(i+CLOTH_Y_POINTS*(CLOTH_X_POINTS-1)),LENGTH*0.5*SCALE,true,1.0));
 			point_list.add(p);
 		}
@@ -182,38 +184,13 @@ void draw(){
 		for (Constraint c:constraint_list){
 			c.update();
 		}
-		for (int i=0;i<point_list.size();i++){
-			Point a=point_list.get(i);
-			a.constrain();
-			if (i<CLOTH_X_POINTS*CLOTH_Y_POINTS){
-				continue;
-			}
-			for (int j=0;j<i;j++){
-				Point b=point_list.get(j);
-				float dx=b.x-a.x;
-				float dy=b.y-a.y;
-				float dist=dx*dx+dy*dy;
-				if (dist<4*RADIUS*RADIUS*SCALE*SCALE){
-					if (dist==0){
-						dist=1;
-					}
-					else{
-						dist=sqrt(dist);
-					}
-					dist=(dist-2*RADIUS*SCALE)/dist*0.5;
-					dx*=dist;
-					dy*=dist;
-					if (!a.fixed){
-						a.x+=dx;
-						a.y+=dy;
-					}
-					if (!b.fixed){
-						b.x-=dx;
-						b.y-=dy;
-					}
-				}
+		for (Point p:point_list){
+			p.constrain();
+			if (p.has_collision){
+				collision_grid.add(p);
 			}
 		}
+		collision_grid.solve();
 	}
 	noStroke();
 	fill(255,0,0,200);
@@ -241,4 +218,5 @@ void draw(){
 		fill(#ef1c98);
 		circle(dragged_point.x/SCALE,dragged_point.y/SCALE,RADIUS*3);
 	}
+	collision_grid.draw();
 }
