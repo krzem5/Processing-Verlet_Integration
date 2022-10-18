@@ -57,7 +57,7 @@ void setup(){
 	_last_time=millis();
 	constraint_list=new ArrayList<Constraint>();
 	point_list=new ArrayList<Point>();
-	collision_grid=new CollisionGrid(width,height,100,100);
+	collision_grid=new CollisionGrid(width,height,50,50);
 	// Point a=new Point(width/4*SCALE,height/4*SCALE,true);
 	// Point b=new Point(width*3/4*SCALE,height/4*SCALE,true);
 	// Point c=new Point(width/2*SCALE,height*3/4*SCALE,true);
