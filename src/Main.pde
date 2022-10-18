@@ -190,7 +190,7 @@ void draw(){
 				collision_grid.add(p);
 			}
 		}
-		collision_grid.solve();
+		collision_grid.update();
 	}
 	noStroke();
 	fill(255,0,0,200);
