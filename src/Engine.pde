@@ -78,7 +78,7 @@ class Engine{
 					target=p;
 				}
 			}
-			if (target!=null&&d<MAX_GLUE_DISTANCE*SCALE){
+			if (target!=null&&d<MAX_CONNECTION_DISTANCE*SCALE){
 				for (Connection c:this.connections){
 					if ((c.a==target&&c.b==this.dragged_point)||(c.a==this.dragged_point&&c.b==target)){
 						target=null;

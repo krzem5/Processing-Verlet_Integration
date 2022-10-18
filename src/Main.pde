@@ -7,7 +7,7 @@ final int CLOTH_X_POINTS=12;
 final int CLOTH_Y_POINTS=10;
 final int COLLISION_GRID_SIZE=30;
 final int POINTS_PER_EDGE_VERTEX=2;
-final float MAX_GLUE_DISTANCE=2.5;
+final float MAX_CONNECTION_DISTANCE=2.5;
 
 final int UI_FONT_SIZE=22;
 
