@@ -35,7 +35,7 @@ class CollisionGrid{
 		if (x_near){
 			this._data[x_idx-1][y_idx].add(p);
 			if (y_near){
-				this._data[x_idx][y_idx-1].add(p);
+				this._data[x_idx-1][y_idx-1].add(p);
 			}
 		}
 		if (y_near){
