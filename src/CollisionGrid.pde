@@ -58,7 +58,7 @@ class CollisionGrid{
 							float dist=dx*dx+dy*dy;
 							if (dist<4*RADIUS*RADIUS*SCALE*SCALE){
 								dist=sqrt(dist);
-								dist=(dist-2*RADIUS*SCALE)/dist*0.5;
+								dist=(dist*0.5-RADIUS*SCALE)/dist;
 								dx*=dist;
 								dy*=dist;
 								if (!a.fixed){
@@ -116,12 +116,18 @@ class CollisionGrid{
 		}
 		noStroke();
 		fill(#ee9b25);
-		textSize(30);
+		textSize(20);
 		textAlign(CENTER,CENTER);
 		for (int i=0;i<this._width-1;i++){
 			for (int j=0;j<this._height-1;j++){
 				text(str(this._render_count[i+1][j+1]),(i+0.5)*this.grid_width+this._x_offset,(j+0.5)*this.grid_height+this._y_offset);
 			}
 		}
+	}
+
+
+
+	void disable_draw(){
+		this._render_count=null;
 	}
 }
