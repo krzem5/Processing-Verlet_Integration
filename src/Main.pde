@@ -1,19 +1,23 @@
 final float DRAG=0.95;
 final float GRAVITY=0.981;
-final float LENGTH=50/3;
+final float LENGTH=50;
 final float RADIUS=5;
 final float SCALE=1e-2f;
-final int CLOTH_X_POINTS=12*3;
-final int CLOTH_Y_POINTS=10*3;
+final int CLOTH_X_POINTS=12;
+final int CLOTH_Y_POINTS=10;
 final int COLLISION_GRID_SIZE=30;
 final int POINTS_PER_EDGE_VERTEX=2;
 final float MAX_BREAK_DIST=2;
+final float MAX_GLUE_DISTANCE=2;
 
 final int FLAG_DRAW_GRID=1;
 final int FLAG_DRAW_ALL_POINTS=2;
 final int FLAG_DRAW_ALL_CONNECTIONS=4;
 final int FLAG_BREAK_CONNECTIONS=8;
 final int FLAG_DRAW_MATERIAL=16;
+final int FLAG_CREATE_CONNECTIONS=32;
+final int FLAG_STRONG_BONDS=64;
+final int FLAG_ENABLE_WIND=128;
 
 
 
@@ -23,7 +27,7 @@ CollisionGrid collision_grid;
 Point dragged_point=null;
 boolean dragged_point_was_fixed;
 float _last_time;
-int flags=FLAG_DRAW_MATERIAL;
+int flags=FLAG_DRAW_MATERIAL|FLAG_ENABLE_WIND;
 
 
 
@@ -83,6 +87,9 @@ void keyPressed(){
 		case SHIFT:
 			flags|=FLAG_BREAK_CONNECTIONS;
 			return;
+		case CONTROL:
+			flags|=FLAG_CREATE_CONNECTIONS;
+			return;
 		case 'C':
 			flag=FLAG_DRAW_ALL_CONNECTIONS;
 			break;
@@ -94,6 +101,12 @@ void keyPressed(){
 			break;
 		case 'M':
 			flag=FLAG_DRAW_MATERIAL;
+			break;
+		case 'S':
+			flag=FLAG_STRONG_BONDS;
+			break;
+		case 'W':
+			flag=FLAG_ENABLE_WIND;
 			break;
 	}
 	if ((flag&flags)!=0){
@@ -110,6 +123,9 @@ void keyReleased(){
 	switch (keyCode){
 		case SHIFT:
 			flags&=~FLAG_BREAK_CONNECTIONS;
+			break;
+		case CONTROL:
+			flags&=~FLAG_CREATE_CONNECTIONS;
 			break;
 	}
 }
@@ -147,7 +163,7 @@ void draw(){
 	float wind=((0.5+sin(time/5000))*(0.7+sin(time/370))*(0.5+cos(time/4100)))*0.6*SCALE;
 	for (Point p:point_list){
 		p.update(delta_time);
-		if (!p.fixed){
+		if ((flags&FLAG_ENABLE_WIND)!=0&&!p.fixed){
 			p.x+=wind;
 		}
 	}
@@ -185,6 +201,32 @@ void draw(){
 			if (sqrt(dx*dx+dy*dy)<MAX_BREAK_DIST*SCALE){
 				constraint_list.remove(i);
 				i--;
+			}
+		}
+	}
+	if ((flags&FLAG_CREATE_CONNECTIONS)!=0&&dragged_point!=null){
+		float d=0.0;
+		Point target=null;
+		for (int i=0;i<point_list.size();i++){
+			Point p=point_list.get(i);
+			if (p==dragged_point){
+				continue;
+			}
+			float pd=(p.x-mouseX*SCALE)*(p.x-mouseX*SCALE)+(p.y-mouseY*SCALE)*(p.y-mouseY*SCALE);
+			if (i==0||pd<d){
+				d=pd;
+				target=p;
+			}
+		}
+		if (target!=null&&d<MAX_GLUE_DISTANCE*SCALE){
+			for (Constraint c:constraint_list){
+				if ((c.a==target&&c.b==dragged_point)||(c.a==dragged_point&&c.b==target)){
+					target=null;
+					break;
+				}
+			}
+			if (target!=null){
+				constraint_list.add(new Constraint(dragged_point,target,LENGTH*SCALE,((flags&FLAG_STRONG_BONDS)!=0?true:false),1.0));
 			}
 		}
 	}
