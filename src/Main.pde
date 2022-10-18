@@ -1,13 +1,12 @@
-final int COUNT=50;
 final float DRAG=0.95;
 final float GRAVITY=0.981;
 final float LENGTH=50;
 final float RADIUS=5;
-final int ROPE_COUNT=20;
-final int SHAPE_RADIUS=40;
 final float SCALE=1e-2f;
 final int CLOTH_X_POINTS=12;
 final int CLOTH_Y_POINTS=10;
+final int COLLISION_GRID_SIZE=30;
+final int POINTS_PER_EDGE_VERTEX=2;
 
 
 
@@ -57,29 +56,7 @@ void setup(){
 	_last_time=millis();
 	constraint_list=new ArrayList<Constraint>();
 	point_list=new ArrayList<Point>();
-	collision_grid=new CollisionGrid(width,height,50,50);
-	// Point a=new Point(width/4*SCALE,height/4*SCALE,true);
-	// Point b=new Point(width*3/4*SCALE,height/4*SCALE,true);
-	// Point c=new Point(width/2*SCALE,height*3/4*SCALE,true);
-	// dragged_point=new Point(width/2*SCALE,height*2*SCALE,false);
-	// point_list.add(a);
-	// point_list.add(b);
-	// point_list.add(c);
-	// point_list.add(dragged_point);
-	// Point ca=create_rope(a,b,50);
-	// Point cb=create_rope(b,c,40);
-	// Point cc=create_rope(a,c,40);
-	// create_rope(ca,dragged_point,20);
-	// create_rope(cb,dragged_point,20);
-	// create_rope(cc,dragged_point,20);
-	////////////////////////////////
-	// Point a=new Point(width/2*SCALE,height/4*SCALE,true);
-	// Point b=new Point(0,0,false);
-	// create_rope(a,b,20);
-	// point_list.add(a);
-	// point_list.add(b);
-	// dragged_point=b;
-	////////////////////////////////
+	collision_grid=new CollisionGrid(width,height,COLLISION_GRID_SIZE,COLLISION_GRID_SIZE);
 	for (int i=0;i<CLOTH_X_POINTS;i++){
 		for (int j=0;j<CLOTH_Y_POINTS;j++){
 			Point p=new Point(0,0,false,false);
@@ -93,7 +70,7 @@ void setup(){
 		}
 	}
 	for (int i=0;i<CLOTH_X_POINTS;i++){
-		for (int j=0;j<2;j++){
+		for (int j=0;j<POINTS_PER_EDGE_VERTEX;j++){
 			Point p=new Point(0,0,false,true);
 			constraint_list.add(new Constraint(p,point_list.get(i*CLOTH_Y_POINTS+CLOTH_Y_POINTS-1),LENGTH*0.5*SCALE,true,1.0));
 			point_list.add(p);
@@ -103,7 +80,7 @@ void setup(){
 		}
 	}
 	for (int i=1;i<CLOTH_Y_POINTS-1;i++){
-		for (int j=0;j<2;j++){
+		for (int j=0;j<POINTS_PER_EDGE_VERTEX;j++){
 			Point p=new Point(0,0,false,true);
 			constraint_list.add(new Constraint(p,point_list.get(i),LENGTH*0.5*SCALE,true,1.0));
 			point_list.add(p);
@@ -120,30 +97,6 @@ void setup(){
 	b.x=(width/4+LENGTH*(CLOTH_X_POINTS-1))*SCALE;
 	b.y=height/6*SCALE;
 	b.fixed=true;
-	////////////////////////////////
-	// point_list.add(new Point(width/4*SCALE,height/4*SCALE,true));
-	// Point n=null;
-	// for (int i=0;i<COUNT;i++){
-	// 	n=new Point(0,0,false);
-	// 	constraint_list.add(new Constraint(point_list.get(i),n,LENGTH*SCALE,true,1.0));
-	// 	point_list.add(n);
-	// }
-	// n.x=width*3/4*SCALE;
-	// n.y=height/4*SCALE;
-	// n.fixed=true;
-	// dragged_point=point_list.get(COUNT/2+1);
-	// for (int i=0;i<ROPE_COUNT;i++){
-	// 	n=new Point(0,0,false);
-	// 	constraint_list.add(new Constraint(dragged_point,n,LENGTH*SCALE,true,1.0));
-	// 	point_list.add(n);
-	// 	dragged_point=n;
-	// }
-	// dragged_point=point_list.get(COUNT+ROPE_COUNT);
-	// dragged_point.fixed=true;
-	// dragged_point.x=width/2*SCALE;
-	// dragged_point.y=height*2/3*SCALE;
-	// constraint_list.add(new Constraint(_generate_symmetric_shape(width/2*SCALE,0,SHAPE_RADIUS*SCALE,3),dragged_point,LENGTH*SCALE,false,0.0025));
-	// dragged_point=point_list.get(point_list.size()-3);
 }
 
 
