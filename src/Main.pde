@@ -218,5 +218,5 @@ void draw(){
 		fill(#ef1c98);
 		circle(dragged_point.x/SCALE,dragged_point.y/SCALE,RADIUS*3);
 	}
-	collision_grid.draw();
+	// collision_grid.draw();
 }

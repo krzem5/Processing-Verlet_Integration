@@ -8,6 +8,7 @@ class Point{
 	float _delta_x;
 	float _delta_y;
 	int _delta_count;
+	Point _next_point;
 
 
 

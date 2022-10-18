@@ -22,6 +22,7 @@ class CollisionGrid{
 
 
 	void add(Point p){
+		p._next_point=null;
 		float x=p.x/SCALE;
 		float y=p.y/SCALE;
 		int x_idx=int(x/this.grid_width);
