@@ -31,10 +31,10 @@ void setup(){
 		for (int j=0;j<CLOTH_Y_POINTS;j++){
 			Point p=new Point(0,0,false,false);
 			if (i!=0){
-				engine.connections.add(new Constraint(p,engine.points.get(engine.points.size()-CLOTH_Y_POINTS),LENGTH*SCALE,false));
+				engine.connections.add(new Connection(p,engine.points.get(engine.points.size()-CLOTH_Y_POINTS),LENGTH*SCALE,false));
 			}
 			if (j!=0){
-				engine.connections.add(new Constraint(p,engine.points.get(engine.points.size()-1),LENGTH*SCALE,false));
+				engine.connections.add(new Connection(p,engine.points.get(engine.points.size()-1),LENGTH*SCALE,false));
 			}
 			engine.points.add(p);
 		}
@@ -42,20 +42,20 @@ void setup(){
 	for (int i=0;i<CLOTH_X_POINTS;i++){
 		for (int j=0;j<POINTS_PER_EDGE_VERTEX;j++){
 			Point p=new Point(0,0,false,true);
-			engine.connections.add(new Constraint(p,engine.points.get(i*CLOTH_Y_POINTS+CLOTH_Y_POINTS-1),LENGTH*0.5*SCALE,true));
+			engine.connections.add(new Connection(p,engine.points.get(i*CLOTH_Y_POINTS+CLOTH_Y_POINTS-1),LENGTH*0.5*SCALE,true));
 			engine.points.add(p);
 			p=new Point(0,0,false,true);
-			engine.connections.add(new Constraint(p,engine.points.get(i*CLOTH_Y_POINTS),LENGTH*0.5*SCALE,true));
+			engine.connections.add(new Connection(p,engine.points.get(i*CLOTH_Y_POINTS),LENGTH*0.5*SCALE,true));
 			engine.points.add(p);
 		}
 	}
 	for (int i=1;i<CLOTH_Y_POINTS-1;i++){
 		for (int j=0;j<POINTS_PER_EDGE_VERTEX;j++){
 			Point p=new Point(0,0,false,true);
-			engine.connections.add(new Constraint(p,engine.points.get(i),LENGTH*0.5*SCALE,true));
+			engine.connections.add(new Connection(p,engine.points.get(i),LENGTH*0.5*SCALE,true));
 			engine.points.add(p);
 			p=new Point(0,0,false,true);
-			engine.connections.add(new Constraint(p,engine.points.get(i+CLOTH_Y_POINTS*(CLOTH_X_POINTS-1)),LENGTH*0.5*SCALE,true));
+			engine.connections.add(new Connection(p,engine.points.get(i+CLOTH_Y_POINTS*(CLOTH_X_POINTS-1)),LENGTH*0.5*SCALE,true));
 			engine.points.add(p);
 		}
 	}

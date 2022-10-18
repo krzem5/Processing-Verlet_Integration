@@ -6,15 +6,7 @@ class Ui{
 
 	Ui(Engine engine){
 		this.engine=engine;
-		this._ui_font=createFont("monospaced",UI_FONT_SIZE);
-		String[] fonts=PFont.list();
-		for (String font:fonts){
-			font=font.toLowerCase();
-			if (font.equals("consolas")||font.equals("monospaced")){
-				this._ui_font=createFont(font,UI_FONT_SIZE);
-				break;
-			}
-		}
+		this._ui_font=createFont((System.getProperty("os.name").toLowerCase().contains("windows")?"consolas":"monospaced"),UI_FONT_SIZE);
 	}
 
 
@@ -24,8 +16,12 @@ class Ui{
 		noStroke();
 		fill(255,180);
 		textAlign(LEFT);
-		text("Click (Hold) — Select & Drag\nF — toggle force\nX — toggle collision\n\nC — toggle 'connection' mode\nD — toggle 'break' mode\nS — toggle connection type\nW — toggle wind",10,10+textAscent());
+		text("Hold & Drag — Select & Move\nF — toggle forces\nX — toggle collision\n\nC — toggle 'connection' mode\nD — toggle 'break' mode\nS — toggle connection type\nW — toggle wind",10,10+textAscent());
 		textAlign(RIGHT);
-		text(String.format("Points: %d\nConnections: %d\nWind: %s\nConnecion type: %s\nMode: %s",this.engine.points.size(),this.engine.connections.size(),((this.engine.flags&FLAG_ENABLE_WIND)!=0?"On":"Off"),((this.engine.flags&FLAG_STRONG_BONDS)!=0?"Wood":"String"),((this.engine.flags&FLAG_BREAK_CONNECTIONS)!=0?"Break":(this.engine.flags&FLAG_CREATE_CONNECTIONS)!=0?"Create":"N/A")),width-10,10+textAscent());
+		String text=String.format("Points: %d\nConnections: %d\nWind: %s\nConnecion type: %s\nMode: %s",this.engine.points.size(),this.engine.connections.size(),((this.engine.flags&FLAG_ENABLE_WIND)!=0?"On":"Off"),((this.engine.flags&FLAG_STRONG_BONDS)!=0?"Wood":"String"),((this.engine.flags&FLAG_BREAK_CONNECTIONS)!=0?"Break":(this.engine.flags&FLAG_CREATE_CONNECTIONS)!=0?"Create":"N/A"));
+		if (this.engine.dragged_point!=null){
+			text+=String.format("\n\nForces: %s",(this.engine.is_dragged_point_fixed()?"Off":"On"));
+		}
+		text(text,width-10,10+textAscent());
 	}
 }

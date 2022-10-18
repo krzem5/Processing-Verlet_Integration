@@ -1,4 +1,4 @@
-class Constraint{
+class Connection{
 	Point a;
 	Point b;
 	float length;
@@ -6,7 +6,7 @@ class Constraint{
 
 
 
-	Constraint(Point a,Point b,float length,boolean fixed){
+	Connection(Point a,Point b,float length,boolean fixed){
 		this.a=a;
 		this.b=b;
 		this.length=length;
