@@ -46,12 +46,4 @@ class Constraint{
 			this.b.y-=distance_y;
 		}
 	}
-
-
-
-	void draw(){
-		strokeWeight(4);
-		stroke((this.fixed?#fe9e9e:#9e9e9e));
-		line(this.a.x/SCALE,this.a.y/SCALE,this.b.x/SCALE,this.b.y/SCALE);
-	}
 }

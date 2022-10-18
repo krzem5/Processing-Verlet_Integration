@@ -3,12 +3,11 @@ class CollisionGrid{
 	int height;
 	int grid_width;
 	int grid_height;
-	Point _data[][];
-	int _render_count[][];
-	int _width;
-	int _height;
-	float _x_offset;
-	float _y_offset;
+	private Point _data[][];
+	private int _width;
+	private int _height;
+	private float _x_offset;
+	private float _y_offset;
 
 
 
@@ -18,7 +17,6 @@ class CollisionGrid{
 		this.grid_width=grid_width;
 		this.grid_height=grid_width;
 		this.rebuild_grid();
-		this._render_count=null;
 	}
 
 
@@ -40,7 +38,6 @@ class CollisionGrid{
 			for (int j=0;j<this._height;j++){
 				Point a=this._data[i][j];
 				this._data[i][j]=null;
-				int k=0;
 				while (a!=null){
 					Point b=a._next_point;
 					while (b!=null){
@@ -74,10 +71,6 @@ class CollisionGrid{
 						b=b._next_point;
 					}
 					a=a._next_point;
-					k++;
-				}
-				if (this._render_count!=null){
-					this._render_count[i][j]=k;
 				}
 			}
 		}
@@ -97,37 +90,5 @@ class CollisionGrid{
 		this._width=(this.width+this.grid_width)/this.grid_width;
 		this._height=(this.height+this.grid_height)/this.grid_height;
 		this._data=new Point[this._width][this._height];
-		this._render_count=null;
-	}
-
-
-
-	void draw(){
-		stroke(#3d3846);
-		for (int i=1;i<this._width;i++){
-			line(i*this.grid_width+this._x_offset,0,i*this.grid_width+this._x_offset,this.height);
-		}
-		for (int i=1;i<this._height;i++){
-			line(0,i*this.grid_height+this._y_offset,this.width,i*this.grid_height+this._y_offset);
-		}
-		if (this._render_count==null){
-			this._render_count=new int[this._width][this._height];
-			return;
-		}
-		noStroke();
-		fill(#ee9b25);
-		textSize(20);
-		textAlign(CENTER,CENTER);
-		for (int i=0;i<this._width-1;i++){
-			for (int j=0;j<this._height-1;j++){
-				text(str(this._render_count[i+1][j+1]),(i+0.5)*this.grid_width+this._x_offset,(j+0.5)*this.grid_height+this._y_offset);
-			}
-		}
-	}
-
-
-
-	void disable_draw(){
-		this._render_count=null;
 	}
 }

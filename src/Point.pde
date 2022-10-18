@@ -3,12 +3,9 @@ class Point{
 	float y;
 	boolean fixed;
 	boolean has_collision;
-	float _prev_x;
-	float _prev_y;
-	float _delta_x;
-	float _delta_y;
-	int _delta_count;
 	Point _next_point;
+	private float _prev_x;
+	private float _prev_y;
 
 
 
@@ -19,33 +16,11 @@ class Point{
 		this.has_collision=has_collision;
 		this._prev_x=x;
 		this._prev_y=y;
-		this._delta_x=0;
-		this._delta_y=0;
-		this._delta_count=0;
-	}
-
-
-
-	void update(float dt){
-		if (this.fixed){
-			return;
-		}
-		float vx=this.x-this._prev_x;
-		float vy=this.y-this._prev_y;
-		this._prev_x=this.x;
-		this._prev_y=this.y;
-		this.x+=vx*DRAG;
-		this.y+=vy*DRAG+GRAVITY*dt;
 	}
 
 
 
 	void constrain(){
-		if (this._delta_count!=0){
-			this.x+=this._delta_x/this._delta_count;
-			this.y+=this._delta_y/this._delta_count;
-			this._delta_count=0;
-		}
 		if (this.x<RADIUS*SCALE){
 			this.x=RADIUS*SCALE;
 			this._prev_x=this.x;
@@ -67,9 +42,15 @@ class Point{
 
 
 
-	void draw(){
-		noStroke();
-		fill((this.fixed?#43f949:#4f47fa));
-		circle(this.x/SCALE,this.y/SCALE,RADIUS*2);
+	void update(float dt){
+		if (this.fixed){
+			return;
+		}
+		float vx=this.x-this._prev_x;
+		float vy=this.y-this._prev_y;
+		this._prev_x=this.x;
+		this._prev_y=this.y;
+		this.x+=vx*DRAG;
+		this.y+=vy*DRAG+GRAVITY*dt;
 	}
 }

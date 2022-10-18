@@ -9,24 +9,23 @@ final int COLLISION_GRID_SIZE=30;
 final int POINTS_PER_EDGE_VERTEX=2;
 final float MAX_GLUE_DISTANCE=2.5;
 
-final int FLAG_DRAW_GRID=1;
-final int FLAG_DRAW_ALL_POINTS=2;
-final int FLAG_DRAW_ALL_CONNECTIONS=4;
-final int FLAG_BREAK_CONNECTIONS=8;
-final int FLAG_DRAW_MATERIAL=16;
-final int FLAG_CREATE_CONNECTIONS=32;
-final int FLAG_STRONG_BONDS=64;
-final int FLAG_ENABLE_WIND=128;
+final int UI_FONT_SIZE=22;
+
+final int FLAG_ENABLE_WIND=1;
+final int FLAG_BREAK_CONNECTIONS=2;
+final int FLAG_CREATE_CONNECTIONS=4;
+final int FLAG_STRONG_BONDS=8;
 
 
 
 ArrayList<Constraint> constraint_list;
 ArrayList<Point> point_list;
 CollisionGrid collision_grid;
+Ui ui;
 Point dragged_point=null;
 boolean dragged_point_was_fixed;
 float _last_time;
-int flags=FLAG_DRAW_MATERIAL|FLAG_ENABLE_WIND;
+int flags=FLAG_ENABLE_WIND;
 
 
 
@@ -42,6 +41,7 @@ void setup(){
 	constraint_list=new ArrayList<Constraint>();
 	point_list=new ArrayList<Point>();
 	collision_grid=new CollisionGrid(width,height,COLLISION_GRID_SIZE,COLLISION_GRID_SIZE);
+	ui=new Ui();
 	for (int i=0;i<CLOTH_X_POINTS;i++){
 		for (int j=0;j<CLOTH_Y_POINTS;j++){
 			Point p=new Point(0,0,false,false);
@@ -89,49 +89,36 @@ void setup(){
 void keyPressed(){
 	int flag=0;
 	switch (keyCode){
-		case SHIFT:
-			flags|=FLAG_BREAK_CONNECTIONS;
-			return;
-		case CONTROL:
-			flags|=FLAG_CREATE_CONNECTIONS;
-			return;
 		case 'C':
-			flag=FLAG_DRAW_ALL_CONNECTIONS;
+			flag=FLAG_CREATE_CONNECTIONS;
+			flags&=~FLAG_BREAK_CONNECTIONS;
 			break;
-		case 'G':
-			flag=FLAG_DRAW_GRID;
+		case 'D':
+			flag=FLAG_BREAK_CONNECTIONS;
+			flags&=~FLAG_CREATE_CONNECTIONS;
 			break;
-		case 'P':
-			flag=FLAG_DRAW_ALL_POINTS;
-			break;
-		case 'M':
-			flag=FLAG_DRAW_MATERIAL;
-			break;
+		case 'F':
+			if (dragged_point!=null){
+				dragged_point_was_fixed=!dragged_point_was_fixed;
+			}
+			return;
 		case 'S':
 			flag=FLAG_STRONG_BONDS;
 			break;
 		case 'W':
 			flag=FLAG_ENABLE_WIND;
 			break;
+		case 'X':
+			if (dragged_point!=null){
+				dragged_point.has_collision=!dragged_point.has_collision;
+			}
+			return;
 	}
 	if ((flag&flags)!=0){
 		flags&=~flag;
 	}
 	else{
 		flags|=flag;
-	}
-}
-
-
-
-void keyReleased(){
-	switch (keyCode){
-		case SHIFT:
-			flags&=~FLAG_BREAK_CONNECTIONS;
-			break;
-		case CONTROL:
-			flags&=~FLAG_CREATE_CONNECTIONS;
-			break;
 	}
 }
 
@@ -223,38 +210,26 @@ void draw(){
 			}
 		}
 	}
-	if ((flags&FLAG_DRAW_MATERIAL)!=0){
-		noStroke();
-		fill(255,0,0,200);
-		beginShape(QUADS);
-		for (int i=1;i<CLOTH_X_POINTS;i++){
-			for (int j=1;j<CLOTH_Y_POINTS;j++){
-				Point p=point_list.get((i-1)*CLOTH_Y_POINTS+j-1);
-				vertex(p.x/SCALE,p.y/SCALE);
-				p=point_list.get(i*CLOTH_Y_POINTS+j-1);
-				vertex(p.x/SCALE,p.y/SCALE);
-				p=point_list.get(i*CLOTH_Y_POINTS+j);
-				vertex(p.x/SCALE,p.y/SCALE);
-				p=point_list.get((i-1)*CLOTH_Y_POINTS+j);
-				vertex(p.x/SCALE,p.y/SCALE);
-			}
+	strokeWeight(4);
+	for (Constraint c:constraint_list){
+		stroke((c.fixed?0xa0ff8e8e:0x909e9e9e));
+		line(c.a.x/SCALE,c.a.y/SCALE,c.b.x/SCALE,c.b.y/SCALE);
+	}
+	for (Point p:point_list){
+		if (p.has_collision){
+			noStroke();
+			fill((p.fixed?#e8d220:#4f47fa));
+			circle(p.x/SCALE,p.y/SCALE,RADIUS*2);
 		}
-		endShape();
-	}
-	for (int i=((flags&FLAG_DRAW_ALL_CONNECTIONS)!=0?0:2*CLOTH_X_POINTS*CLOTH_Y_POINTS-CLOTH_Y_POINTS-CLOTH_X_POINTS);i<constraint_list.size();i++){
-		constraint_list.get(i).draw();
-	}
-	for (int i=((flags&FLAG_DRAW_ALL_POINTS)!=0?0:CLOTH_X_POINTS*CLOTH_Y_POINTS);i<point_list.size();i++){
-		point_list.get(i).draw();
+		else{
+			stroke((p.fixed?0x90f94943:0x9043f949));
+			line(p.x/SCALE-RADIUS,p.y/SCALE-RADIUS,p.x/SCALE+RADIUS,p.y/SCALE+RADIUS);
+			line(p.x/SCALE-RADIUS,p.y/SCALE+RADIUS,p.x/SCALE+RADIUS,p.y/SCALE-RADIUS);
+		}
 	}
 	if (dragged_point!=null){
 		fill(#ef1c98);
 		circle(dragged_point.x/SCALE,dragged_point.y/SCALE,RADIUS*3);
 	}
-	if ((flags&FLAG_DRAW_GRID)!=0){
-		collision_grid.draw();
-	}
-	else{
-		collision_grid.disable_draw();
-	}
+	ui.draw();
 }
