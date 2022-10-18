@@ -117,7 +117,7 @@ void setup(){
 	a.y=height/6*SCALE;
 	a.fixed=true;
 	Point b=point_list.get((CLOTH_X_POINTS-1)*CLOTH_Y_POINTS);
-	b.x=(width/4+LENGTH*CLOTH_X_POINTS)*SCALE;
+	b.x=(width/4+LENGTH*(CLOTH_X_POINTS-1))*SCALE;
 	b.y=height/6*SCALE;
 	b.fixed=true;
 	////////////////////////////////
