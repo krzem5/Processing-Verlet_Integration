@@ -14,8 +14,8 @@ ArrayList<Constraint> constraint_list;
 ArrayList<Point> point_list;
 CollisionGrid collision_grid;
 Point dragged_point=null;
-float _last_time;
 boolean dragged_point_was_fixed;
+float _last_time;
 
 
 
