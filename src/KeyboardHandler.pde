@@ -60,7 +60,7 @@ class KeyboardHandler{
 				this.engine.point_selector.toggle_forces(this.is_shift_pressed);
 				return;
 			case 'G':
-				flag=FLAG_DRAW_GRID;
+				flag=(this.is_shift_pressed?FLAG_DRAW_GUIDES:FLAG_DRAW_GRID);
 				break;
 			case 'S':
 				if (this.is_ctrl_pressed){

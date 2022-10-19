@@ -57,6 +57,16 @@ class Engine{
 
 	void draw(){
 		background(0);
+		if ((this.flags&FLAG_DRAW_GRID)!=0){
+			strokeWeight(2);
+			stroke(#3a3a3a);
+			for (int i=0;i<width;i+=GRID_SIZE){
+				line(i,0,i,height);
+			}
+			for (int i=0;i<height;i+=GRID_SIZE){
+				line(0,i,width,i);
+			}
+		}
 		strokeWeight(4);
 		for (Connection c:this.connections){
 			stroke((c.fixed?0xa0ff8e8e:0x909e9e9e));
@@ -75,7 +85,7 @@ class Engine{
 			}
 		}
 		if (this.point_selector.dragged_point!=null){
-			if ((this.flags&FLAG_DRAW_GRID)!=0){
+			if ((this.flags&FLAG_DRAW_GUIDES)!=0){
 				stroke(0x805a9a9a);
 				line(this.point_selector.dragged_point.x/SCALE,0,this.point_selector.dragged_point.x/SCALE,height);
 				line(0,this.point_selector.dragged_point.y/SCALE,width,this.point_selector.dragged_point.y/SCALE);
