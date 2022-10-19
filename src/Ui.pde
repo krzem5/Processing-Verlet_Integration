@@ -78,9 +78,9 @@ class Ui{
 		rect(0,0,width,height);
 		fill(0);
 		textFont(this._ui_font_large);
-		PVector size=_get_text_size("File name:\n"+(" ").repeat(MAX_FILE_NAME_CHARACTERS));
+		PVector size=_get_text_size("Save as:\n"+(" ").repeat(MAX_FILE_NAME_CHARACTERS));
 		rect(width/2-size.x/2-UI_BORDER_SIZE,height/2-size.y/2-UI_BORDER_SIZE,size.x+UI_BORDER_SIZE*2,size.y+UI_BORDER_SIZE*2);
-		_write_text("File name:",width/2,height/2-size.y/2+textAscent(),UI_ALIGN_CENTER,0xffffffff);
+		_write_text("Save as:",width/2,height/2-size.y/2+textAscent(),UI_ALIGN_CENTER,0xffffffff);
 		_write_text(this.engine.file_name,width/2-size.x/2,height/2-size.y/2+textAscent()*2+textDescent(),UI_ALIGN_LEFT,0xffffffff);
 		stroke(0xffffffff);
 		line(width/2-size.x/2,height/2+size.y/2,width/2+size.x/2,height/2+size.y/2);

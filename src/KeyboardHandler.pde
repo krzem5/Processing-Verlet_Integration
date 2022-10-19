@@ -26,7 +26,7 @@ class KeyboardHandler{
 			if (64<keyCode&&keyCode<91){
 				this.engine.ui.type_key(keyCode+(this.is_shift_pressed?0:32));
 			}
-			else if (47<keyCode&&keyCode<58){
+			else if (!this.is_shift_pressed&&47<keyCode&&keyCode<58){
 				this.engine.ui.type_key(keyCode);
 			}
 			else if (keyCode==45){
