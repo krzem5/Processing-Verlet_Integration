@@ -83,4 +83,55 @@ class Engine{
 		this.point_selector.draw();
 		this.ui.draw();
 	}
+
+
+
+	void load(String file_path){
+		this.point_selector.delete();
+		this.points.clear();
+		this.connections.clear();
+		if (!new File(file_path).exists()){
+			return;
+		}
+		JSONObject data=loadJSONObject(file_path);
+		JSONArray points=data.getJSONArray("points");
+		JSONArray connections=data.getJSONArray("connections");
+		for (int i=0;i<points.size();i++){
+			JSONObject point_data=points.getJSONObject(i);
+			this.points.add(new Point(point_data.getFloat("x"),point_data.getFloat("y"),point_data.getBoolean("fixed"),point_data.getBoolean("collision")));
+		}
+		for (int i=0;i<connections.size();i++){
+			JSONObject connections_data=connections.getJSONObject(i);
+			this.connections.add(new Connection(this.points.get(connections_data.getInt("a")),this.points.get(connections_data.getInt("b")),connections_data.getFloat("length"),connections_data.getBoolean("fixed")));
+		}
+	}
+
+
+
+	void save(String file_path){
+		JSONObject out=new JSONObject();
+		JSONArray points=new JSONArray();
+		for (int i=0;i<this.points.size();i++){
+			Point p=this.points.get(i);
+			p._index=i;
+			JSONObject point_data=new JSONObject();
+			point_data.setFloat("x",p.x);
+			point_data.setFloat("y",p.y);
+			point_data.setBoolean("fixed",p.fixed);
+			point_data.setBoolean("collision",p.has_collision);
+			points.append(point_data);
+		}
+		JSONArray connections=new JSONArray();
+		for (Connection c:this.connections){
+			JSONObject connection_data=new JSONObject();
+			connection_data.setInt("a",c.a._index);
+			connection_data.setInt("b",c.b._index);
+			connection_data.setFloat("length",c.length);
+			connection_data.setBoolean("fixed",c.fixed);
+			connections.append(connection_data);
+		}
+		out.setJSONArray("points",points);
+		out.setJSONArray("connections",connections);
+		saveJSONObject(out,file_path);
+	}
 }

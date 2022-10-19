@@ -55,6 +55,12 @@ class KeyboardHandler{
 					}
 				}
 				return;
+			case 'O':
+				this.engine.save("build/data.json");
+				return;
+			case 'P':
+				this.engine.load("build/data.json");
+				return;
 		}
 		if ((flag&this.engine.flags)!=0){
 			this.engine.flags&=~flag;

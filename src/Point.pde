@@ -5,6 +5,7 @@ class Point{
 	boolean has_collision;
 	Point _next_point;
 	boolean _deleted;
+	int _index;
 	private float _prev_x;
 	private float _prev_y;
 
