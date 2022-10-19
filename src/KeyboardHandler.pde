@@ -1,17 +1,22 @@
 class KeyboardHandler{
 	final Engine engine;
+	boolean is_shift_pressed;
 
 
 
 	KeyboardHandler(Engine engine){
 		this.engine=engine;
+		this.is_shift_pressed=false;
 	}
 
 
 
-	void update(int key){
+	void press(int key){
 		int flag=0;
 		switch (key){
+			case SHIFT:
+				this.is_shift_pressed=true;
+				return;
 			case 'C':
 				flag=FLAG_CREATE_CONNECTIONS;
 				this.engine.flags&=~FLAG_BREAK_CONNECTIONS;
@@ -24,9 +29,7 @@ class KeyboardHandler{
 				flag=FLAG_ENABLE_FORCES;
 				break;
 			case 'F':
-				if (this.engine.point_selector.dragged_point!=null){
-					this.engine.point_selector.toggle_dragged_point_fixed();
-				}
+				this.engine.point_selector.toggle_dragged_point_fixed();
 				return;
 			case 'S':
 				flag=FLAG_STRONG_BONDS;
@@ -47,10 +50,23 @@ class KeyboardHandler{
 			this.engine.flags|=flag;
 		}
 	}
+
+
+
+	void release(int key){
+		switch (key){
+			case SHIFT:
+				this.is_shift_pressed=false;
+				return;
+		}
+	}
 }
 
 
 
 void keyPressed(){
-	engine.keyboard_handler.update(keyCode);
+	engine.keyboard_handler.press(keyCode);
+}
+void keyReleased(){
+	engine.keyboard_handler.release(keyCode);
 }

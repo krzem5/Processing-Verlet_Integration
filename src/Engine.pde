@@ -74,6 +74,7 @@ class Engine{
 			fill(#ef1c98);
 			circle(this.point_selector.dragged_point.x/SCALE,this.point_selector.dragged_point.y/SCALE,RADIUS*3);
 		}
+		this.point_selector.draw();
 		this.ui.draw();
 	}
 }
