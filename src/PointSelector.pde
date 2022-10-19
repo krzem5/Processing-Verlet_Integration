@@ -21,7 +21,10 @@ class PointSelector{
 	boolean is_dragged_point_fixed(){
 		return this._dragged_point_was_fixed;
 	}
-	void toggle_dragged_point_fixed(){
+
+
+
+	void toggle_forces(){
 		if (this.dragged_points!=null){
 			for (Point p:this.dragged_points){
 				p.fixed=!p.fixed;
@@ -32,6 +35,19 @@ class PointSelector{
 			if (!this._is_mouse_down){
 				this.dragged_point.fixed=!this.dragged_point.fixed;
 			}
+		}
+	}
+
+
+
+	void toggle_collision(){
+		if (this.dragged_points!=null){
+			for (Point p:this.dragged_points){
+				p.has_collision=!p.has_collision;
+			}
+		}
+		else if (this.dragged_point!=null){
+			this.dragged_point.has_collision=!this.dragged_point.has_collision;
 		}
 	}
 

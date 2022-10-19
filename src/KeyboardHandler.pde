@@ -29,7 +29,7 @@ class KeyboardHandler{
 				flag=FLAG_ENABLE_FORCES;
 				break;
 			case 'F':
-				this.engine.point_selector.toggle_dragged_point_fixed();
+				this.engine.point_selector.toggle_forces();
 				return;
 			case 'S':
 				flag=FLAG_STRONG_BONDS;
@@ -38,9 +38,7 @@ class KeyboardHandler{
 				flag=FLAG_ENABLE_WIND;
 				break;
 			case 'X':
-				if (this.engine.point_selector.dragged_point!=null){
-					this.engine.point_selector.dragged_point.has_collision=!this.engine.point_selector.dragged_point.has_collision;
-				}
+				this.engine.point_selector.toggle_collision();
 				return;
 		}
 		if ((flag&this.engine.flags)!=0){
