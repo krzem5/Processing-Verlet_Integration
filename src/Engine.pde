@@ -19,7 +19,7 @@ class Engine{
 		this.point_selector=new PointSelector(this);
 		this.keyboard_handler=new KeyboardHandler(this);
 		this.file_name=null;
-		this.flags=FLAG_ENABLE_WIND|FLAG_ENABLE_FORCES;
+		this.flags=FLAG_ENABLE_WIND;
 	}
 
 

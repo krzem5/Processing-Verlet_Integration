@@ -40,7 +40,7 @@ void setup(){
 	engine=new Engine();
 	for (int i=0;i<CLOTH_X_POINTS;i++){
 		for (int j=0;j<CLOTH_Y_POINTS;j++){
-			Point p=new Point(0,0,false,false);
+			Point p=new Point((i*LENGTH+width/4)*SCALE,(j*LENGTH+height/6)*SCALE,false,false);
 			if (i!=0){
 				engine.connections.add(new Connection(p,engine.points.get(engine.points.size()-CLOTH_Y_POINTS),LENGTH*SCALE,false));
 			}
@@ -52,32 +52,26 @@ void setup(){
 	}
 	for (int i=0;i<CLOTH_X_POINTS;i++){
 		for (int j=0;j<POINTS_PER_EDGE_VERTEX;j++){
-			Point p=new Point(0,0,false,true);
+			Point p=new Point((i*LENGTH+width/4)*SCALE,(CLOTH_Y_POINTS*LENGTH+height/6)*SCALE,false,true);
 			engine.connections.add(new Connection(p,engine.points.get(i*CLOTH_Y_POINTS+CLOTH_Y_POINTS-1),LENGTH*0.5*SCALE,true));
 			engine.points.add(p);
-			p=new Point(0,0,false,true);
+			p=new Point((i*LENGTH+width/4)*SCALE,height/6*SCALE,false,true);
 			engine.connections.add(new Connection(p,engine.points.get(i*CLOTH_Y_POINTS),LENGTH*0.5*SCALE,true));
 			engine.points.add(p);
 		}
 	}
 	for (int i=1;i<CLOTH_Y_POINTS-1;i++){
 		for (int j=0;j<POINTS_PER_EDGE_VERTEX;j++){
-			Point p=new Point(0,0,false,true);
+			Point p=new Point(width/4*SCALE,((i+1)*LENGTH+height/6)*SCALE,false,true);
 			engine.connections.add(new Connection(p,engine.points.get(i),LENGTH*0.5*SCALE,true));
 			engine.points.add(p);
-			p=new Point(0,0,false,true);
+			p=new Point((width/4+LENGTH*(CLOTH_X_POINTS-1))*SCALE,((i+1)*LENGTH+height/6)*SCALE,false,true);
 			engine.connections.add(new Connection(p,engine.points.get(i+CLOTH_Y_POINTS*(CLOTH_X_POINTS-1)),LENGTH*0.5*SCALE,true));
 			engine.points.add(p);
 		}
 	}
-	Point a=engine.points.get(0);
-	a.x=width/4*SCALE;
-	a.y=height/6*SCALE;
-	a.fixed=true;
-	Point b=engine.points.get((CLOTH_X_POINTS-1)*CLOTH_Y_POINTS);
-	b.x=(width/4+LENGTH*(CLOTH_X_POINTS-1))*SCALE;
-	b.y=height/6*SCALE;
-	b.fixed=true;
+	engine.points.get(0).fixed=true;
+	engine.points.get((CLOTH_X_POINTS-1)*CLOTH_Y_POINTS).fixed=true;
 }
 
 
