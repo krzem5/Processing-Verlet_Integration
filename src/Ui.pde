@@ -37,6 +37,7 @@ class Ui{
 		noStroke();
 		fill(0xb4ffffff);
 		for (String line:text.split("\n")){
+			float line_x=x;
 			float line_width=0;
 			int i=0;
 			if (align!=UI_ALIGN_LEFT){
@@ -53,8 +54,8 @@ class Ui{
 					}
 					i++;
 				}
+				line_x-=line_width*(align==UI_ALIGN_CENTER?0.5:1);
 			}
-			float line_x=x-(align==UI_ALIGN_RIGHT?line_width:align==UI_ALIGN_CENTER?line_width/2:0);
 			i=0;
 			while (i<line.length()){
 				char c=line.charAt(i);
