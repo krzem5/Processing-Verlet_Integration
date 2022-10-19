@@ -57,7 +57,14 @@ class Ui{
 
 	void draw(){
 		textFont(this._ui_font);
-		String text="<#ffffff>Left Click<!> — select\n<#ffffff>Right Click<!> — create & select point\n<#ffffff>Drag<!> — move\n<#ffffff>Shift + Drag<!> — select multiple\n<#ffffff>Ctrl + Click<!> — select another point\n\n<#ffffff>F<!> — toggle forces\n<#ffffff>X<!> — toggle collision\n<#ffffff>Shift + F<!> — enable forces\n<#ffffff>Shift + X<!> — disable collision\n\n<#ffffff>C<!> — toggle 'connection' mode\n<#ffffff>D<!> — toggle 'break' mode\n<#ffffff>E<!> — toggle simulation\n<#ffffff>G<!> — toggle grid\n<#ffffff>S<!> — toggle connection type\n<#ffffff>W<!> — toggle wind";
+		String text="<#ffffff>Left Click<!> — select\n<#ffffff>Right Click<!> — create & select point\n<#ffffff>Drag<!> — move";
+		if (this.engine.point_selector.dragged_point==null&&this.engine.point_selector.dragged_points==null){
+			text+="\n<#ffffff>Shift + Drag<!> — select multiple";
+		}
+		else if (this.engine.point_selector.dragged_point!=null&&(this.engine.flags&FLAG_DRAW_GRID)!=0){
+			text+="\n<#ffffff>Shift + Drag<!> — move & snap to grid";
+		}
+		text+="\n<#ffffff>Ctrl + Click<!> — select another point\n\n<#ffffff>F<!> — toggle forces\n<#ffffff>X<!> — toggle collision\n<#ffffff>Shift + F<!> — enable forces\n<#ffffff>Shift + X<!> — disable collision\n\n<#ffffff>C<!> — toggle 'connection' mode\n<#ffffff>D<!> — toggle 'break' mode\n<#ffffff>E<!> — toggle simulation\n<#ffffff>G<!> — toggle grid\n<#ffffff>S<!> — toggle connection type\n<#ffffff>W<!> — toggle wind";
 		if ((this.engine.flags&FLAG_ENABLE_FORCES)==0){
 			text+="\n<#ffffff>Y<!> — recalculate fixed connections";
 		}
