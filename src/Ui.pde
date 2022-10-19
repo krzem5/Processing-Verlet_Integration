@@ -17,25 +17,25 @@ class Ui{
 
 	void get_save_name(){
 		this.overlay=true;
-		this.engine.file_path="";
+		this.engine.file_name="";
 	}
 
 
 
 	void type_key(int key){
-		if (!this.overlay||this.engine.file_path.length()==MAX_FILE_NAME_CHARACTERS){
+		if (!this.overlay||this.engine.file_name.length()==MAX_FILE_NAME_CHARACTERS){
 			return;
 		}
-		this.engine.file_path+=(char)key;
+		this.engine.file_name+=(char)key;
 	}
 
 
 
 	void remove_key(){
-		if (!this.overlay||this.engine.file_path.length()==0){
+		if (!this.overlay||this.engine.file_name.length()==0){
 			return;
 		}
-		this.engine.file_path=this.engine.file_path.substring(0,this.engine.file_path.length()-1);
+		this.engine.file_name=this.engine.file_name.substring(0,this.engine.file_name.length()-1);
 	}
 
 
@@ -45,8 +45,8 @@ class Ui{
 			return;
 		}
 		this.overlay=false;
-		if (this.engine.file_path.length()==0){
-			this.engine.file_path=null;
+		if (this.engine.file_name.length()==0){
+			this.engine.file_name=null;
 		}
 		else{
 			this.engine.save();
@@ -81,7 +81,7 @@ class Ui{
 		PVector size=_get_text_size("File name:\n"+(" ").repeat(MAX_FILE_NAME_CHARACTERS));
 		rect(width/2-size.x/2-UI_BORDER_SIZE,height/2-size.y/2-UI_BORDER_SIZE,size.x+UI_BORDER_SIZE*2,size.y+UI_BORDER_SIZE*2);
 		_write_text("File name:",width/2,height/2-size.y/2+textAscent(),UI_ALIGN_CENTER,0xffffffff);
-		_write_text(this.engine.file_path,width/2-size.x/2,height/2-size.y/2+textAscent()*2+textDescent(),UI_ALIGN_LEFT,0xffffffff);
+		_write_text(this.engine.file_name,width/2-size.x/2,height/2-size.y/2+textAscent()*2+textDescent(),UI_ALIGN_LEFT,0xffffffff);
 		stroke(0xffffffff);
 		line(width/2-size.x/2,height/2+size.y/2,width/2+size.x/2,height/2+size.y/2);
 	}

@@ -64,6 +64,9 @@ class KeyboardHandler{
 				break;
 			case 'S':
 				if (this.is_ctrl_pressed){
+					if (this.is_shift_pressed){
+						this.engine.file_name=null;
+					}
 					this.engine.save();
 					return;
 				}

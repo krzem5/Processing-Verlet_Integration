@@ -5,7 +5,7 @@ class Engine{
 	final Ui ui;
 	final PointSelector point_selector;
 	final KeyboardHandler keyboard_handler;
-	String file_path;
+	String file_name;
 	int flags;
 	private float _wind_time;
 
@@ -18,7 +18,7 @@ class Engine{
 		this.ui=new Ui(this);
 		this.point_selector=new PointSelector(this);
 		this.keyboard_handler=new KeyboardHandler(this);
-		this.file_path=null;
+		this.file_name=null;
 		this.flags=FLAG_ENABLE_WIND|FLAG_ENABLE_FORCES;
 	}
 
@@ -90,17 +90,18 @@ class Engine{
 
 
 
-	void load(String file_path){
+	void load(String file_name){
 		this.point_selector.delete();
 		this.points.clear();
 		this.connections.clear();
-		file_path=SAVE_FOLDER+file_path+".json";
-		if (!new File(file_path).exists()){
-			this.file_path=null;
+		file_name=SAVE_FOLDER+file_name+".json";
+		println(file_name);
+		if (!new File(file_name).exists()){
+			this.file_name=null;
 			return;
 		}
-		this.file_path=file_path;
-		JSONObject data=loadJSONObject(file_path);
+		this.file_name=file_name;
+		JSONObject data=loadJSONObject(file_name);
 		this._wind_time=data.getFloat("wind");
 		JSONArray points=data.getJSONArray("points");
 		JSONArray connections=data.getJSONArray("connections");
@@ -117,7 +118,7 @@ class Engine{
 
 
 	void save(){
-		if (this.file_path==null){
+		if (this.file_name==null){
 			this.ui.get_save_name();
 			return;
 		}
@@ -146,6 +147,6 @@ class Engine{
 		out.setJSONArray("points",points);
 		out.setJSONArray("connections",connections);
 		new File(SAVE_FOLDER).mkdirs();
-		saveJSONObject(out,SAVE_FOLDER+this.file_path+".json");
+		saveJSONObject(out,SAVE_FOLDER+this.file_name+".json");
 	}
 }
