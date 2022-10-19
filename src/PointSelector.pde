@@ -224,7 +224,7 @@ class PointSelector{
 				fill(0x805b57ab);
 				rect((this._region_start_x<mouseX?this._region_start_x:mouseX),(this._region_start_y<mouseY?this._region_start_y:mouseY),abs(mouseX-this._region_start_x),abs(mouseY-this._region_start_y));
 			}
-			stroke(#8f00ff);
+			stroke(#ff8f00);
 			noFill();
 			for (Point p:this.dragged_points){
 				circle(p.x/SCALE,p.y/SCALE,RADIUS*2);
