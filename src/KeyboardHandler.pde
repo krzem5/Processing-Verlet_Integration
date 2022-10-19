@@ -56,10 +56,10 @@ class KeyboardHandler{
 				}
 				return;
 			case 'O':
-				this.engine.save("build/data.json");
+				this.engine.save("data.json");
 				return;
 			case 'P':
-				this.engine.load("build/data.json");
+				this.engine.load("data.json");
 				return;
 		}
 		if ((flag&this.engine.flags)!=0){
