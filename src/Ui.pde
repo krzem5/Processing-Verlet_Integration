@@ -26,6 +26,9 @@ class Ui{
 		if (this.engine.point_selector.dragged_point!=null){
 			text+=String.format("\n\nForces: %s\nCollision: %s",(this.engine.point_selector.is_dragged_point_fixed()?"Off":"On"),(this.engine.point_selector.dragged_point.has_collision?"On":"Off"));
 		}
+		else if (this.engine.point_selector.dragged_points!=null){
+			text+=String.format("\n\nSelected points: %d",this.engine.point_selector.dragged_points.size());
+		}
 		text(text,width-10,10+textAscent());
 	}
 }

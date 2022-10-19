@@ -83,6 +83,32 @@ class PointSelector{
 	void click_mouse(int button){
 		if (button==LEFT){
 			this._is_mouse_down=true;
+			if (this.engine.keyboard_handler.is_ctrl_pressed){
+				if (this.dragged_points==null){
+					this.dragged_points=new ArrayList<Point>();
+				}
+				if (this.dragged_point!=null){
+					this.dragged_points.add(this.dragged_point);
+					this.dragged_point.fixed=this._dragged_point_was_fixed;
+					this.dragged_point=null;
+				}
+				Point target=this._get_clicked_point();
+				if (target!=null){
+					for (Point p:this.dragged_points){
+						if (p==target){
+							this.dragged_points.remove(p);
+							target=null;
+							break;
+						}
+					}
+					if (target!=null){
+						this.dragged_points.add(target);
+					}
+				}
+				this._region_start_x=-1;
+				this._region_start_y=-1;
+				return;
+			}
 			if (this.dragged_point!=null){
 				this.dragged_point.fixed=this._dragged_point_was_fixed;
 				this.dragged_point=null;
@@ -94,19 +120,8 @@ class PointSelector{
 			}
 			else{
 				this.dragged_points=null;
-				float x=mouseX*SCALE;
-				float y=mouseY*SCALE;
-				float d=0;
-				Point target=null;
-				for (Point p:this.engine.points){
-					float pd=(p.x-x)*(p.x-x)+(p.y-y)*(p.y-y);
-					if (target==null||pd<d){
-						d=pd;
-						target=p;
-					}
-				}
-				if (target!=null&&d<MAX_CONNECTION_DISTANCE*SCALE){
-					this.dragged_point=target;
+				this.dragged_point=this._get_clicked_point();
+				if (this.dragged_point!=null){
 					this._dragged_point_was_fixed=this.dragged_point.fixed;
 					this.dragged_point.fixed=true;
 				}
@@ -151,7 +166,7 @@ class PointSelector{
 				this.dragged_point._prev_x=this.dragged_point.x;
 				this.dragged_point._prev_y=this.dragged_point.y;
 			}
-			else if (this.dragged_points!=null){
+			else if (this.dragged_points!=null&&this._region_start_x!=-1){
 				this.dragged_points.clear();
 				float min_x=(this._region_start_x<mouseX?this._region_start_x:mouseX)*SCALE;
 				float min_y=(this._region_start_y<mouseY?this._region_start_y:mouseY)*SCALE;
@@ -204,7 +219,7 @@ class PointSelector{
 
 	void draw(){
 		if (this.dragged_points!=null){
-			if (this._is_mouse_down){
+			if (this._is_mouse_down&&this._region_start_x!=-1){
 				noStroke();
 				fill(0x805b57ab);
 				rect((this._region_start_x<mouseX?this._region_start_x:mouseX),(this._region_start_y<mouseY?this._region_start_y:mouseY),abs(mouseX-this._region_start_x),abs(mouseY-this._region_start_y));
@@ -215,6 +230,23 @@ class PointSelector{
 				circle(p.x/SCALE,p.y/SCALE,RADIUS*2);
 			}
 		}
+	}
+
+
+
+	private Point _get_clicked_point(){
+		float x=mouseX*SCALE;
+		float y=mouseY*SCALE;
+		float d=0;
+		Point target=null;
+		for (Point p:this.engine.points){
+			float pd=(p.x-x)*(p.x-x)+(p.y-y)*(p.y-y);
+			if (target==null||pd<d){
+				d=pd;
+				target=p;
+			}
+		}
+		return (d<MAX_CONNECTION_DISTANCE*SCALE?target:null);
 	}
 }
 

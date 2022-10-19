@@ -1,11 +1,13 @@
 class KeyboardHandler{
 	final Engine engine;
+	boolean is_ctrl_pressed;
 	boolean is_shift_pressed;
 
 
 
 	KeyboardHandler(Engine engine){
 		this.engine=engine;
+		this.is_ctrl_pressed=false;
 		this.is_shift_pressed=false;
 	}
 
@@ -14,6 +16,9 @@ class KeyboardHandler{
 	void press(int key){
 		int flag=0;
 		switch (key){
+			case CONTROL:
+				this.is_ctrl_pressed=true;
+				return;
 			case SHIFT:
 				this.is_shift_pressed=true;
 				return;
@@ -74,6 +79,9 @@ class KeyboardHandler{
 
 	void release(int key){
 		switch (key){
+			case CONTROL:
+				this.is_ctrl_pressed=false;
+				return;
 			case SHIFT:
 				this.is_shift_pressed=false;
 				return;
