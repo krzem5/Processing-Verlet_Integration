@@ -24,30 +24,30 @@ class PointSelector{
 
 
 
-	void toggle_forces(){
+	void toggle_forces(boolean force_disable){
 		if (this.dragged_points!=null){
 			for (Point p:this.dragged_points){
-				p.fixed=!p.fixed;
+				p.fixed=(force_disable?false:!p.fixed);
 			}
 		}
 		else if (this.dragged_point!=null){
 			this._dragged_point_was_fixed=!this._dragged_point_was_fixed;
 			if (!this._is_mouse_down){
-				this.dragged_point.fixed=!this.dragged_point.fixed;
+				this.dragged_point.fixed=(force_disable?false:!this.dragged_point.fixed);
 			}
 		}
 	}
 
 
 
-	void toggle_collision(){
+	void toggle_collision(boolean force_disable){
 		if (this.dragged_points!=null){
 			for (Point p:this.dragged_points){
-				p.has_collision=!p.has_collision;
+				p.has_collision=(force_disable?false:!p.has_collision);
 			}
 		}
 		else if (this.dragged_point!=null){
-			this.dragged_point.has_collision=!this.dragged_point.has_collision;
+			this.dragged_point.has_collision=(force_disable?false:!this.dragged_point.has_collision);
 		}
 	}
 
