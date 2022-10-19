@@ -20,9 +20,12 @@ class KeyboardHandler{
 				flag=FLAG_BREAK_CONNECTIONS;
 				this.engine.flags&=~FLAG_CREATE_CONNECTIONS;
 				break;
+			case 'E':
+				flag=FLAG_ENABLE_FORCES;
+				break;
 			case 'F':
-				if (this.engine.dragged_point!=null){
-					this.engine._dragged_point_was_fixed=!this.engine._dragged_point_was_fixed;
+				if (this.engine.point_selector.dragged_point!=null){
+					this.engine.point_selector.toggle_dragged_point_fixed();
 				}
 				return;
 			case 'S':
@@ -32,8 +35,8 @@ class KeyboardHandler{
 				flag=FLAG_ENABLE_WIND;
 				break;
 			case 'X':
-				if (this.engine.dragged_point!=null){
-					this.engine.dragged_point.has_collision=!this.engine.dragged_point.has_collision;
+				if (this.engine.point_selector.dragged_point!=null){
+					this.engine.point_selector.dragged_point.has_collision=!this.engine.point_selector.dragged_point.has_collision;
 				}
 				return;
 		}
