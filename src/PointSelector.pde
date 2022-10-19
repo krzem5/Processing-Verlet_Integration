@@ -83,6 +83,10 @@ class PointSelector{
 	void click_mouse(int button){
 		if (button==LEFT){
 			this._is_mouse_down=true;
+			if (this.dragged_point!=null){
+				this.dragged_point.fixed=this._dragged_point_was_fixed;
+				this.dragged_point=null;
+			}
 			if (this.engine.keyboard_handler.is_shift_pressed){
 				this.dragged_points=new ArrayList<Point>();
 				this._region_start_x=mouseX;
@@ -90,10 +94,6 @@ class PointSelector{
 			}
 			else{
 				this.dragged_points=null;
-				if (this.dragged_point!=null){
-					this.dragged_point.fixed=this._dragged_point_was_fixed;
-					this.dragged_point=null;
-				}
 				float x=mouseX*SCALE;
 				float y=mouseY*SCALE;
 				float d=0;
@@ -209,7 +209,7 @@ class PointSelector{
 				fill(0x805b57ab);
 				rect((this._region_start_x<mouseX?this._region_start_x:mouseX),(this._region_start_y<mouseY?this._region_start_y:mouseY),abs(mouseX-this._region_start_x),abs(mouseY-this._region_start_y));
 			}
-			stroke(#ab575b);
+			stroke(#8f00ff);
 			noFill();
 			for (Point p:this.dragged_points){
 				circle(p.x/SCALE,p.y/SCALE,RADIUS*2);

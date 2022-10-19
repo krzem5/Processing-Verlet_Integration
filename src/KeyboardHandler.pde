@@ -34,6 +34,9 @@ class KeyboardHandler{
 			case 'F':
 				this.engine.point_selector.toggle_forces(this.is_shift_pressed);
 				return;
+			case 'G':
+				flag=FLAG_DRAW_GRID;
+				break;
 			case 'S':
 				flag=FLAG_STRONG_BONDS;
 				break;
@@ -42,6 +45,15 @@ class KeyboardHandler{
 				break;
 			case 'X':
 				this.engine.point_selector.toggle_collision(this.is_shift_pressed);
+				return;
+			case 'Y':
+				if ((this.engine.flags&FLAG_ENABLE_FORCES)==0){
+					for (Connection c:this.engine.connections){
+						if (c.a.fixed&&c.b.fixed){
+							c.length=sqrt((c.a.x-c.b.x)*(c.a.x-c.b.x)+(c.a.y-c.b.y)*(c.a.y-c.b.y));
+						}
+					}
+				}
 				return;
 		}
 		if ((flag&this.engine.flags)!=0){

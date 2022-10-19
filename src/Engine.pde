@@ -71,6 +71,11 @@ class Engine{
 			}
 		}
 		if (this.point_selector.dragged_point!=null){
+			if ((this.flags&FLAG_DRAW_GRID)!=0){
+				stroke(0x805a9a9a);
+				line(this.point_selector.dragged_point.x/SCALE,0,this.point_selector.dragged_point.x/SCALE,height);
+				line(0,this.point_selector.dragged_point.y/SCALE,width,this.point_selector.dragged_point.y/SCALE);
+			}
 			noStroke();
 			fill(#ef1c98);
 			circle(this.point_selector.dragged_point.x/SCALE,this.point_selector.dragged_point.y/SCALE,RADIUS*3);

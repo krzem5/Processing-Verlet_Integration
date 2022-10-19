@@ -8,6 +8,7 @@ final int CLOTH_Y_POINTS=10;
 final int COLLISION_GRID_SIZE=30;
 final int POINTS_PER_EDGE_VERTEX=2;
 final float MAX_CONNECTION_DISTANCE=2.5;
+final float GROUND_Y_OFFSET=50;
 
 final int UI_FONT_SIZE=22;
 
@@ -16,6 +17,7 @@ final int FLAG_BREAK_CONNECTIONS=2;
 final int FLAG_CREATE_CONNECTIONS=4;
 final int FLAG_STRONG_BONDS=8;
 final int FLAG_ENABLE_FORCES=16;
+final int FLAG_DRAW_GRID=32;
 
 
 
