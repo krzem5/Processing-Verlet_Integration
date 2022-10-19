@@ -53,6 +53,33 @@ class PointSelector{
 
 
 
+	void delete(){
+		if (this.dragged_points==null&&this.dragged_point==null){
+			return;
+		}
+		if (this.dragged_points!=null){
+			for (Point p:this.dragged_points){
+				p._deleted=true;
+				this.engine.points.remove(p);
+			}
+			this.dragged_points=null;
+		}
+		else{
+			this.dragged_point._deleted=true;
+			this.engine.points.remove(this.dragged_point);
+			this.dragged_point=null;
+		}
+		for (int i=0;i<this.engine.connections.size();i++){
+			Connection c=this.engine.connections.get(i);
+			if (c.a._deleted||c.b._deleted){
+				this.engine.connections.remove(i);
+				i--;
+			}
+		}
+	}
+
+
+
 	void click_mouse(int button){
 		if (button==LEFT){
 			this._is_mouse_down=true;
@@ -78,7 +105,7 @@ class PointSelector{
 						target=p;
 					}
 				}
-				if (d<MAX_CONNECTION_DISTANCE*SCALE){
+				if (target!=null&&d<MAX_CONNECTION_DISTANCE*SCALE){
 					this.dragged_point=target;
 					this._dragged_point_was_fixed=this.dragged_point.fixed;
 					this.dragged_point.fixed=true;
@@ -86,6 +113,9 @@ class PointSelector{
 			}
 		}
 	}
+
+
+
 	void unclick_mouse(int button){
 		if (button==LEFT){
 			if (this.dragged_point!=null){

@@ -17,6 +17,9 @@ class KeyboardHandler{
 			case SHIFT:
 				this.is_shift_pressed=true;
 				return;
+			case DELETE:
+				this.engine.point_selector.delete();
+				return;
 			case 'C':
 				flag=FLAG_CREATE_CONNECTIONS;
 				this.engine.flags&=~FLAG_BREAK_CONNECTIONS;

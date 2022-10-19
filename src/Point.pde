@@ -4,6 +4,7 @@ class Point{
 	boolean fixed;
 	boolean has_collision;
 	Point _next_point;
+	boolean _deleted;
 	private float _prev_x;
 	private float _prev_y;
 
@@ -14,6 +15,7 @@ class Point{
 		this.y=y;
 		this.fixed=fixed;
 		this.has_collision=has_collision;
+		this._deleted=false;
 		this._prev_x=x;
 		this._prev_y=y;
 	}
