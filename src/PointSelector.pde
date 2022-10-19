@@ -6,6 +6,8 @@ class PointSelector{
 	private boolean _is_mouse_down;
 	private int _region_start_x;
 	private int _region_start_y;
+	private float _drag_offset_x;
+	private float _drag_offset_y;
 
 
 
@@ -125,6 +127,8 @@ class PointSelector{
 				this.dragged_points=null;
 				this.dragged_point=this._get_clicked_point();
 				if (this.dragged_point!=null){
+					this._drag_offset_x=this.dragged_point.x-mouseX*SCALE;
+					this._drag_offset_y=this.dragged_point.y-mouseY*SCALE;
 					this._dragged_point_was_fixed=this.dragged_point.fixed;
 					this.dragged_point.fixed=true;
 				}
@@ -167,8 +171,8 @@ class PointSelector{
 		float py=pmouseY*SCALE;
 		if (this._is_mouse_down){
 			if (this.dragged_point!=null){
-				this.dragged_point.x=x;
-				this.dragged_point.y=y;
+				this.dragged_point.x=x+this._drag_offset_x;
+				this.dragged_point.y=y+this._drag_offset_y;
 				if (this.engine.keyboard_handler.is_shift_pressed&&(this.engine.flags&FLAG_DRAW_GRID)!=0){
 					int nearest_column=(mouseX+GRID_SIZE/2)/GRID_SIZE*GRID_SIZE;
 					if (abs(mouseX-nearest_column)<MAX_SNAP_DISTANCE){
