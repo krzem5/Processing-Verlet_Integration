@@ -26,6 +26,7 @@ Engine engine;
 
 void setup(){
 	size(1920,1080);
+	fullScreen();
 	_last_time=millis();
 	engine=new Engine();
 	for (int i=0;i<CLOTH_X_POINTS;i++){
