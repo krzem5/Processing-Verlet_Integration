@@ -6,7 +6,7 @@ class Util{
 
 
 	static float generate_wind_wave(float time){
-		return (0.5+sin(time/5000))*(0.7+sin(time/370))*(0.5+cos(time/4100));
+		return (0.5+sin(time/5))*(0.7+sin(time/0.37))*(0.5+cos(time/4.1));
 	}
 
 

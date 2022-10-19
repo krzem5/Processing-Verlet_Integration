@@ -11,9 +11,13 @@ final float MAX_CONNECTION_DISTANCE=2.5;
 final float GROUND_Y_OFFSET=50;
 
 final int UI_FONT_SIZE=22;
+final int UI_BORDER_SIZE=40;
 final int UI_ALIGN_LEFT=0;
 final int UI_ALIGN_CENTER=1;
 final int UI_ALIGN_RIGHT=2;
+
+final int MAX_FILE_NAME_CHARACTERS=16;
+final String SAVE_FOLDER="saves/";
 
 final int FLAG_ENABLE_WIND=1;
 final int FLAG_BREAK_CONNECTIONS=2;

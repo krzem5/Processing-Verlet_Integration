@@ -14,7 +14,6 @@ class KeyboardHandler{
 
 
 	void press(int key){
-		int flag=0;
 		switch (key){
 			case CONTROL:
 				this.is_ctrl_pressed=true;
@@ -22,6 +21,27 @@ class KeyboardHandler{
 			case SHIFT:
 				this.is_shift_pressed=true;
 				return;
+		}
+		if (this.engine.ui.overlay){
+			if (64<keyCode&&keyCode<91){
+				this.engine.ui.type_key(keyCode+(this.is_shift_pressed?0:32));
+			}
+			else if (47<keyCode&&keyCode<58){
+				this.engine.ui.type_key(keyCode);
+			}
+			else if (keyCode==45){
+				this.engine.ui.type_key(keyCode+(this.is_shift_pressed?50:0));
+			}
+			else if (keyCode==BACKSPACE){
+				this.engine.ui.remove_key();
+			}
+			else if (keyCode==ENTER){
+				this.engine.ui.end_key();
+			}
+			return;
+		}
+		int flag=0;
+		switch (key){
 			case DELETE:
 				this.engine.point_selector.delete();
 				return;
@@ -43,6 +63,10 @@ class KeyboardHandler{
 				flag=FLAG_DRAW_GRID;
 				break;
 			case 'S':
+				if (this.is_ctrl_pressed){
+					this.engine.save();
+					return;
+				}
 				flag=FLAG_STRONG_BONDS;
 				break;
 			case 'W':
@@ -61,10 +85,9 @@ class KeyboardHandler{
 				}
 				return;
 			case 'O':
-				this.engine.save("data.json");
-				return;
-			case 'P':
-				this.engine.load("data.json");
+				if (this.is_ctrl_pressed){
+					this.engine.load("data");
+				}
 				return;
 		}
 		if ((flag&this.engine.flags)!=0){

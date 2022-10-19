@@ -5,7 +5,9 @@ class Engine{
 	final Ui ui;
 	final PointSelector point_selector;
 	final KeyboardHandler keyboard_handler;
+	String file_path;
 	int flags;
+	private float _wind_time;
 
 
 
@@ -16,6 +18,7 @@ class Engine{
 		this.ui=new Ui(this);
 		this.point_selector=new PointSelector(this);
 		this.keyboard_handler=new KeyboardHandler(this);
+		this.file_path=null;
 		this.flags=FLAG_ENABLE_WIND|FLAG_ENABLE_FORCES;
 	}
 
@@ -23,8 +26,9 @@ class Engine{
 
 	void update(float delta_time){
 		this.point_selector.update();
-		float wind=Util.generate_wind_wave(millis())*0.6*SCALE;
 		if ((this.flags&FLAG_ENABLE_FORCES)!=0){
+			this._wind_time+=delta_time;
+			float wind=Util.generate_wind_wave(this._wind_time)*0.6*SCALE;
 			for (Point p:this.points){
 				if (p.fixed){
 					continue;
@@ -90,10 +94,14 @@ class Engine{
 		this.point_selector.delete();
 		this.points.clear();
 		this.connections.clear();
+		file_path=SAVE_FOLDER+file_path+".json";
 		if (!new File(file_path).exists()){
+			this.file_path=null;
 			return;
 		}
+		this.file_path=file_path;
 		JSONObject data=loadJSONObject(file_path);
+		this._wind_time=data.getFloat("wind");
 		JSONArray points=data.getJSONArray("points");
 		JSONArray connections=data.getJSONArray("connections");
 		for (int i=0;i<points.size();i++){
@@ -108,7 +116,11 @@ class Engine{
 
 
 
-	void save(String file_path){
+	void save(){
+		if (this.file_path==null){
+			this.ui.get_save_name();
+			return;
+		}
 		JSONObject out=new JSONObject();
 		JSONArray points=new JSONArray();
 		for (int i=0;i<this.points.size();i++){
@@ -130,8 +142,10 @@ class Engine{
 			connection_data.setBoolean("fixed",c.fixed);
 			connections.append(connection_data);
 		}
+		out.setFloat("wind",this._wind_time);
 		out.setJSONArray("points",points);
 		out.setJSONArray("connections",connections);
-		saveJSONObject(out,file_path);
+		new File(SAVE_FOLDER).mkdirs();
+		saveJSONObject(out,SAVE_FOLDER+this.file_path+".json");
 	}
 }

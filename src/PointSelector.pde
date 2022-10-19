@@ -81,6 +81,9 @@ class PointSelector{
 
 
 	void click_mouse(int button){
+		if (this.engine.ui.overlay){
+			return;
+		}
 		if (button==LEFT){
 			this._is_mouse_down=true;
 			if (this.engine.keyboard_handler.is_ctrl_pressed){
@@ -139,6 +142,9 @@ class PointSelector{
 
 
 	void unclick_mouse(int button){
+		if (this.engine.ui.overlay){
+			return;
+		}
 		if (button==LEFT){
 			if (this.dragged_point!=null){
 				this.dragged_point.fixed=this._dragged_point_was_fixed;
