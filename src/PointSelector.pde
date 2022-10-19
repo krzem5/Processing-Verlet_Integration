@@ -169,6 +169,16 @@ class PointSelector{
 			if (this.dragged_point!=null){
 				this.dragged_point.x=x;
 				this.dragged_point.y=y;
+				if (this.engine.keyboard_handler.is_shift_pressed&&(this.engine.flags&FLAG_DRAW_GRID)!=0){
+					int nearest_column=(mouseX+GRID_SIZE/2)/GRID_SIZE*GRID_SIZE;
+					if (abs(mouseX-nearest_column)<MAX_SNAP_DISTANCE){
+						this.dragged_point.x=nearest_column*SCALE;
+					}
+					int nearest_row=(mouseY+GRID_SIZE/2)/GRID_SIZE*GRID_SIZE;
+					if (abs(mouseY-nearest_row)<MAX_SNAP_DISTANCE){
+						this.dragged_point.y=nearest_row*SCALE;
+					}
+				}
 				this.dragged_point._prev_x=this.dragged_point.x;
 				this.dragged_point._prev_y=this.dragged_point.y;
 			}

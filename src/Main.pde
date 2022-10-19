@@ -10,6 +10,7 @@ final int POINTS_PER_EDGE_VERTEX=2;
 final float MAX_CONNECTION_DISTANCE=2.5;
 final float GROUND_Y_OFFSET=50;
 final int GRID_SIZE=100;
+final float MAX_SNAP_DISTANCE=15;
 
 final int UI_FONT_SIZE=22;
 final int UI_BORDER_SIZE=40;
