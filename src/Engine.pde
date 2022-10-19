@@ -71,6 +71,7 @@ class Engine{
 			}
 		}
 		if (this.point_selector.dragged_point!=null){
+			noStroke();
 			fill(#ef1c98);
 			circle(this.point_selector.dragged_point.x/SCALE,this.point_selector.dragged_point.y/SCALE,RADIUS*3);
 		}

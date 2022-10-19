@@ -112,6 +112,13 @@ class PointSelector{
 				}
 			}
 		}
+		else if (button==RIGHT){
+			this._is_mouse_down=true;
+			this.dragged_points=null;
+			this.dragged_point=new Point(mouseX*SCALE,mouseY*SCALE,false,false);
+			this._dragged_point_was_fixed=false;
+			this.engine.points.add(this.dragged_point);
+		}
 	}
 
 
@@ -122,6 +129,11 @@ class PointSelector{
 				this.dragged_point.fixed=this._dragged_point_was_fixed;
 			}
 			this._is_mouse_down=false;
+		}
+		else if (button==RIGHT){
+			this._is_mouse_down=false;
+			this.dragged_point.fixed=this._dragged_point_was_fixed;
+			this.dragged_point=null;
 		}
 	}
 
