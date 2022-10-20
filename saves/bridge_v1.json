@@ -1,0 +1,157 @@
+{
+  "connections": [
+    {
+      "a": 2,
+      "b": 1,
+      "length": 1,
+      "fixed": true
+    },
+    {
+      "a": 2,
+      "b": 3,
+      "length": 1,
+      "fixed": true
+    },
+    {
+      "a": 4,
+      "b": 3,
+      "length": 1,
+      "fixed": true
+    },
+    {
+      "a": 4,
+      "b": 5,
+      "length": 1,
+      "fixed": true
+    },
+    {
+      "a": 8,
+      "b": 5,
+      "length": 1,
+      "fixed": true
+    },
+    {
+      "a": 8,
+      "b": 0,
+      "length": 1,
+      "fixed": true
+    },
+    {
+      "a": 7,
+      "b": 2,
+      "length": 1.4142135381698608,
+      "fixed": false
+    },
+    {
+      "a": 7,
+      "b": 4,
+      "length": 1.4142135381698608,
+      "fixed": false
+    },
+    {
+      "a": 3,
+      "b": 7,
+      "length": 1,
+      "fixed": true
+    },
+    {
+      "a": 9,
+      "b": 5,
+      "length": 1,
+      "fixed": true
+    },
+    {
+      "a": 10,
+      "b": 3,
+      "length": 1,
+      "fixed": true
+    },
+    {
+      "a": 6,
+      "b": 5,
+      "length": 1,
+      "fixed": true
+    },
+    {
+      "a": 6,
+      "b": 4,
+      "length": 1.4142135381698608,
+      "fixed": false
+    },
+    {
+      "a": 6,
+      "b": 8,
+      "length": 1.4142135381698608,
+      "fixed": false
+    }
+  ],
+  "wind": 93.75743865966797,
+  "points": [
+    {
+      "collision": false,
+      "x": 17,
+      "y": 13,
+      "fixed": true
+    },
+    {
+      "collision": false,
+      "x": 11,
+      "y": 13,
+      "fixed": true
+    },
+    {
+      "collision": false,
+      "x": 11.999998092651367,
+      "y": 12.999886512756348,
+      "fixed": false
+    },
+    {
+      "collision": false,
+      "x": 12.999998092651367,
+      "y": 13,
+      "fixed": false
+    },
+    {
+      "collision": false,
+      "x": 13.999998092651367,
+      "y": 12.999070167541504,
+      "fixed": false
+    },
+    {
+      "collision": false,
+      "x": 14.999998092651367,
+      "y": 13,
+      "fixed": false
+    },
+    {
+      "collision": false,
+      "x": 15,
+      "y": 12,
+      "fixed": true
+    },
+    {
+      "collision": false,
+      "x": 13,
+      "y": 12,
+      "fixed": true
+    },
+    {
+      "collision": false,
+      "x": 15.999999046325684,
+      "y": 13.000001907348633,
+      "fixed": false
+    },
+    {
+      "collision": false,
+      "x": 15,
+      "y": 14,
+      "fixed": true
+    },
+    {
+      "collision": false,
+      "x": 13,
+      "y": 14,
+      "fixed": true
+    }
+  ]
+}

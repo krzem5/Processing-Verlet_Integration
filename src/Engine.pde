@@ -105,7 +105,6 @@ class Engine{
 		this.points.clear();
 		this.connections.clear();
 		file_name=SAVE_FOLDER+file_name+".json";
-		println(file_name);
 		if (!new File(file_name).exists()){
 			this.file_name=null;
 			return;

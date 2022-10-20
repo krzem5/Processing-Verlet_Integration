@@ -229,7 +229,9 @@ class PointSelector{
 					}
 				}
 				if (target!=null){
-					this.engine.connections.add(new Connection(this.dragged_point,target,LENGTH*SCALE,((this.engine.flags&FLAG_STRONG_BONDS)!=0?true:false)));
+					float dx=this.dragged_point.x-target.x;
+					float dy=this.dragged_point.y-target.y;
+					this.engine.connections.add(new Connection(this.dragged_point,target,sqrt(dx*dx+dy*dy),((this.engine.flags&FLAG_STRONG_BONDS)!=0?true:false)));
 				}
 			}
 		}

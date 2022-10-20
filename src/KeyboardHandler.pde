@@ -89,7 +89,7 @@ class KeyboardHandler{
 				return;
 			case 'O':
 				if (this.is_ctrl_pressed){
-					this.engine.load("data");
+					this.engine.load("bridge_v2");
 				}
 				return;
 		}
