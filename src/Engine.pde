@@ -5,6 +5,7 @@ class Engine{
 	final Ui ui;
 	final PointSelector point_selector;
 	final KeyboardHandler keyboard_handler;
+	final SnapGrid snap_grid;
 	String file_name;
 	int flags;
 	private float _wind_time;
@@ -18,6 +19,7 @@ class Engine{
 		this.ui=new Ui(this);
 		this.point_selector=new PointSelector(this);
 		this.keyboard_handler=new KeyboardHandler(this);
+		this.snap_grid=new SnapGrid(this);
 		this.file_name=null;
 		this.flags=FLAG_ENABLE_WIND;
 	}
@@ -58,14 +60,7 @@ class Engine{
 	void draw(){
 		background(0);
 		if ((this.flags&FLAG_DRAW_GRID)!=0){
-			strokeWeight(2);
-			stroke(#3a3a3a);
-			for (int i=0;i<width;i+=GRID_SIZE){
-				line(i,0,i,height);
-			}
-			for (int i=0;i<height;i+=GRID_SIZE){
-				line(0,i,width,i);
-			}
+			this.snap_grid.draw();
 		}
 		strokeWeight(4);
 		for (Connection c:this.connections){

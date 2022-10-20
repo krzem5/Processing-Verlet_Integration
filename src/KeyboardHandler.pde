@@ -92,6 +92,16 @@ class KeyboardHandler{
 					this.engine.load("bridge_v2");
 				}
 				return;
+			case '=':
+				if (this.is_shift_pressed&&(this.engine.flags&FLAG_DRAW_GRID)!=0){
+					this.engine.snap_grid.update_size(1);
+				}
+				return;
+			case '-':
+				if ((this.engine.flags&FLAG_DRAW_GRID)!=0){
+					this.engine.snap_grid.update_size(-1);
+				}
+				return;
 		}
 		if ((flag&this.engine.flags)!=0){
 			this.engine.flags&=~flag;
