@@ -68,7 +68,7 @@ class Ui{
 		if ((this.engine.flags&FLAG_ENABLE_FORCES)==0){
 			text+="\n<#ffffff>Y<!> — recalculate fixed connections";
 		}
-		text+="\n<#ffffff>Shift + G<!> — toggle guides";
+		text+="\n<#ffffff>Shift + G<!> — toggle guides\n\n<#ffffff>Ctrl + O<!> — open\n<#ffffff>Ctrl + S<!> — save\n<#ffffff>Ctrl + Shift + S<!> — save as";
 		this._write_text(text,10,10+textAscent(),UI_ALIGN_LEFT,0xb4ffffff);
 		text=String.format("Points: <#ffffff>%d<!>\nConnections: <#ffffff>%d<!>\nGrid: %s<!>\nGuides: %s<!>\nWind: %s<!>\nConnecion type: %s<!>\nMode: %s<!>\nSimulation: %s<!>",this.engine.points.size(),this.engine.connections.size(),((this.engine.flags&FLAG_DRAW_GRID)!=0?"<#42f342>On":"<#f34242>Off"),((this.engine.flags&FLAG_DRAW_GUIDES)!=0?"<#42f342>On":"<#f34242>Off"),((this.engine.flags&FLAG_ENABLE_WIND)!=0?"<#42f342>On":"<#f34242>Off"),((this.engine.flags&FLAG_STRONG_BONDS)!=0?"Wood <#ff8e8e>━━━":"String <#9e9e9e>━━━"),((this.engine.flags&FLAG_BREAK_CONNECTIONS)!=0?"<#00ffff>Break":(this.engine.flags&FLAG_CREATE_CONNECTIONS)!=0?"<#ffff00>Create":"<#ffffff>N/A"),((this.engine.flags&FLAG_ENABLE_FORCES)!=0?"<#42f342>On":"<#f34242>Off"));
 		if (this.engine.point_selector.dragged_point!=null){
