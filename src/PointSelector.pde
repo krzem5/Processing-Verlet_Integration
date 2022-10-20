@@ -82,6 +82,16 @@ class PointSelector{
 
 
 
+	void deselect(){
+		if (this.dragged_point!=null){
+			this.dragged_point.fixed=this._dragged_point_was_fixed;
+			this.dragged_point=null;
+		}
+		this.dragged_points=null;
+	}
+
+
+
 	void click_mouse(int button){
 		if (this.engine.ui.overlay){
 			return;

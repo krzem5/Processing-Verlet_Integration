@@ -96,7 +96,7 @@ class Engine{
 
 
 	void load(String file_name){
-		this.point_selector.delete();
+		this.point_selector.deselect();
 		this.points.clear();
 		this.connections.clear();
 		file_name=SAVE_FOLDER+file_name+".json";

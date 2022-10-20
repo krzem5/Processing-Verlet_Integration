@@ -62,6 +62,14 @@ class KeyboardHandler{
 			case 'G':
 				flag=(this.is_shift_pressed?FLAG_DRAW_GUIDES:FLAG_DRAW_GRID);
 				break;
+			case 'O':
+				if (this.is_ctrl_pressed){
+					this.engine.load("bridge_v2");
+				}
+				return;
+			case 'Q':
+				this.engine.point_selector.deselect();
+				return;
 			case 'S':
 				if (this.is_ctrl_pressed){
 					if (this.is_shift_pressed){
@@ -85,11 +93,6 @@ class KeyboardHandler{
 							c.length=sqrt((c.a.x-c.b.x)*(c.a.x-c.b.x)+(c.a.y-c.b.y)*(c.a.y-c.b.y));
 						}
 					}
-				}
-				return;
-			case 'O':
-				if (this.is_ctrl_pressed){
-					this.engine.load("bridge_v2");
 				}
 				return;
 			case '=':
