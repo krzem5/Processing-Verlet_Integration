@@ -66,7 +66,7 @@ class Ui{
 		}
 		text+="\n<#ffffff>Ctrl + Click<!> — toggle another point";
 		if (this.engine.point_selector.dragged_point!=null||this.engine.point_selector.dragged_points!=null){
-			text+="\n<#ffffff>Q<!> — deselect all points";
+			text+="\n<#ffffff>Left<!>, <#ffffff>Right<!>, <#ffffff>Up<!>, <#ffffff>Down<!> — move all points\n<#ffffff>Q<!> — deselect all points";
 		}
 		text+="\n\n<#ffffff>F<!> — toggle forces\n<#ffffff>X<!> — toggle collision\n<#ffffff>Shift + F<!> — enable forces\n<#ffffff>Shift + X<!> — disable collision\n\n<#ffffff>C<!> — toggle 'connection' mode\n<#ffffff>D<!> — toggle 'break' mode\n<#ffffff>E<!> — toggle simulation\n<#ffffff>G<!> — toggle grid\n<#ffffff>S<!> — toggle connection type\n<#ffffff>W<!> — toggle wind";
 		if ((this.engine.flags&FLAG_ENABLE_FORCES)==0){
