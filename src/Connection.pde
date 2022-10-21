@@ -3,6 +3,7 @@ class Connection{
 	Point b;
 	float length;
 	boolean fixed;
+	private float _animation_time;
 
 
 
@@ -11,6 +12,20 @@ class Connection{
 		this.b=b;
 		this.length=length;
 		this.fixed=fixed;
+		this._animation_time=-1;
+	}
+
+
+
+	void recalculate_distance(){
+		if (!this.a.fixed||!this.b.fixed){
+			return;
+		}
+		float length=sqrt((this.a.x-this.b.x)*(this.a.x-this.b.x)+(this.a.y-this.b.y)*(this.a.y-this.b.y));
+		if (this.length!=length){
+			this._animation_time=0;
+		}
+		this.length=length;
 	}
 
 
@@ -46,5 +61,24 @@ class Connection{
 			this.b.x-=distance_x;
 			this.b.y-=distance_y;
 		}
+	}
+
+
+
+	void update_animation(float delta_time){
+		if (this._animation_time!=-1){
+			this._animation_time+=delta_time;
+			if (this._animation_time>=RESIZE_ANIMATION_TIME){
+				this._animation_time=-1;
+			}
+		}
+	}
+
+
+
+	void draw(){
+		strokeWeight(4+(this._animation_time==-1?0:8*sin(this._animation_time/RESIZE_ANIMATION_TIME*PI)));
+		stroke((this.fixed?0xa0ff8e8e:0x909e9e9e));
+		line(this.a.x/SCALE,this.a.y/SCALE,this.b.x/SCALE,this.b.y/SCALE);
 	}
 }

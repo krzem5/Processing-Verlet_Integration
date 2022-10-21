@@ -68,21 +68,24 @@ class Ui{
 		if (this.engine.point_selector.dragged_point!=null||this.engine.point_selector.dragged_points!=null){
 			text+="\n<#ffffff>Left<!>, <#ffffff>Right<!>, <#ffffff>Up<!>, <#ffffff>Down<!> — move all points\n<#ffffff>Q<!> — deselect all points";
 		}
-		text+="\n\n<#ffffff>F<!> — toggle forces\n<#ffffff>X<!> — toggle collision\n<#ffffff>Shift + F<!> — enable forces\n<#ffffff>Shift + X<!> — disable collision\n\n<#ffffff>C<!> — toggle 'connection' mode\n<#ffffff>D<!> — toggle 'break' mode\n<#ffffff>E<!> — toggle simulation\n<#ffffff>G<!> — toggle grid\n<#ffffff>S<!> — toggle connection type\n<#ffffff>W<!> — toggle wind";
+		text+="\n\n<#ffffff>F<!> — toggle forces\n<#ffffff>X<!> — toggle collision\n<#ffffff>Shift + F<!> — enable forces\n<#ffffff>Shift + X<!> — disable collision\n\n<#ffffff>C<!> — toggle 'connection' mode\n<#ffffff>D<!> — toggle 'break' mode\n<#ffffff>E<!> — toggle simulation";
 		if ((this.engine.flags&FLAG_ENABLE_FORCES)==0){
-			text+="\n<#ffffff>Y<!> — recalculate fixed connections";
+			text+="\n<#ffffff>G<!> — toggle grid";
 		}
-		text+="\n<#ffffff>Shift + G<!> — toggle guides";
-		if ((this.engine.flags&FLAG_DRAW_GRID)!=0){
+		text+="\n<#ffffff>S<!> — toggle connection type\n<#ffffff>W<!> — toggle wind";
+		if ((this.engine.flags&FLAG_ENABLE_FORCES)==0){
+			text+="\n<#ffffff>Y<!> — recalculate fixed connections\n<#ffffff>Shift + G<!> — toggle guides";
+		}
+		if ((this.engine.flags&(FLAG_DRAW_GRID|FLAG_ENABLE_FORCES))==FLAG_DRAW_GRID){
 			text+="\n\n<#ffffff>+<!> — increase grid size\n<#ffffff>-<!> — decrease grid size";
 		}
 		text+="\n\n<#ffffff>Ctrl + O<!> — open\n<#ffffff>Ctrl + S<!> — save\n<#ffffff>Ctrl + Shift + S<!> — save as";
 		this._write_text(text,10,10+textAscent(),UI_ALIGN_LEFT,0xb4ffffff);
 		text=String.format("Points: <#ffffff>%d<!>\nConnections: <#ffffff>%d<!>",this.engine.points.size(),this.engine.connections.size());
 		if ((this.engine.flags&FLAG_ENABLE_FORCES)==0){
-			text+=String.format("\nGrid: %s<!>",((this.engine.flags&FLAG_DRAW_GRID)!=0?"<#ffffff>"+GRID_SIZE_NAMES[this.engine.snap_grid.size]:"<#f34242>Off"));
+			text+=String.format("\nGrid: %s<!>\nGuides: %s<!>",((this.engine.flags&FLAG_DRAW_GRID)!=0?"<#ffffff>"+GRID_SIZE_NAMES[this.engine.snap_grid.size]:"<#f34242>Off"),((this.engine.flags&FLAG_DRAW_GUIDES)!=0?"<#42f342>On":"<#f34242>Off"));
 		}
-		text+=String.format("\nGuides: %s<!>\nWind: %s<!>\nConnecion type: %s<!>\nMode: %s<!>\nSimulation: %s<!>",((this.engine.flags&FLAG_DRAW_GUIDES)!=0?"<#42f342>On":"<#f34242>Off"),((this.engine.flags&FLAG_ENABLE_WIND)!=0?"<#42f342>On":"<#f34242>Off"),((this.engine.flags&FLAG_STRONG_BONDS)!=0?"Wood <#ff8e8e>━━━":"String <#9e9e9e>━━━"),((this.engine.flags&FLAG_BREAK_CONNECTIONS)!=0?"<#00ffff>Break":(this.engine.flags&FLAG_CREATE_CONNECTIONS)!=0?"<#ffff00>Create":"<#ffffff>N/A"),((this.engine.flags&FLAG_ENABLE_FORCES)!=0?"<#42f342>On":"<#f34242>Off"));
+		text+=String.format("\nWind: %s<!>\nConnecion type: %s<!>\nMode: %s<!>\nSimulation: %s<!>",((this.engine.flags&FLAG_ENABLE_WIND)!=0?"<#42f342>On":"<#f34242>Off"),((this.engine.flags&FLAG_STRONG_BONDS)!=0?"Wood <#ff8e8e>━━━":"String <#9e9e9e>━━━"),((this.engine.flags&FLAG_BREAK_CONNECTIONS)!=0?"<#00ffff>Break":(this.engine.flags&FLAG_CREATE_CONNECTIONS)!=0?"<#ffff00>Create":"<#ffffff>N/A"),((this.engine.flags&FLAG_ENABLE_FORCES)!=0?"<#42f342>On":"<#f34242>Off"));
 		if (this.engine.point_selector.dragged_point!=null){
 			text+=String.format("\n\nForces: %s<!>\nCollision: %s<!>",(this.engine.point_selector.is_dragged_point_fixed()?"<#f34242>Off":"<#42f342>On"),(this.engine.point_selector.dragged_point.has_collision?"<#42f342>On":"<#f34242>Off"));
 		}

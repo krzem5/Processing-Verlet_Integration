@@ -28,6 +28,9 @@ class Engine{
 
 	void update(float delta_time){
 		this.point_selector.update();
+		for (Connection c:this.connections){
+			c.update_animation(delta_time);
+		}
 		if ((this.flags&FLAG_ENABLE_FORCES)!=0){
 			this._wind_time+=delta_time;
 			float wind=Util.generate_wind_wave(this._wind_time)*0.6*SCALE;
@@ -62,11 +65,10 @@ class Engine{
 		if ((this.flags&(FLAG_DRAW_GRID|FLAG_ENABLE_FORCES))==FLAG_DRAW_GRID){
 			this.snap_grid.draw();
 		}
-		strokeWeight(4);
 		for (Connection c:this.connections){
-			stroke((c.fixed?0xa0ff8e8e:0x909e9e9e));
-			line(c.a.x/SCALE,c.a.y/SCALE,c.b.x/SCALE,c.b.y/SCALE);
+			c.draw();
 		}
+		strokeWeight(4);
 		for (Point p:this.points){
 			if (p.has_collision){
 				noStroke();

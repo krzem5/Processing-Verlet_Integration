@@ -72,6 +72,9 @@ class KeyboardHandler{
 				this.engine.point_selector.toggle_forces(this.is_shift_pressed);
 				return;
 			case 'G':
+				if ((this.engine.flags&FLAG_ENABLE_FORCES)!=0){
+					return;
+				}
 				flag=(this.is_shift_pressed?FLAG_DRAW_GUIDES:FLAG_DRAW_GRID);
 				break;
 			case 'O':
@@ -101,9 +104,7 @@ class KeyboardHandler{
 			case 'Y':
 				if ((this.engine.flags&FLAG_ENABLE_FORCES)==0){
 					for (Connection c:this.engine.connections){
-						if (c.a.fixed&&c.b.fixed){
-							c.length=sqrt((c.a.x-c.b.x)*(c.a.x-c.b.x)+(c.a.y-c.b.y)*(c.a.y-c.b.y));
-						}
+						c.recalculate_distance();
 					}
 				}
 				return;

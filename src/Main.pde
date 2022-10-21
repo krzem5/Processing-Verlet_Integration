@@ -12,6 +12,8 @@ final float GROUND_Y_OFFSET=50;
 final String GRID_SIZE_NAMES[]={"Tiny","Small","Medium","Large","Huge"};
 final float MAX_SNAP_DISTANCE=16;
 
+final float RESIZE_ANIMATION_TIME=0.8;
+
 final int UI_FONT_SIZE=22;
 final int UI_BORDER_SIZE=40;
 final int UI_ALIGN_LEFT=0;
