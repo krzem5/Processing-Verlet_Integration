@@ -59,7 +59,7 @@ class Engine{
 
 	void draw(){
 		background(0);
-		if ((this.flags&FLAG_DRAW_GRID)!=0){
+		if ((this.flags&(FLAG_DRAW_GRID|FLAG_ENABLE_FORCES))==FLAG_DRAW_GRID){
 			this.snap_grid.draw();
 		}
 		strokeWeight(4);
