@@ -45,6 +45,18 @@ class KeyboardHandler{
 			case DELETE:
 				this.engine.point_selector.delete();
 				return;
+			case UP:
+				this.engine.point_selector.move(0,-1);
+				return;
+			case DOWN:
+				this.engine.point_selector.move(0,1);
+				return;
+			case LEFT:
+				this.engine.point_selector.move(-1,0);
+				return;
+			case RIGHT:
+				this.engine.point_selector.move(1,0);
+				return;
 			case 'C':
 				flag=FLAG_CREATE_CONNECTIONS;
 				this.engine.flags&=~FLAG_BREAK_CONNECTIONS;

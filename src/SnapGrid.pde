@@ -46,6 +46,12 @@ class SnapGrid{
 
 
 
+	float get_scale(){
+		return this._size;
+	}
+
+
+
 	void draw(){
 		strokeWeight(2);
 		stroke(#3a3a3a);

@@ -120,6 +120,9 @@ class PointSelector{
 						this.dragged_points.add(target);
 					}
 				}
+				if (this.dragged_points.size()==0){
+					this.dragged_points=null;
+				}
 				this._region_start_x=-1;
 				this._region_start_y=-1;
 				return;
@@ -172,6 +175,23 @@ class PointSelector{
 			this._is_mouse_down=false;
 			this.dragged_point.fixed=this._dragged_point_was_fixed;
 			this.dragged_point=null;
+		}
+	}
+
+
+
+	void move(float dx,float dy){
+		dx*=this.engine.snap_grid.get_scale()*SCALE/2;
+		dy*=this.engine.snap_grid.get_scale()*SCALE/2;
+		if (this.dragged_point!=null){
+			this.dragged_point.x+=dx;
+			this.dragged_point.y+=dy;
+		}
+		else if (this.dragged_points!=null){
+			for (Point p:this.dragged_points){
+				p.x+=dx;
+				p.y+=dy;
+			}
 		}
 	}
 
