@@ -163,6 +163,9 @@ class PointSelector{
 			if (this.dragged_point!=null){
 				this.dragged_point.fixed=this._dragged_point_was_fixed;
 			}
+			if (this.dragged_points!=null&&this.dragged_points.size()==0){
+				this.dragged_points=null;
+			}
 			this._is_mouse_down=false;
 		}
 		else if (button==RIGHT){
