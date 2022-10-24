@@ -114,7 +114,7 @@ class KeyboardHandler{
 				}
 				return;
 			case '-':
-				if ((this.engine.flags&FLAG_DRAW_GRID)!=0){
+				if (!this.is_shift_pressed&&(this.engine.flags&FLAG_DRAW_GRID)!=0){
 					this.engine.snap_grid.update_size(-1);
 				}
 				return;
