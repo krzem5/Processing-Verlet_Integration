@@ -49,8 +49,10 @@ class Connection{
 		if (!this.fixed&&distance<=this.length*this.length){
 			return;
 		}
-		distance=sqrt(distance);
-		distance=(distance-this.length)/distance*0.5;
+		distance=1-this.length/sqrt(distance);
+		if (!this.a.fixed&&!this.b.fixed){
+			distance/=2;
+		}
 		distance_x*=distance;
 		distance_y*=distance;
 		if (!this.a.fixed){
