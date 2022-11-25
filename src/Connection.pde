@@ -37,6 +37,9 @@ class Connection{
 		float distance_x=this.b.x-this.a.x;
 		float distance_y=this.b.y-this.a.y;
 		float distance=distance_x*distance_x+distance_y*distance_y;
+		if (!this.fixed&&distance<=this.length*this.length){
+			return;
+		}
 		if (distance==0){
 			if (!this.a.fixed){
 				this.a.x--;
