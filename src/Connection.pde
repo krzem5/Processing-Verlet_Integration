@@ -49,9 +49,6 @@ class Connection{
 			}
 			return;
 		}
-		if (!this.fixed&&distance<=this.length*this.length){
-			return;
-		}
 		distance=1-this.length/sqrt(distance);
 		if (!this.a.fixed&&!this.b.fixed){
 			distance/=2;
