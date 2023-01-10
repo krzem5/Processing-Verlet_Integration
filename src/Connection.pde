@@ -2,16 +2,16 @@ class Connection{
 	Point a;
 	Point b;
 	float length;
-	boolean fixed;
+	int type;
 	private float _animation_time;
 
 
 
-	Connection(Point a,Point b,float length,boolean fixed){
+	Connection(Point a,Point b,float length,int type){
 		this.a=a;
 		this.b=b;
 		this.length=length;
-		this.fixed=fixed;
+		this.type=type;
 		this._animation_time=-1;
 	}
 
@@ -37,6 +37,9 @@ class Connection{
 		float distance_x=this.b.x-this.a.x;
 		float distance_y=this.b.y-this.a.y;
 		float distance=distance_x*distance_x+distance_y*distance_y;
+		if (this.type==CONNECTION_TYPE_STRING&&distance<=this.length*this.length){
+			return;
+		}
 		if (distance==0){
 			if (!this.a.fixed){
 				this.a.x--;
@@ -46,11 +49,10 @@ class Connection{
 			}
 			return;
 		}
-		if (!this.fixed&&distance<=this.length*this.length){
-			return;
+		distance=1-this.length/sqrt(distance);
+		if (!this.a.fixed&&!this.b.fixed){
+			distance/=2;
 		}
-		distance=sqrt(distance);
-		distance=(distance-this.length)/distance*0.5;
 		distance_x*=distance;
 		distance_y*=distance;
 		if (!this.a.fixed){
@@ -78,7 +80,7 @@ class Connection{
 
 	void draw(){
 		strokeWeight(4+(this._animation_time==-1?0:8*sin(this._animation_time/RESIZE_ANIMATION_TIME*PI)));
-		stroke((this.fixed?0xa0ff8e8e:0x909e9e9e));
+		stroke(CONNECTION_TYPE_COLORS[this.type]);
 		line(this.a.x/SCALE,this.a.y/SCALE,this.b.x/SCALE,this.b.y/SCALE);
 	}
 }

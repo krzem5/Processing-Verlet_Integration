@@ -8,6 +8,7 @@ class Engine{
 	final SnapGrid snap_grid;
 	String file_name;
 	int flags;
+	int connection_type;
 	private float _wind_time;
 
 
@@ -22,6 +23,7 @@ class Engine{
 		this.snap_grid=new SnapGrid(this);
 		this.file_name=null;
 		this.flags=FLAG_ENABLE_WIND;
+		this.connection_type=CONNECTION_TYPE_WOOD;
 	}
 
 
@@ -101,12 +103,12 @@ class Engine{
 		this.point_selector.deselect();
 		this.points.clear();
 		this.connections.clear();
+		this.file_name=file_name;
 		file_name=SAVE_FOLDER+file_name+".json";
 		if (!new File(file_name).exists()){
 			this.file_name=null;
 			return;
 		}
-		this.file_name=file_name;
 		JSONObject data=loadJSONObject(file_name);
 		this._wind_time=data.getFloat("wind");
 		JSONArray points=data.getJSONArray("points");
@@ -117,7 +119,7 @@ class Engine{
 		}
 		for (int i=0;i<connections.size();i++){
 			JSONObject connections_data=connections.getJSONObject(i);
-			this.connections.add(new Connection(this.points.get(connections_data.getInt("a")),this.points.get(connections_data.getInt("b")),connections_data.getFloat("length"),connections_data.getBoolean("fixed")));
+			this.connections.add(new Connection(this.points.get(connections_data.getInt("a")),this.points.get(connections_data.getInt("b")),connections_data.getFloat("length"),connections_data.getInt("type")));
 		}
 	}
 
@@ -146,7 +148,7 @@ class Engine{
 			connection_data.setInt("a",c.a._index);
 			connection_data.setInt("b",c.b._index);
 			connection_data.setFloat("length",c.length);
-			connection_data.setBoolean("fixed",c.fixed);
+			connection_data.setInt("type",c.type);
 			connections.append(connection_data);
 		}
 		out.setFloat("wind",this._wind_time);

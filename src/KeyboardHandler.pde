@@ -79,7 +79,7 @@ class KeyboardHandler{
 				break;
 			case 'O':
 				if (this.is_ctrl_pressed){
-					this.engine.load("bridge_v2");
+					this.engine.load("v4");
 				}
 				return;
 			case 'Q':
@@ -91,10 +91,16 @@ class KeyboardHandler{
 						this.engine.file_name=null;
 					}
 					this.engine.save();
-					return;
 				}
-				flag=FLAG_STRONG_BONDS;
-				break;
+				else{
+					if (this.engine.connection_type==CONNECTION_MAX_TYPE){
+						this.engine.connection_type=0;
+					}
+					else{
+						this.engine.connection_type++;
+					}
+				}
+				return;
 			case 'W':
 				flag=FLAG_ENABLE_WIND;
 				break;
