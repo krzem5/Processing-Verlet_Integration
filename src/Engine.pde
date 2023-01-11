@@ -69,7 +69,7 @@ class Engine{
 		}
 		for (int i=0;i<this.connections.size();i++){
 			Connection c=this.connections.get(i);
-			if (c.draw()){
+			if (c.draw((this.flags&FLAG_ENABLE_FORCES)!=0)){
 				this.connections.remove(i);
 				i--;
 			}

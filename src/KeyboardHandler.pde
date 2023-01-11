@@ -79,7 +79,7 @@ class KeyboardHandler{
 				break;
 			case 'O':
 				if (this.is_ctrl_pressed){
-					this.engine.load("v4");
+					this.engine.load("v5");
 				}
 				return;
 			case 'Q':
