@@ -49,7 +49,9 @@ class CollisionLineCollider{
 			}
 			p.x=intersection.x+c.normal_x*factor;
 			p.y=intersection.y+c.normal_y*factor;
-			collision_factor+=c.normal_y*factor;
+			if (abs(collision_factor)<abs(c.normal_y*factor)){
+				collision_factor=c.normal_y*factor;
+			}
 			has_collision=true;
 		}
 		if (has_collision){
