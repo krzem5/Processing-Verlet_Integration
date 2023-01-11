@@ -33,11 +33,12 @@ final int CONNECTION_TYPE_STRING=0;
 final int CONNECTION_TYPE_WOOD=1;
 final int CONNECTION_TYPE_ROAD=2;
 final int CONNECTION_MAX_TYPE=CONNECTION_TYPE_ROAD;
-final String CONNECTION_TYPE_NAMES[]={"String <#beac6e>━━━","Wood <#954b4b>━━━","Road <#68605c>━━━"};
-final color CONNECTION_TYPE_COLORS[]={0x90beac6e,0xa0954b4b,0xffff00ff};
+final String CONNECTION_TYPE_NAMES[]={"String <#a79970>━━━","Wood <#954b4b>━━━","Road <#525448>━━━"};
+final color CONNECTION_TYPE_COLORS[]={#a79970,#954b4b,#525448};
+final float CONNECTION_TYPE_WIDTH[]={2,3.25,6.5};
 
 final float CONNECTION_CREATE_LINE_DASH=25;
-final float CONNECTION_BREAK_DISTANCE_FACTOR=1.8;
+final float CONNECTION_BREAK_DISTANCE_FACTOR[]={1.1,1.3,3};
 final boolean ENABLE_CONNECTION_BREAKING=true;
 
 

@@ -79,12 +79,12 @@ class Connection{
 
 
 	boolean draw(boolean forces){
-		if (ENABLE_CONNECTION_BREAKING&&forces&&(this.type==CONNECTION_TYPE_STRING||this.type==CONNECTION_TYPE_WOOD)){
-			if ((this.a.x-this.b.x)*(this.a.x-this.b.x)+(this.a.y-this.b.y)*(this.a.y-this.b.y)>=this.length*this.length*CONNECTION_BREAK_DISTANCE_FACTOR*CONNECTION_BREAK_DISTANCE_FACTOR){
+		if (ENABLE_CONNECTION_BREAKING&&forces){
+			if ((this.a.x-this.b.x)*(this.a.x-this.b.x)+(this.a.y-this.b.y)*(this.a.y-this.b.y)>=this.length*this.length*CONNECTION_BREAK_DISTANCE_FACTOR[this.type]*CONNECTION_BREAK_DISTANCE_FACTOR[this.type]){
 				return true;
 			}
 		}
-		strokeWeight(4+(this._animation_time==-1?0:8*sin(this._animation_time/RESIZE_ANIMATION_TIME*PI)));
+		strokeWeight(CONNECTION_TYPE_WIDTH[this.type]+(this._animation_time==-1?0:8*sin(this._animation_time/RESIZE_ANIMATION_TIME*PI)));
 		stroke(CONNECTION_TYPE_COLORS[this.type]);
 		line(this.a.x/SCALE,this.a.y/SCALE,this.b.x/SCALE,this.b.y/SCALE);
 		return false;

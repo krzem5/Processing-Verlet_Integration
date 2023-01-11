@@ -277,7 +277,7 @@ class PointSelector{
 			}
 		}
 		else if ((this.engine.flags&FLAG_CREATE_CONNECTIONS)!=0&&this.dragged_point!=null){
-			strokeWeight(4);
+			strokeWeight(CONNECTION_TYPE_WIDTH[this.engine.connection_type]);
 			stroke(CONNECTION_TYPE_COLORS[this.engine.connection_type]);
 			draw_dashed_line(this.dragged_point.x/SCALE,this.dragged_point.y/SCALE,mouseX,mouseY,CONNECTION_CREATE_LINE_DASH,CONNECTION_CREATE_LINE_DASH);
 		}
