@@ -11,6 +11,13 @@ class Util{
 
 
 
+	static float adjust_curve(float t){
+		final float n=5;
+		return (n-pow(n,1-t))/(n-1);
+	}
+
+
+
 	private static boolean _is_counterclockwise(float ax,float ay,float bx,float by,float cx,float cy){
 		return (cy-ay)*(bx-ax)>(by-ay)*(cx-ax);
 	}

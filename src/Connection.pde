@@ -80,10 +80,15 @@ class Connection{
 
 	boolean draw(int flags){
 		float delta_distance=0;
-		if (ENABLE_CONNECTION_BREAKING&&(flags&FLAG_ENABLE_FORCES)!=0){
+		if ((flags&FLAG_ENABLE_FORCES)!=0){
 			delta_distance=sqrt((this.a.x-this.b.x)*(this.a.x-this.b.x)+(this.a.y-this.b.y)*(this.a.y-this.b.y))/this.length;
-			if (delta_distance>CONNECTION_BREAK_DISTANCE_FACTOR[this.type]){
-				return true;
+			if ((flags&FLAG_ENABLE_STRESS_BREAKS)!=0){
+				if (delta_distance>CONNECTION_BREAK_DISTANCE_FACTOR[this.type]){
+					return true;
+				}
+				if (delta_distance<CONNECTION_BREAK_COMPRESSION_FACTOR[this.type]){
+					return true;
+				}
 			}
 		}
 		strokeWeight(CONNECTION_TYPE_WIDTH[this.type]+(this._animation_time==-1?0:8*sin(this._animation_time/RESIZE_ANIMATION_TIME*PI)));
@@ -91,9 +96,17 @@ class Connection{
 			stroke(CONNECTION_TYPE_COLORS[this.type]);
 		}
 		else{
-			final float n=5;
-			float t=(n-pow(n,1-(max(delta_distance,1)-1)/(CONNECTION_BREAK_DISTANCE_FACTOR[this.type]-1)))/(n-1)*255;
-			stroke(t,128-t/2,0);
+			if (delta_distance>1){
+				float t=Util.adjust_curve(min((delta_distance-1)/(CONNECTION_BREAK_DISTANCE_FACTOR[this.type]-1),1))*255;
+				stroke(t,128-t/2,0);
+			}
+			else if (this.type!=CONNECTION_TYPE_STRING&&delta_distance<1){
+				float t=Util.adjust_curve(max(-(delta_distance-1)*CONNECTION_BREAK_DISTANCE_FACTOR[this.type],0))*255;
+				stroke(0,128-t/2,t);
+			}
+			else{
+				stroke(0,128,0);
+			}
 		}
 		line(this.a.x/SCALE,this.a.y/SCALE,this.b.x/SCALE,this.b.y/SCALE);
 		return false;

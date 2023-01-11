@@ -281,6 +281,12 @@ class PointSelector{
 			stroke(CONNECTION_TYPE_COLORS[this.engine.connection_type]);
 			draw_dashed_line(this.dragged_point.x/SCALE,this.dragged_point.y/SCALE,mouseX,mouseY,CONNECTION_CREATE_LINE_DASH,CONNECTION_CREATE_LINE_DASH);
 		}
+		else if ((this.engine.flags&FLAG_BREAK_CONNECTIONS)!=0){
+			strokeWeight(8);
+			stroke(0xaaff2f2f);
+			line(mouseX-10,mouseY-10,mouseX+10,mouseY+10);
+			line(mouseX-10,mouseY+10,mouseX+10,mouseY-10);
+		}
 	}
 
 

@@ -72,7 +72,8 @@ class Ui{
 		if ((this.engine.flags&FLAG_ENABLE_FORCES)==0){
 			text+="\n<#ffffff>G<!> — toggle grid";
 		}
-		else{
+		text+="\n<#ffffff>L<!> — toggle stress breaks";
+		if ((this.engine.flags&FLAG_ENABLE_FORCES)!=0){
 			text+="\n<#ffffff>M<!> — toggle stress";
 		}
 		text+="\n<#ffffff>S<!> — toggle connection type\n<#ffffff>W<!> — toggle wind";
@@ -91,7 +92,7 @@ class Ui{
 		else{
 			text+=String.format("\nStress: %s<!>",((this.engine.flags&FLAG_DRAW_STRESS)!=0?"<#42f342>On":"<#f34242>Off"));
 		}
-		text+=String.format("\nWind: %s<!>\nConnecion type: %s<!>\nMode: %s<!>\nSimulation: %s<!>",((this.engine.flags&FLAG_ENABLE_WIND)!=0?"<#42f342>On":"<#f34242>Off"),CONNECTION_TYPE_NAMES[this.engine.connection_type],((this.engine.flags&FLAG_BREAK_CONNECTIONS)!=0?"<#00ffff>Break":(this.engine.flags&FLAG_CREATE_CONNECTIONS)!=0?"<#ffff00>Create":"<#ffffff>N/A"),((this.engine.flags&FLAG_ENABLE_FORCES)!=0?"<#42f342>On":"<#f34242>Off"));
+		text+=String.format("\nStress breaks: %s<!>\nWind: %s<!>\nConnecion type: %s━━━<!>\nMode: %s<!>\nSimulation: %s<!>",((this.engine.flags&FLAG_ENABLE_STRESS_BREAKS)!=0?"<#42f342>On":"<#f34242>Off"),((this.engine.flags&FLAG_ENABLE_WIND)!=0?"<#42f342>On":"<#f34242>Off"),CONNECTION_TYPE_NAMES[this.engine.connection_type],((this.engine.flags&FLAG_BREAK_CONNECTIONS)!=0?"<#00ffff>Break":(this.engine.flags&FLAG_CREATE_CONNECTIONS)!=0?"<#ffff00>Create":"<#ffffff>N/A"),((this.engine.flags&FLAG_ENABLE_FORCES)!=0?"<#42f342>On":"<#f34242>Off"));
 		if (this.engine.point_selector.dragged_point!=null){
 			text+=String.format("\n\nForces: %s<!>\nCollision: %s<!>",(this.engine.point_selector.is_dragged_point_fixed()?"<#f34242>Off":"<#42f342>On"),(this.engine.point_selector.dragged_point.has_collision?"<#42f342>On":"<#f34242>Off"));
 		}

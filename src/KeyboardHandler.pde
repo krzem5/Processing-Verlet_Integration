@@ -77,6 +77,9 @@ class KeyboardHandler{
 				}
 				flag=(this.is_shift_pressed?FLAG_DRAW_GUIDES:FLAG_DRAW_GRID);
 				break;
+			case 'L':
+				flag=FLAG_ENABLE_STRESS_BREAKS;
+				break;
 			case 'M':
 				if ((this.engine.flags&FLAG_ENABLE_FORCES)==0){
 					return;
