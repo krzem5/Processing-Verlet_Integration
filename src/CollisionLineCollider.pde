@@ -42,7 +42,7 @@ class CollisionLineCollider{
 			}
 			p.x=intersection.x+c.normal_x*factor;
 			p.y=intersection.y+c.normal_y*factor;
-			reset_prev_pos=true;
+			p.prev_y=p.y;
 		}
 		if (reset_prev_pos){
 			p.prev_x=p.x;
