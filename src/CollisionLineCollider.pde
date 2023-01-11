@@ -27,7 +27,8 @@ class CollisionLineCollider{
 
 
 	void collide(Point p){
-		boolean reset_prev_pos=false;
+		boolean has_collision=false;
+		float collision_factor=0;
 		for (Connection c:this.lines){
 			if (p==c.a||p==c.b){
 				continue;
@@ -42,25 +43,11 @@ class CollisionLineCollider{
 			}
 			p.x=intersection.x+c.normal_x*factor;
 			p.y=intersection.y+c.normal_y*factor;
-			p.prev_y=p.y;
+			collision_factor+=c.normal_y*factor;
+			has_collision=true;
 		}
-		if (reset_prev_pos){
-			p.prev_x=p.x;
-			p.prev_y=p.y;
-		}
-	}
-
-
-
-	void draw(){
-		strokeWeight(10);
-		for (Connection c:this.lines){
-			stroke(#ff00ff);
-			line(c.a.x/SCALE,c.a.y/SCALE,c.b.x/SCALE,c.b.y/SCALE);
-			float cx=(c.a.x+c.b.x)/2/SCALE;
-			float cy=(c.a.y+c.b.y)/2/SCALE;
-			stroke(#ffff00);
-			line(cx,cy,cx+c.normal_x*30,cy+c.normal_y*30);
+		if (has_collision){
+			p.prev_y=p.y+collision_factor/RADIUS*5;
 		}
 	}
 }

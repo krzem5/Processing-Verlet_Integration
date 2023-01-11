@@ -6,12 +6,12 @@ class Util{
 
 
 	static PVector line_intersection_point(float ax,float ay,float bx,float by,float cx,float cy,float dx,float dy){
-		float det=1/((ax-bx)*(cy-dy)-(ay-by)*(cx-dx));
-		if (det==0){
+		float m=1/((ax-bx)*(cy-dy)-(ay-by)*(cx-dx));
+		if (m==0){
 			return null;
 		}
-		float t=((ax-cx)*(cy-dy)-(ay-cy)*(cx-dx))*det;
-		float u=((ax-cx)*(ay-by)-(ay-cy)*(ax-bx))*det;
+		float t=((ax-cx)*(cy-dy)-(ay-cy)*(cx-dx))*m;
+		float u=((ax-cx)*(ay-by)-(ay-cy)*(ax-bx))*m;
 		if (t<0||t>1||u<0||u>1){
 			return null;
 		}

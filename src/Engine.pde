@@ -47,7 +47,7 @@ class Engine{
 					p.x+=wind;
 				}
 			}
-			for (int idx=0;idx<400;idx++){
+			for (int idx=0;idx<200;idx++){
 				for (Connection c:this.connections){
 					c.update();
 				}
