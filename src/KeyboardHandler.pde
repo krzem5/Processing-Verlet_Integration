@@ -77,6 +77,12 @@ class KeyboardHandler{
 				}
 				flag=(this.is_shift_pressed?FLAG_DRAW_GUIDES:FLAG_DRAW_GRID);
 				break;
+			case 'M':
+				if ((this.engine.flags&FLAG_ENABLE_FORCES)==0){
+					return;
+				}
+				flag=FLAG_DRAW_STRESS;
+				break;
 			case 'O':
 				if (this.is_ctrl_pressed){
 					this.engine.load("v5");
