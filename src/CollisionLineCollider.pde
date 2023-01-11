@@ -47,7 +47,7 @@ class CollisionLineCollider{
 			has_collision=true;
 		}
 		if (has_collision){
-			p.prev_y=p.y+collision_factor/RADIUS*5;
+			p.prev_y=p.y+collision_factor;
 		}
 	}
 }
