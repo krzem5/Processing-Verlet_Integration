@@ -226,6 +226,7 @@ class PointSelector{
 			for (int i=0;i<this.engine.connections.size();i++){
 				Connection c=this.engine.connections.get(i);
 				if (c.a==this.dragged_point||c.b==this.dragged_point||Util.line_intersection(c.a.x,c.a.y,c.b.x,c.b.y,px,py,x,y)){
+					c.delete(this.engine);
 					this.engine.connections.remove(i);
 					i--;
 				}
@@ -247,7 +248,7 @@ class PointSelector{
 			if (target!=null&&d<MAX_CONNECTION_DISTANCE*MAX_CONNECTION_DISTANCE*SCALE*SCALE){
 				for (Connection c:this.engine.connections){
 					if ((c.a==target&&c.b==this.dragged_point)||(c.a==this.dragged_point&&c.b==target)){
-						c.type=this.engine.connection_type;
+						c.set_type(this.engine,this.engine.connection_type);
 						target=null;
 						break;
 					}
@@ -255,7 +256,9 @@ class PointSelector{
 				if (target!=null){
 					float dx=this.dragged_point.x-target.x;
 					float dy=this.dragged_point.y-target.y;
-					this.engine.connections.add(new Connection(this.dragged_point,target,sqrt(dx*dx+dy*dy),this.engine.connection_type));
+					Connection c=new Connection(this.dragged_point,target,sqrt(dx*dx+dy*dy));
+					c.set_type(this.engine,this.engine.connection_type);
+					this.engine.connections.add(c);
 				}
 			}
 		}

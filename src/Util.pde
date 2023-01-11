@@ -1,6 +1,6 @@
 class Util{
 	static boolean line_intersection(float ax,float ay,float bx,float by,float cx,float cy,float dx,float dy){
-		return Util._is_counterclockwise(ax,ay,cx,cy,dx,dy)!=Util._is_counterclockwise(bx,by,cx,cy,dx,dy)&&Util._is_counterclockwise(ax,ay,bx,by,cx,cy)!=Util._is_counterclockwise(ax,ay,bx,by,dx,dy);
+		return Util.is_counterclockwise(ax,ay,cx,cy,dx,dy)!=Util.is_counterclockwise(bx,by,cx,cy,dx,dy)&&Util.is_counterclockwise(ax,ay,bx,by,cx,cy)!=Util.is_counterclockwise(ax,ay,bx,by,dx,dy);
 	}
 
 
@@ -18,7 +18,7 @@ class Util{
 
 
 
-	private static boolean _is_counterclockwise(float ax,float ay,float bx,float by,float cx,float cy){
+	static boolean is_counterclockwise(float ax,float ay,float bx,float by,float cx,float cy){
 		return (cy-ay)*(bx-ax)>(by-ay)*(cx-ax);
 	}
 }

@@ -6,6 +6,7 @@ class Engine{
 	final PointSelector point_selector;
 	final KeyboardHandler keyboard_handler;
 	final SnapGrid snap_grid;
+	final CollisionLineCollider collision_line_collider;
 	String file_name;
 	int flags;
 	int connection_type;
@@ -21,6 +22,7 @@ class Engine{
 		this.point_selector=new PointSelector(this);
 		this.keyboard_handler=new KeyboardHandler(this);
 		this.snap_grid=new SnapGrid(this);
+		this.collision_line_collider=new CollisionLineCollider();
 		this.file_name=null;
 		this.flags=FLAG_ENABLE_WIND;
 		this.connection_type=CONNECTION_TYPE_WOOD;
@@ -53,6 +55,7 @@ class Engine{
 					p.constrain();
 					if (p.has_collision){
 						this.collision_grid.add(p);
+						this.collision_line_collider.collide(p);
 					}
 				}
 				this.collision_grid.update();
@@ -70,10 +73,12 @@ class Engine{
 		for (int i=0;i<this.connections.size();i++){
 			Connection c=this.connections.get(i);
 			if (c.draw(this.flags)){
+				c.delete(this);
 				this.connections.remove(i);
 				i--;
 			}
 		}
+		this.collision_line_collider.draw();
 		strokeWeight(4);
 		for (Point p:this.points){
 			if (p.has_collision){
@@ -123,7 +128,9 @@ class Engine{
 		}
 		for (int i=0;i<connections.size();i++){
 			JSONObject connections_data=connections.getJSONObject(i);
-			this.connections.add(new Connection(this.points.get(connections_data.getInt("a")),this.points.get(connections_data.getInt("b")),connections_data.getFloat("length"),connections_data.getInt("type")));
+			Connection c=new Connection(this.points.get(connections_data.getInt("a")),this.points.get(connections_data.getInt("b")),connections_data.getFloat("length"));
+			c.set_type(this,connections_data.getInt("type"));
+			this.connections.add(c);
 		}
 	}
 

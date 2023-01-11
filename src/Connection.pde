@@ -2,17 +2,44 @@ class Connection{
 	Point a;
 	Point b;
 	float length;
+	float distance;
 	int type;
+	float normal_x;
+	float normal_y;
 	private float _animation_time;
 
 
 
-	Connection(Point a,Point b,float length,int type){
+	Connection(Point a,Point b,float length){
 		this.a=a;
 		this.b=b;
 		this.length=length;
-		this.type=type;
+		this.distance=length;
+		this.type=-1;
 		this._animation_time=-1;
+	}
+
+
+
+	void delete(Engine engine){
+		if (this.type==CONNECTION_TYPE_ROAD){
+			engine.collision_line_collider.remove_connection(this);
+		}
+	}
+
+
+
+	void set_type(Engine engine,int type){
+		if (this.type==type){
+			return;
+		}
+		if (this.type==CONNECTION_TYPE_ROAD){
+			engine.collision_line_collider.remove_connection(this);
+		}
+		this.type=type;
+		if (this.type==CONNECTION_TYPE_ROAD){
+			engine.collision_line_collider.add_connection(this);
+		}
 	}
 
 
@@ -26,42 +53,54 @@ class Connection{
 			this._animation_time=0;
 		}
 		this.length=length;
+		this.distance=length;
 	}
 
 
 
 	void update(){
+		float distance_x=this.b.x-this.a.x;
+		float distance_y=this.b.y-this.a.y;
+		this.distance=sqrt(distance_x*distance_x+distance_y*distance_y);
 		if (this.a.fixed&&this.b.fixed){
 			return;
 		}
-		float distance_x=this.b.x-this.a.x;
-		float distance_y=this.b.y-this.a.y;
-		float distance=distance_x*distance_x+distance_y*distance_y;
-		if (this.type==CONNECTION_TYPE_STRING&&distance<=this.length*this.length){
+		if (this.type==CONNECTION_TYPE_STRING&&this.distance<=this.length){
 			return;
 		}
-		if (distance==0){
+		if (this.distance==0){
 			if (!this.a.fixed){
 				this.a.x--;
 			}
 			if (!this.b.fixed){
 				this.b.x++;
 			}
+			this.normal_x=0;
+			this.normal_y=1;
 			return;
 		}
-		distance=1-this.length/sqrt(distance);
+		float adjust=1-this.length/this.distance;
 		if (!this.a.fixed&&!this.b.fixed){
-			distance/=2;
+			adjust/=2;
 		}
-		distance_x*=distance;
-		distance_y*=distance;
+		float adjust_x=distance_x*adjust;
+		float adjust_y=distance_y*adjust;
 		if (!this.a.fixed){
-			this.a.x+=distance_x;
-			this.a.y+=distance_y;
+			this.a.x+=adjust_x;
+			this.a.y+=adjust_y;
 		}
 		if (!this.b.fixed){
-			this.b.x-=distance_x;
-			this.b.y-=distance_y;
+			this.b.x-=adjust_x;
+			this.b.y-=adjust_y;
+		}
+		if (this.type!=CONNECTION_TYPE_ROAD){
+			return;
+		}
+		this.normal_x=distance_y/this.distance;
+		this.normal_y=distance_x/this.distance;
+		if (this.normal_y<0){
+			this.normal_x=-this.normal_x;
+			this.normal_y=-this.normal_y;
 		}
 	}
 
@@ -83,7 +122,7 @@ class Connection{
 		if ((flags&FLAG_ENABLE_FORCES)!=0){
 			delta_distance=sqrt((this.a.x-this.b.x)*(this.a.x-this.b.x)+(this.a.y-this.b.y)*(this.a.y-this.b.y))/this.length;
 			if ((flags&FLAG_ENABLE_STRESS_BREAKS)!=0){
-				if (delta_distance>CONNECTION_BREAK_DISTANCE_FACTOR[this.type]){
+				if (delta_distance>CONNECTION_BREAK_TENSION_FACTOR[this.type]){
 					return true;
 				}
 				if (delta_distance<CONNECTION_BREAK_COMPRESSION_FACTOR[this.type]){
@@ -97,11 +136,11 @@ class Connection{
 		}
 		else{
 			if (delta_distance>1){
-				float t=Util.adjust_curve(min((delta_distance-1)/(CONNECTION_BREAK_DISTANCE_FACTOR[this.type]-1),1))*255;
+				float t=Util.adjust_curve(min((delta_distance-1)/(CONNECTION_BREAK_TENSION_FACTOR[this.type]-1),1))*255;
 				stroke(t,128-t/2,0);
 			}
-			else if (this.type!=CONNECTION_TYPE_STRING&&delta_distance<1){
-				float t=Util.adjust_curve(max(-(delta_distance-1)*CONNECTION_BREAK_DISTANCE_FACTOR[this.type],0))*255;
+			else if (CONNECTION_BREAK_COMPRESSION_FACTOR[this.type]>0&&delta_distance<1){
+				float t=Util.adjust_curve(min((delta_distance-1)/(CONNECTION_BREAK_COMPRESSION_FACTOR[this.type]-1),1))*255;
 				stroke(0,128-t/2,t);
 			}
 			else{
