@@ -110,6 +110,7 @@ class Engine{
 
 	void load(String file_name){
 		this.point_selector.deselect();
+		this.collision_line_collider.reset();
 		this.points.clear();
 		this.connections.clear();
 		this.file_name=file_name;

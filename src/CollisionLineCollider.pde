@@ -9,6 +9,12 @@ class CollisionLineCollider{
 
 
 
+	void reset(){
+		this.lines.clear();
+	}
+
+
+
 	void add_connection(Connection c){
 		this.lines.add(c);
 	}
