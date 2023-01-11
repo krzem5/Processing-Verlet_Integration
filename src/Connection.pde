@@ -4,6 +4,7 @@ class Connection{
 	float length;
 	int type;
 	private float _animation_time;
+	private boolean _delete;
 
 
 
@@ -13,6 +14,7 @@ class Connection{
 		this.length=length;
 		this.type=type;
 		this._animation_time=-1;
+		this._delete=false;
 	}
 
 
@@ -39,6 +41,9 @@ class Connection{
 		float distance=distance_x*distance_x+distance_y*distance_y;
 		if (this.type==CONNECTION_TYPE_STRING&&distance<=this.length*this.length){
 			return;
+		}
+		if (this.type==CONNECTION_TYPE_WOOD){
+			this._delete=(distance>=(this.length+CONNECTION_BREAK_DISTANCE_BUFFER)*(this.length+CONNECTION_BREAK_DISTANCE_BUFFER));
 		}
 		if (distance==0){
 			if (!this.a.fixed){
@@ -78,9 +83,13 @@ class Connection{
 
 
 
-	void draw(){
+	boolean draw(){
+		if (this._delete){
+			return true;
+		}
 		strokeWeight(4+(this._animation_time==-1?0:8*sin(this._animation_time/RESIZE_ANIMATION_TIME*PI)));
 		stroke(CONNECTION_TYPE_COLORS[this.type]);
 		line(this.a.x/SCALE,this.a.y/SCALE,this.b.x/SCALE,this.b.y/SCALE);
+		return true;
 	}
 }

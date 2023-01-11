@@ -67,8 +67,12 @@ class Engine{
 		if ((this.flags&(FLAG_DRAW_GRID|FLAG_ENABLE_FORCES))==FLAG_DRAW_GRID){
 			this.snap_grid.draw();
 		}
-		for (Connection c:this.connections){
-			c.draw();
+		for (int i=0;i<this.connections.size();i++){
+			Connection c=this.connections.get(i);
+			if (c.draw()){
+				this.connections.remove(i);
+				i--;
+			}
 		}
 		strokeWeight(4);
 		for (Point p:this.points){

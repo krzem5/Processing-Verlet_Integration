@@ -37,6 +37,7 @@ final String CONNECTION_TYPE_NAMES[]={"String <#beac6e>━━━","Wood <#954b4b
 final color CONNECTION_TYPE_COLORS[]={0x90beac6e,0xa0954b4b,0xff68605c};
 
 final float CONNECTION_CREATE_LINE_DASH=25;
+final float CONNECTION_BREAK_DISTANCE_BUFFER=50;
 
 
 
