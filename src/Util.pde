@@ -5,6 +5,21 @@ class Util{
 
 
 
+	static PVector line_intersection_point(float ax,float ay,float bx,float by,float cx,float cy,float dx,float dy){
+		float det=1/((ax-bx)*(cy-dy)-(ay-by)*(cx-dx));
+		if (det==0){
+			return null;
+		}
+		float t=((ax-cx)*(cy-dy)-(ay-cy)*(cx-dx))*det;
+		float u=((ax-cx)*(ay-by)-(ay-cy)*(ax-bx))*det;
+		if (t<0||t>1||u<0||u>1){
+			return null;
+		}
+		return new PVector(ax+t*(bx-ax),ay+t*(by-ay));
+	}
+
+
+
 	static float generate_wind_wave(float time){
 		return (0.5+sin(time/5))*(0.7+sin(time/0.37))*(0.5+cos(time/4.1));
 	}

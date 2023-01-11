@@ -78,7 +78,7 @@ class Engine{
 				i--;
 			}
 		}
-		this.collision_line_collider.draw();
+
 		strokeWeight(4);
 		for (Point p:this.points){
 			if (p.has_collision){

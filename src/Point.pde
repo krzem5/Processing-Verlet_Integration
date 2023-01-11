@@ -6,8 +6,8 @@ class Point{
 	Point _next_point;
 	boolean _deleted;
 	int _index;
-	private float _prev_x;
-	private float _prev_y;
+	float prev_x;
+	float prev_y;
 
 
 
@@ -17,8 +17,8 @@ class Point{
 		this.fixed=fixed;
 		this.has_collision=has_collision;
 		this._deleted=false;
-		this._prev_x=x;
-		this._prev_y=y;
+		this.prev_x=x;
+		this.prev_y=y;
 	}
 
 
@@ -26,20 +26,20 @@ class Point{
 	void constrain(){
 		if (this.x<RADIUS*SCALE){
 			this.x=RADIUS*SCALE;
-			this._prev_x=this.x;
+			this.prev_x=this.x;
 		}
 		else if (this.x>(width-RADIUS)*SCALE){
 			this.x=(width-RADIUS)*SCALE;
-			this._prev_x=this.x;
+			this.prev_x=this.x;
 		}
 		if (this.y<RADIUS*SCALE){
 			this.y=RADIUS*SCALE;
-			this._prev_y=this.y;
+			this.prev_y=this.y;
 		}
 		else if (this.y>(height-RADIUS-GROUND_Y_OFFSET)*SCALE){
 			this.y=(height-RADIUS-GROUND_Y_OFFSET)*SCALE;
-			this._prev_x=this.x;
-			this._prev_y=this.y;
+			this.prev_x=this.x;
+			this.prev_y=this.y;
 		}
 	}
 
@@ -49,10 +49,10 @@ class Point{
 		if (this.fixed){
 			return;
 		}
-		float vx=this.x-this._prev_x;
-		float vy=this.y-this._prev_y;
-		this._prev_x=this.x;
-		this._prev_y=this.y;
+		float vx=this.x-this.prev_x;
+		float vy=this.y-this.prev_y;
+		this.prev_x=this.x;
+		this.prev_y=this.y;
 		this.x+=vx*DRAG;
 		this.y+=vy*DRAG+GRAVITY*dt;
 	}

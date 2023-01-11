@@ -96,12 +96,8 @@ class Connection{
 		if (this.type!=CONNECTION_TYPE_ROAD){
 			return;
 		}
-		this.normal_x=distance_y/this.distance;
+		this.normal_x=-distance_y/this.distance;
 		this.normal_y=distance_x/this.distance;
-		if (this.normal_y<0){
-			this.normal_x=-this.normal_x;
-			this.normal_y=-this.normal_y;
-		}
 	}
 
 

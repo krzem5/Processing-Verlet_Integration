@@ -206,8 +206,8 @@ class PointSelector{
 			if (this.dragged_point!=null){
 				this.dragged_point.x=(this.engine.keyboard_handler.is_shift_pressed?this.engine.snap_grid.snap_x(mouseX+this._drag_offset_x)*SCALE:x+this._drag_offset_x*SCALE);
 				this.dragged_point.y=(this.engine.keyboard_handler.is_shift_pressed?this.engine.snap_grid.snap_y(mouseY+this._drag_offset_y)*SCALE:y+this._drag_offset_y*SCALE);
-				this.dragged_point._prev_x=this.dragged_point.x;
-				this.dragged_point._prev_y=this.dragged_point.y;
+				this.dragged_point.prev_x=this.dragged_point.x;
+				this.dragged_point.prev_y=this.dragged_point.y;
 			}
 			else if (this.dragged_points!=null&&this._region_start_x!=-1){
 				this.dragged_points.clear();
