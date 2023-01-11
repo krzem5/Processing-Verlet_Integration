@@ -37,7 +37,7 @@ class Engine{
 		}
 		if ((this.flags&FLAG_ENABLE_FORCES)!=0){
 			this._wind_time+=delta_time;
-			float wind=Util.generate_wind_wave(this._wind_time)*0.6*SCALE;
+			float wind=Util.generate_wind_wave(this._wind_time)*0.6*SCALE*20;
 			for (Point p:this.points){
 				if (p.fixed){
 					continue;
@@ -45,6 +45,7 @@ class Engine{
 				p.update(delta_time);
 				if ((this.flags&FLAG_ENABLE_WIND)!=0){
 					p.x+=wind;
+					p.y+=wind*cos(this._wind_time*0.1);
 				}
 			}
 			for (int idx=0;idx<200;idx++){
