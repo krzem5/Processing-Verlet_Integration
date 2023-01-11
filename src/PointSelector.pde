@@ -244,9 +244,10 @@ class PointSelector{
 					target=p;
 				}
 			}
-			if (target!=null&&d<MAX_CONNECTION_DISTANCE*SCALE){
+			if (target!=null&&d<MAX_CONNECTION_DISTANCE*MAX_CONNECTION_DISTANCE*SCALE*SCALE){
 				for (Connection c:this.engine.connections){
 					if ((c.a==target&&c.b==this.dragged_point)||(c.a==this.dragged_point&&c.b==target)){
+						c.type=this.engine.connection_type;
 						target=null;
 						break;
 					}
@@ -274,6 +275,11 @@ class PointSelector{
 			for (Point p:this.dragged_points){
 				circle(p.x/SCALE,p.y/SCALE,RADIUS*2);
 			}
+		}
+		else if ((this.engine.flags&FLAG_CREATE_CONNECTIONS)!=0&&this.dragged_point!=null){
+			strokeWeight(4);
+			stroke(CONNECTION_TYPE_COLORS[this.engine.connection_type]);
+			draw_dashed_line(this.dragged_point.x/SCALE,this.dragged_point.y/SCALE,mouseX,mouseY,CONNECTION_CREATE_LINE_DASH,CONNECTION_CREATE_LINE_DASH);
 		}
 	}
 

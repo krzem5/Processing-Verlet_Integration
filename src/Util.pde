@@ -15,3 +15,20 @@ class Util{
 		return (cy-ay)*(bx-ax)>(by-ay)*(cx-ax);
 	}
 }
+
+
+
+void draw_dashed_line(float sx,float sy,float ex,float ey,float on,float off){
+	float dx=ex-sx;
+	float dy=ey-sy;
+	float length=sqrt(dx*dx+dy*dy);
+	dx/=length;
+	dy/=length;
+	for (float offset=0;offset<length;offset+=on+off){
+		float end=offset+on;
+		if (end>length){
+			end=length;
+		}
+		line(sx+dx*offset,sy+dy*offset,sx+dx*end,sy+dy*end);
+	}
+}
