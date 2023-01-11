@@ -88,7 +88,7 @@ class KeyboardHandler{
 				break;
 			case 'O':
 				if (this.is_ctrl_pressed){
-					this.engine.load("v5");
+					this.engine.load(DEFUALT_OPEN_FILE_PATH);
 				}
 				return;
 			case 'Q':

@@ -43,6 +43,8 @@ final float CONNECTION_CREATE_LINE_DASH=25;
 final float CONNECTION_BREAK_TENSION_FACTOR[]={1.2,1.6,3};
 final float CONNECTION_BREAK_COMPRESSION_FACTOR[]={-1,0.6,0.8};
 
+final String DEFUALT_OPEN_FILE_PATH="v5";
+
 
 
 float _last_time;
@@ -55,6 +57,7 @@ void setup(){
 	fullScreen();
 	_last_time=millis();
 	engine=new Engine();
+	engine.load(DEFUALT_OPEN_FILE_PATH);
 }
 
 
