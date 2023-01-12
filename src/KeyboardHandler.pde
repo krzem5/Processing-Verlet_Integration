@@ -46,16 +46,36 @@ class KeyboardHandler{
 				this.engine.point_selector.delete();
 				return;
 			case UP:
-				this.engine.point_selector.move(0,-1);
+				if (!this.is_shift_pressed&&!this.is_ctrl_pressed){
+					this.engine.point_selector.move(0,-1);
+				}
+				else if (this.is_ctrl_pressed){
+					this.engine.point_selector.flip_vertically();
+				}
 				return;
 			case DOWN:
-				this.engine.point_selector.move(0,1);
+				if (!this.is_shift_pressed&&!this.is_ctrl_pressed){
+					this.engine.point_selector.move(0,1);
+				}
+				else if (this.is_ctrl_pressed){
+					this.engine.point_selector.flip_vertically();
+				}
 				return;
 			case LEFT:
-				this.engine.point_selector.move(-1,0);
+				if (!this.is_shift_pressed&&!this.is_ctrl_pressed){
+					this.engine.point_selector.move(-1,0);
+				}
+				else if (this.is_ctrl_pressed){
+					this.engine.point_selector.flip_horizontally();
+				}
 				return;
 			case RIGHT:
-				this.engine.point_selector.move(1,0);
+				if (!this.is_shift_pressed&&!this.is_ctrl_pressed){
+					this.engine.point_selector.move(1,0);
+				}
+				else if (this.is_ctrl_pressed){
+					this.engine.point_selector.flip_horizontally();
+				}
 				return;
 			case 'C':
 				flag=FLAG_CREATE_CONNECTIONS;

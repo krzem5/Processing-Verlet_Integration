@@ -197,6 +197,32 @@ class PointSelector{
 
 
 
+	void flip_vertically(){
+		if (this.dragged_points==null){
+			return;
+		}
+		AABB aabb=this._get_selection_aabb();
+		for (Point point:this.dragged_points){
+			point.y=map(point.y,aabb.ay,aabb.by,aabb.by,aabb.ay);
+			point.prev_y=map(point.prev_y,aabb.ay,aabb.by,aabb.by,aabb.ay);
+		}
+	}
+
+
+
+	void flip_horizontally(){
+		if (this.dragged_points==null){
+			return;
+		}
+		AABB aabb=this._get_selection_aabb();
+		for (Point point:this.dragged_points){
+			point.x=map(point.x,aabb.ax,aabb.bx,aabb.bx,aabb.ax);
+			point.prev_x=map(point.prev_x,aabb.ax,aabb.bx,aabb.bx,aabb.ax);
+		}
+	}
+
+
+
 	void update(){
 		float x=mouseX*SCALE;
 		float y=mouseY*SCALE;
@@ -307,6 +333,21 @@ class PointSelector{
 			}
 		}
 		return (d<MAX_CONNECTION_DISTANCE*SCALE?target:null);
+	}
+
+
+
+	private AABB _get_selection_aabb(){
+		AABB out=null;
+		for (Point point:this.dragged_points){
+			if (out==null){
+				out=new AABB(point.x,point.y,point.x,point.y);
+			}
+			else{
+				out.add(point.x,point.y);
+			}
+		}
+		return out;
 	}
 }
 
