@@ -14,7 +14,7 @@ class Connection{
 	private float _piston_extended_time;
 	private float _piston_retracted_time;
 	private float _piston_movement_time;
-	private float _bungee_rope_strength;
+	private float _spring_strength;
 
 
 
@@ -32,7 +32,7 @@ class Connection{
 		this._piston_extended_time=1.5;
 		this._piston_retracted_time=0.5;
 		this._piston_movement_time=1;
-		this._bungee_rope_strength=0.0001;
+		this._spring_strength=1;
 	}
 
 
@@ -47,8 +47,8 @@ class Connection{
 			this._piston_retracted_time=data.getFloat("piston_retracted_time");
 			this._piston_movement_time=data.getFloat("piston_movement_time");
 		}
-		else if (this.type==CONNECTION_TYPE_BUNGEE_ROPE){
-			this._bungee_rope_strength=data.getFloat("bungee_strength");
+		else if (this.type==CONNECTION_TYPE_BUNGEE_ROPE||this.type==CONNECTION_TYPE_SPRING){
+			this._spring_strength=data.getFloat("spring_strength");
 		}
 	}
 
@@ -64,8 +64,8 @@ class Connection{
 			data.setFloat("piston_retracted_time",this._piston_retracted_time);
 			data.setFloat("piston_movement_time",this._piston_movement_time);
 		}
-		else if (this.type==CONNECTION_TYPE_BUNGEE_ROPE){
-			data.setFloat("bungee_strength",this._bungee_rope_strength);
+		else if (this.type==CONNECTION_TYPE_BUNGEE_ROPE||this.type==CONNECTION_TYPE_SPRING){
+			data.setFloat("spring_strength",this._spring_strength);
 		}
 	}
 
@@ -82,6 +82,14 @@ class Connection{
 	void set_type(Engine engine,int type){
 		if (this.type==type){
 			return;
+		}
+		if (this.type==-1){
+			if (type==CONNECTION_TYPE_BUNGEE_ROPE){
+				this._spring_strength=0.0001;
+			}
+			else{
+				this._spring_strength=0.001;
+			}
 		}
 		if (this.type==CONNECTION_TYPE_ROAD){
 			engine.collision_line_collider.remove_connection(this);
@@ -134,8 +142,8 @@ class Connection{
 		if (!this.a.fixed&&!this.b.fixed){
 			adjust/=2;
 		}
-		if (this.type==CONNECTION_TYPE_BUNGEE_ROPE){
-			adjust*=this._bungee_rope_strength;
+		if (this.type==CONNECTION_TYPE_BUNGEE_ROPE||this.type==CONNECTION_TYPE_SPRING){
+			adjust*=this._spring_strength;
 		}
 		float adjust_x=distance_x*adjust;
 		float adjust_y=distance_y*adjust;

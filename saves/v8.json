@@ -237,7 +237,7 @@
     {
       "a": 36,
       "b": 25,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 0.25999921560287476,
       "type": 5
     },
@@ -250,70 +250,70 @@
     {
       "a": 30,
       "b": 31,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 2.2400002479553223,
       "type": 5
     },
     {
       "a": 30,
       "b": 32,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 2.32963490486145,
       "type": 5
     },
     {
       "a": 30,
       "b": 39,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 2.4552199840545654,
       "type": 5
     },
     {
       "a": 30,
       "b": 33,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 2.615835189819336,
       "type": 5
     },
     {
       "a": 30,
       "b": 34,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 2.8786275386810303,
       "type": 5
     },
     {
       "a": 30,
       "b": 38,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 3.244272232055664,
       "type": 5
     },
     {
       "a": 30,
       "b": 35,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 3.5966246128082275,
       "type": 5
     },
     {
       "a": 30,
       "b": 37,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 3.9354782104492188,
       "type": 5
     },
     {
       "a": 30,
       "b": 36,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 4.266205310821533,
       "type": 5
     },
     {
       "a": 41,
       "b": 42,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 0.1529720276594162,
       "type": 5
     },
@@ -548,7 +548,7 @@
     {
       "a": 61,
       "b": 40,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 0.4123093783855438,
       "type": 5
     },
@@ -675,182 +675,182 @@
     {
       "a": 74,
       "b": 62,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 6.7504072189331055,
       "type": 5
     },
     {
       "a": 74,
       "b": 0,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 7.922826766967773,
       "type": 5
     },
     {
       "a": 74,
       "b": 75,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 4.525483131408691,
       "type": 5
     },
     {
       "a": 74,
       "b": 61,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 4.4135355949401855,
       "type": 5
     },
     {
       "a": 74,
       "b": 47,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 4.074487686157227,
       "type": 5
     },
     {
       "a": 74,
       "b": 60,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 3.772275447845459,
       "type": 5
     },
     {
       "a": 74,
       "b": 43,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 3.489661455154419,
       "type": 5
     },
     {
       "a": 74,
       "b": 59,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 3.2396080493927,
       "type": 5
     },
     {
       "a": 74,
       "b": 48,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 2.9887263774871826,
       "type": 5
     },
     {
       "a": 74,
       "b": 58,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 2.8033628463745117,
       "type": 5
     },
     {
       "a": 74,
       "b": 44,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 2.660442590713501,
       "type": 5
     },
     {
       "a": 74,
       "b": 57,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 2.5755865573883057,
       "type": 5
     },
     {
       "a": 74,
       "b": 49,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 2.5542240142822266,
       "type": 5
     },
     {
       "a": 74,
       "b": 56,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 2.5982353687286377,
       "type": 5
     },
     {
       "a": 74,
       "b": 45,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 2.700627565383911,
       "type": 5
     },
     {
       "a": 74,
       "b": 55,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 2.858704090118408,
       "type": 5
     },
     {
       "a": 74,
       "b": 50,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 3.0680510997772217,
       "type": 5
     },
     {
       "a": 74,
       "b": 53,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 3.315802574157715,
       "type": 5
     },
     {
       "a": 74,
       "b": 46,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 3.581617832183838,
       "type": 5
     },
     {
       "a": 74,
       "b": 51,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 3.8932042121887207,
       "type": 5
     },
     {
       "a": 74,
       "b": 54,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 4.193267822265625,
       "type": 5
     },
     {
       "a": 74,
       "b": 52,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 4.483192443847656,
       "type": 5
     },
     {
       "a": 74,
       "b": 31,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 4.710492134094238,
       "type": 5
     },
     {
       "a": 74,
       "b": 40,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 4.757141590118408,
       "type": 5
     },
     {
       "a": 74,
       "b": 30,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 4.526379585266113,
       "type": 5
     },
     {
       "a": 74,
       "b": 32,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 5.286681175231934,
       "type": 5
     },
@@ -911,98 +911,98 @@
     {
       "a": 75,
       "b": 73,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 5.442351818084717,
       "type": 5
     },
     {
       "a": 75,
       "b": 67,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 5.16975736618042,
       "type": 5
     },
     {
       "a": 75,
       "b": 72,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 4.908115386962891,
       "type": 5
     },
     {
       "a": 75,
       "b": 68,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 4.659270286560059,
       "type": 5
     },
     {
       "a": 75,
       "b": 71,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 4.425379276275635,
       "type": 5
     },
     {
       "a": 75,
       "b": 69,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 4.050876617431641,
       "type": 5
     },
     {
       "a": 75,
       "b": 70,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 3.6938862800598145,
       "type": 5
     },
     {
       "a": 75,
       "b": 66,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 3.1999988555908203,
       "type": 5
     },
     {
       "a": 75,
       "b": 65,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 2.8889076709747314,
       "type": 5
     },
     {
       "a": 75,
       "b": 64,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 2.7748160362243652,
       "type": 5
     },
     {
       "a": 75,
       "b": 40,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 2.7340807914733887,
       "type": 5
     },
     {
       "a": 75,
       "b": 61,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 2.8495278358459473,
       "type": 5
     },
     {
       "a": 30,
       "b": 52,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 2.330484628677368,
       "type": 5
     },
     {
       "a": 64,
       "b": 40,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 0.34928521513938904,
       "type": 5
     },
@@ -1081,35 +1081,35 @@
     {
       "a": 75,
       "b": 79,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 6.447876453399658,
       "type": 5
     },
     {
       "a": 75,
       "b": 80,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 6.183022499084473,
       "type": 5
     },
     {
       "a": 75,
       "b": 81,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 5.88868522644043,
       "type": 5
     },
     {
       "a": 75,
       "b": 82,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 5.643394470214844,
       "type": 5
     },
     {
       "a": 75,
       "b": 78,
-      "bungee_strength": 5.000000237487257E-4,
+      "spring_strength": 5.000000237487257E-4,
       "length": 6.705395221710205,
       "type": 5
     },
