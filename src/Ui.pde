@@ -69,7 +69,7 @@ class Ui{
 			text+="\n<#ffffff>Left<!>, <#ffffff>Right<!>, <#ffffff>Up<!>, <#ffffff>Down<!> — move all points\n<#ffffff>Q<!> — deselect all points";
 		}
 		if (this.engine.point_selector.dragged_points!=null){
-			text+="\n<#ffffff>Shift + Left<!>, <#ffffff>Shift + Right<!> — rotate -90°, rotate +90°\n<#ffffff>Shift + Up<!>, <#ffffff>Shift + Down<!> — rotate 180°\n<#ffffff>Ctrl + Left<!>, <#ffffff>Ctrl + Right<!> — flip points horizontally\n<#ffffff>Ctrl + Up<!>, <#ffffff>Ctrl + Down<!> — flip points vertically";
+			text+="\n<#ffffff>Ctrl + Shift + Left<!>, <#ffffff>Ctrl + Shift + Right<!> — rotate -45°, rotate +45°\n<#ffffff>Shift + Left<!>, <#ffffff>Shift + Right<!> — rotate -90°, rotate +90°\n<#ffffff>Shift + Up<!>, <#ffffff>Shift + Down<!> — rotate 180°\n<#ffffff>Ctrl + Left<!>, <#ffffff>Ctrl + Right<!> — flip points horizontally\n<#ffffff>Ctrl + Up<!>, <#ffffff>Ctrl + Down<!> — flip points vertically";
 		}
 		text+="\n\n<#ffffff>F<!> — toggle forces\n<#ffffff>X<!> — toggle collision\n<#ffffff>Shift + F<!> — enable forces\n<#ffffff>Shift + X<!> — disable collision\n\n<#ffffff>C<!> — toggle 'connection' mode\n<#ffffff>D<!> — toggle 'break' mode\n<#ffffff>E<!> — toggle simulation";
 		if ((this.engine.flags&FLAG_ENABLE_FORCES)==0){
