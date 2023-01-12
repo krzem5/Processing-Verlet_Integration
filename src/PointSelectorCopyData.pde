@@ -33,8 +33,7 @@ class PointSelectorCopyData{
 			if (connection.a.copy_index==-1||connection.b.copy_index==-1){
 				continue;
 			}
-			PointSelectorCopyDataConnection copy_connection=new PointSelectorCopyDataConnection(connection.a.copy_index,connection.b.copy_index,connection.length,connection.type);
-			this._connections.add(copy_connection);
+			this._connections.add(new PointSelectorCopyDataConnection(connection.a.copy_index,connection.b.copy_index,connection.length,connection.type,connection.get_extra_data().copy()));
 		}
 	}
 
@@ -52,6 +51,7 @@ class PointSelectorCopyData{
 		for (PointSelectorCopyDataConnection connection:this._connections){
 			Connection new_connection=new Connection(engine.points.get(this._points.get(connection.a).new_index),engine.points.get(this._points.get(connection.b).new_index),connection.length);
 			new_connection.set_type(engine,connection.type);
+			new_connection.set_extra_data(connection.extra_data.copy());
 			engine.connections.add(new_connection);
 		}
 	}

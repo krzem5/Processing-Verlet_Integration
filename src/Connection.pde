@@ -7,14 +7,7 @@ class Connection{
 	float normal_x;
 	float normal_y;
 	private float _animation_time;
-	private float _raw_length;
-	private float _piston_time;
-	private float _piston_offset;
-	private float _piston_length_multiplier;
-	private float _piston_extended_time;
-	private float _piston_retracted_time;
-	private float _piston_movement_time;
-	private float _spring_strength;
+	private ExtraConnectionData _extra_data;
 
 
 
@@ -25,30 +18,23 @@ class Connection{
 		this.distance=length;
 		this.type=-1;
 		this._animation_time=-1;
-		this._raw_length=length;
-		this._piston_time=0;
-		this._piston_offset=0;
-		this._piston_length_multiplier=2.5;
-		this._piston_extended_time=1.5;
-		this._piston_retracted_time=0.5;
-		this._piston_movement_time=1;
-		this._spring_strength=1;
+		this._extra_data=new ExtraConnectionData(length);
 	}
 
 
 
 	void load_data(JSONObject data){
 		if (this.type==CONNECTION_TYPE_PISTON){
-			this._raw_length=data.getFloat("piston_length");
-			this._piston_offset=data.getFloat("piston_offset");
-			this._piston_time=data.getFloat("piston_time");
-			this._piston_length_multiplier=data.getFloat("piston_length_multiplier");
-			this._piston_extended_time=data.getFloat("piston_extended_time");
-			this._piston_retracted_time=data.getFloat("piston_retracted_time");
-			this._piston_movement_time=data.getFloat("piston_movement_time");
+			this._extra_data.raw_length=data.getFloat("piston_length");
+			this._extra_data.piston_offset=data.getFloat("piston_offset");
+			this._extra_data.piston_time=data.getFloat("piston_time");
+			this._extra_data.piston_length_multiplier=data.getFloat("piston_length_multiplier");
+			this._extra_data.piston_extended_time=data.getFloat("piston_extended_time");
+			this._extra_data.piston_retracted_time=data.getFloat("piston_retracted_time");
+			this._extra_data.piston_movement_time=data.getFloat("piston_movement_time");
 		}
 		else if (this.type==CONNECTION_TYPE_BUNGEE_ROPE||this.type==CONNECTION_TYPE_SPRING){
-			this._spring_strength=data.getFloat("spring_strength");
+			this._extra_data.spring_strength=data.getFloat("spring_strength");
 		}
 	}
 
@@ -56,17 +42,29 @@ class Connection{
 
 	void save_data(JSONObject data){
 		if (this.type==CONNECTION_TYPE_PISTON){
-			data.setFloat("piston_length",this._raw_length);
-			data.setFloat("piston_offset",this._piston_offset);
-			data.setFloat("piston_time",this._piston_time);
-			data.setFloat("piston_length_multiplier",this._piston_length_multiplier);
-			data.setFloat("piston_extended_time",this._piston_extended_time);
-			data.setFloat("piston_retracted_time",this._piston_retracted_time);
-			data.setFloat("piston_movement_time",this._piston_movement_time);
+			data.setFloat("piston_length",this._extra_data.raw_length);
+			data.setFloat("piston_offset",this._extra_data.piston_offset);
+			data.setFloat("piston_time",this._extra_data.piston_time);
+			data.setFloat("piston_length_multiplier",this._extra_data.piston_length_multiplier);
+			data.setFloat("piston_extended_time",this._extra_data.piston_extended_time);
+			data.setFloat("piston_retracted_time",this._extra_data.piston_retracted_time);
+			data.setFloat("piston_movement_time",this._extra_data.piston_movement_time);
 		}
 		else if (this.type==CONNECTION_TYPE_BUNGEE_ROPE||this.type==CONNECTION_TYPE_SPRING){
-			data.setFloat("spring_strength",this._spring_strength);
+			data.setFloat("spring_strength",this._extra_data.spring_strength);
 		}
+	}
+
+
+
+	ExtraConnectionData get_extra_data(){
+		return this._extra_data;
+	}
+
+
+
+	void set_extra_data(ExtraConnectionData data){
+		this._extra_data=data;
 	}
 
 
@@ -85,10 +83,10 @@ class Connection{
 		}
 		if (this.type==-1){
 			if (type==CONNECTION_TYPE_BUNGEE_ROPE){
-				this._spring_strength=0.0001;
+				this._extra_data.spring_strength=0.0001;
 			}
 			else{
-				this._spring_strength=0.001;
+				this._extra_data.spring_strength=0.001;
 			}
 		}
 		if (this.type==CONNECTION_TYPE_ROAD){
@@ -112,7 +110,7 @@ class Connection{
 		}
 		this.length=length;
 		this.distance=length;
-		this._raw_length=length;
+		this._extra_data.raw_length=length;
 	}
 
 
@@ -143,7 +141,7 @@ class Connection{
 			adjust/=2;
 		}
 		if (this.type==CONNECTION_TYPE_BUNGEE_ROPE||this.type==CONNECTION_TYPE_SPRING){
-			adjust*=this._spring_strength;
+			adjust*=this._extra_data.spring_strength;
 		}
 		float adjust_x=distance_x*adjust;
 		float adjust_y=distance_y*adjust;
@@ -172,23 +170,23 @@ class Connection{
 			return;
 		}
 		if ((flags&FLAG_ENABLE_FORCES)!=0&&(!this.a.fixed||!this.b.fixed)){
-			float total_time=this._piston_extended_time+this._piston_retracted_time+2*this._piston_movement_time;
-			this._piston_time=(this._piston_time+delta_time)%total_time;
-			float offset=this._piston_time-this._piston_offset+total_time;
+			float total_time=this._extra_data.piston_extended_time+this._extra_data.piston_retracted_time+2*this._extra_data.piston_movement_time;
+			this._extra_data.piston_time=(this._extra_data.piston_time+delta_time)%total_time;
+			float offset=this._extra_data.piston_time-this._extra_data.piston_offset+total_time;
 			if (offset>=total_time){
 				offset-=total_time;
 			}
-			if (offset<this._piston_movement_time){
-				this.length=this._raw_length*map(cos(offset/this._piston_movement_time*PI),1,-1,1,this._piston_length_multiplier);
+			if (offset<this._extra_data.piston_movement_time){
+				this.length=this._extra_data.raw_length*map(cos(offset/this._extra_data.piston_movement_time*PI),1,-1,1,this._extra_data.piston_length_multiplier);
 			}
-			else if (offset<this._piston_extended_time+this._piston_movement_time){
-				this.length=this._raw_length*this._piston_length_multiplier;
+			else if (offset<this._extra_data.piston_extended_time+this._extra_data.piston_movement_time){
+				this.length=this._extra_data.raw_length*this._extra_data.piston_length_multiplier;
 			}
-			else if (offset<this._piston_extended_time+this._piston_movement_time*2){
-				this.length=this._raw_length*map(cos((offset-this._piston_extended_time-this._piston_movement_time)/this._piston_movement_time*PI),1,-1,this._piston_length_multiplier,1);
+			else if (offset<this._extra_data.piston_extended_time+this._extra_data.piston_movement_time*2){
+				this.length=this._extra_data.raw_length*map(cos((offset-this._extra_data.piston_extended_time-this._extra_data.piston_movement_time)/this._extra_data.piston_movement_time*PI),1,-1,this._extra_data.piston_length_multiplier,1);
 			}
 			else{
-				this.length=this._raw_length;
+				this.length=this._extra_data.raw_length;
 			}
 		}
 		else if ((flags&FLAG_ENABLE_FORCES)==0){
@@ -241,7 +239,7 @@ class Connection{
 		if (this.type==CONNECTION_TYPE_PISTON&&(flags&(FLAG_ENABLE_FORCES|FLAG_DRAW_STRESS))!=(FLAG_ENABLE_FORCES|FLAG_DRAW_STRESS)){
 			strokeWeight(15);
 			stroke(#62a0ea);
-			line(this.a.x/SCALE,this.a.y/SCALE,(this.a.x+this.normal_y*this._raw_length)/SCALE,(this.a.y-this.normal_x*this._raw_length)/SCALE);
+			line(this.a.x/SCALE,this.a.y/SCALE,(this.a.x+this.normal_y*this._extra_data.raw_length)/SCALE,(this.a.y-this.normal_x*this._extra_data.raw_length)/SCALE);
 		}
 		return false;
 	}
