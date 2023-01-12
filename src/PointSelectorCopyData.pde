@@ -29,18 +29,29 @@ class PointSelectorCopyData{
 			point.copy_index=this._points.size();
 			this._points.add(new PointSelectorCopyDataPoint(point.x-cx,point.y-cy,point.fixed,point.has_collision));
 		}
+		for (Connection connection:engine.connections){
+			if (connection.a.copy_index==-1||connection.b.copy_index==-1){
+				continue;
+			}
+			PointSelectorCopyDataConnection copy_connection=new PointSelectorCopyDataConnection(connection.a.copy_index,connection.b.copy_index,connection.length,connection.type);
+			this._connections.add(copy_connection);
+		}
 	}
 
 
 
 	void paste(Engine engine,float cx,float cy){
+		engine.point_selector.deselect();
+		engine.point_selector.dragged_points=new ArrayList<Point>();
 		for (PointSelectorCopyDataPoint point:this._points){
 			point.new_index=engine.points.size();
-			engine.points.add(new Point(point.x+cx,point.y+cy,point.fixed,point.has_collision));
+			Point new_point=new Point(point.x+cx,point.y+cy,point.fixed,point.has_collision);
+			engine.points.add(new_point);
+			engine.point_selector.dragged_points.add(new_point);
 		}
 		for (PointSelectorCopyDataConnection connection:this._connections){
 			Connection new_connection=new Connection(engine.points.get(this._points.get(connection.a).new_index),engine.points.get(this._points.get(connection.b).new_index),connection.length);
-			new_connection.set_type(engine,CONNECTION_TYPE_WOOD);
+			new_connection.set_type(engine,connection.type);
 			engine.connections.add(new_connection);
 		}
 	}
