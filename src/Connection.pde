@@ -145,7 +145,7 @@ class Connection{
 				this._animation_time=-1;
 			}
 		}
-		if ((flags&FLAG_ENABLE_FORCES)!=0&&this.type==CONNECTION_TYPE_PISTON){
+		if ((flags&FLAG_ENABLE_FORCES)!=0&&this.type==CONNECTION_TYPE_PISTON&&(!this.a.fixed||!this.b.fixed)){
 			float total_time=this._piston_extended_time+this._piston_retracted_time+2*this._piston_movement_time;
 			this._piston_time=(this._piston_time+delta_time)%total_time;
 			float offset=this._piston_time-this._piston_offset+total_time;
@@ -200,8 +200,9 @@ class Connection{
 			}
 		}
 		line(this.a.x/SCALE,this.a.y/SCALE,this.b.x/SCALE,this.b.y/SCALE);
-		if (this.type==CONNECTION_TYPE_PISTON){
+		if (this.type==CONNECTION_TYPE_PISTON&&(flags&(FLAG_ENABLE_FORCES|FLAG_DRAW_STRESS))!=(FLAG_ENABLE_FORCES|FLAG_DRAW_STRESS)){
 			strokeWeight(15);
+			stroke(#62a0ea);
 			line(this.a.x/SCALE,this.a.y/SCALE,(this.a.x+this.normal_y*this._raw_length)/SCALE,(this.a.y-this.normal_x*this._raw_length)/SCALE);
 		}
 		return false;

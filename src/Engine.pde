@@ -45,7 +45,7 @@ class Engine{
 				p.update(delta_time);
 				if ((this.flags&FLAG_ENABLE_WIND)!=0){
 					p.x+=wind;
-					p.y+=wind*cos(this._wind_time*0.1);
+					p.y+=wind*cos(this._wind_time*0.03);
 				}
 			}
 			for (int idx=0;idx<200;idx++){

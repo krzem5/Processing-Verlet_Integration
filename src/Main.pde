@@ -37,7 +37,7 @@ final int CONNECTION_TYPE_ROAD=2;
 final int CONNECTION_TYPE_PISTON=3;
 final int CONNECTION_MAX_TYPE=CONNECTION_TYPE_PISTON;
 final String CONNECTION_TYPE_NAMES[]={"String <#a79970>","Wood <#954b4b>","Road <#525448>","Piston <#62a0ea>"};
-final color CONNECTION_TYPE_COLORS[]={#a79970,#954b4b,#525448,#62a0ea};
+final color CONNECTION_TYPE_COLORS[]={#a79970,#954b4b,#525448,#c0bfbc};
 final float CONNECTION_TYPE_WIDTH[]={2,3.5,6.5,6.5};
 
 final float CONNECTION_CREATE_LINE_DASH=25;
