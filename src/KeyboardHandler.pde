@@ -52,6 +52,9 @@ class KeyboardHandler{
 				else if (this.is_ctrl_pressed){
 					this.engine.point_selector.flip_vertically();
 				}
+				else if (this.is_shift_pressed){
+					this.engine.point_selector.rotate_180();
+				}
 				return;
 			case DOWN:
 				if (!this.is_shift_pressed&&!this.is_ctrl_pressed){
@@ -59,6 +62,9 @@ class KeyboardHandler{
 				}
 				else if (this.is_ctrl_pressed){
 					this.engine.point_selector.flip_vertically();
+				}
+				else if (this.is_shift_pressed){
+					this.engine.point_selector.rotate_180();
 				}
 				return;
 			case LEFT:
@@ -68,6 +74,9 @@ class KeyboardHandler{
 				else if (this.is_ctrl_pressed){
 					this.engine.point_selector.flip_horizontally();
 				}
+				else if (this.is_shift_pressed){
+					this.engine.point_selector.rotate(-PI/2);
+				}
 				return;
 			case RIGHT:
 				if (!this.is_shift_pressed&&!this.is_ctrl_pressed){
@@ -75,6 +84,9 @@ class KeyboardHandler{
 				}
 				else if (this.is_ctrl_pressed){
 					this.engine.point_selector.flip_horizontally();
+				}
+				else if (this.is_shift_pressed){
+					this.engine.point_selector.rotate(PI/2);
 				}
 				return;
 			case 'C':

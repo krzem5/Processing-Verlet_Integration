@@ -198,7 +198,7 @@ class PointSelector{
 
 
 	void flip_vertically(){
-		if (this.dragged_points==null){
+		if (this.dragged_points==null||this.dragged_points.size()<2){
 			return;
 		}
 		AABB aabb=this._get_selection_aabb();
@@ -211,13 +211,51 @@ class PointSelector{
 
 
 	void flip_horizontally(){
-		if (this.dragged_points==null){
+		if (this.dragged_points==null||this.dragged_points.size()<2){
 			return;
 		}
 		AABB aabb=this._get_selection_aabb();
 		for (Point point:this.dragged_points){
 			point.x=map(point.x,aabb.ax,aabb.bx,aabb.bx,aabb.ax);
 			point.prev_x=map(point.prev_x,aabb.ax,aabb.bx,aabb.bx,aabb.ax);
+		}
+	}
+
+
+
+	void rotate(float angle){
+		if (this.dragged_points==null||this.dragged_points.size()<2){
+			return;
+		}
+		AABB aabb=this._get_selection_aabb();
+		float c=cos(angle);
+		float s=sin(angle);
+		float ox=(aabb.ax+aabb.bx)*0.5;
+		float oy=(aabb.ay+aabb.by)*0.5;
+		for (Point point:this.dragged_points){
+			float x=(point.x-ox)*c-(point.y-oy)*s+ox;
+			float y=(point.x-ox)*s+(point.y-oy)*c+oy;
+			point.x=x;
+			point.y=y;
+			x=(point.prev_x-ox)*c-(point.prev_y-oy)*s+ox;
+			y=(point.prev_x-ox)*s+(point.prev_y-oy)*c+oy;
+			point.prev_x=x;
+			point.prev_y=y;
+		}
+	}
+
+
+
+	void rotate_180(){
+		if (this.dragged_points==null||this.dragged_points.size()<2){
+			return;
+		}
+		AABB aabb=this._get_selection_aabb();
+		for (Point point:this.dragged_points){
+			point.x=map(point.x,aabb.ax,aabb.bx,aabb.bx,aabb.ax);
+			point.y=map(point.y,aabb.ay,aabb.by,aabb.by,aabb.ay);
+			point.prev_x=map(point.prev_x,aabb.ax,aabb.bx,aabb.bx,aabb.ax);
+			point.prev_y=map(point.prev_y,aabb.ay,aabb.by,aabb.by,aabb.ay);
 		}
 	}
 
