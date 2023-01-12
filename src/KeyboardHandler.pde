@@ -68,25 +68,35 @@ class KeyboardHandler{
 				}
 				return;
 			case LEFT:
-				if (!this.is_shift_pressed&&!this.is_ctrl_pressed){
-					this.engine.point_selector.move(-1,0);
-				}
-				else if (this.is_ctrl_pressed){
-					this.engine.point_selector.flip_horizontally();
+				if (this.is_ctrl_pressed){
+					if (this.is_shift_pressed){
+						this.engine.point_selector.rotate(-PI/4);
+					}
+					else{
+						this.engine.point_selector.flip_horizontally();
+					}
 				}
 				else if (this.is_shift_pressed){
 					this.engine.point_selector.rotate(-PI/2);
 				}
+				else{
+					this.engine.point_selector.move(-1,0);
+				}
 				return;
 			case RIGHT:
-				if (!this.is_shift_pressed&&!this.is_ctrl_pressed){
-					this.engine.point_selector.move(1,0);
-				}
-				else if (this.is_ctrl_pressed){
-					this.engine.point_selector.flip_horizontally();
+				if (this.is_ctrl_pressed){
+					if (this.is_shift_pressed){
+						this.engine.point_selector.rotate(PI/4);
+					}
+					else{
+						this.engine.point_selector.flip_horizontally();
+					}
 				}
 				else if (this.is_shift_pressed){
 					this.engine.point_selector.rotate(PI/2);
+				}
+				else{
+					this.engine.point_selector.move(1,0);
 				}
 				return;
 			case 'C':
