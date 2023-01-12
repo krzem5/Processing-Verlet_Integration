@@ -31,19 +31,20 @@ final int FLAG_DRAW_GUIDES=32;
 final int FLAG_DRAW_STRESS=64;
 final int FLAG_ENABLE_STRESS_BREAKS=128;
 
-final int CONNECTION_TYPE_STRING=0;
+final int CONNECTION_TYPE_ROPE=0;
 final int CONNECTION_TYPE_WOOD=1;
 final int CONNECTION_TYPE_ROAD=2;
 final int CONNECTION_TYPE_PISTON=3;
 final int CONNECTION_TYPE_STEEL=4;
-final int CONNECTION_MAX_TYPE=CONNECTION_TYPE_STEEL;
-final String CONNECTION_TYPE_NAMES[]={"String <#a79970>","Wood <#954b4b>","Road <#525448>","Piston <#62a0ea>","Steel <#c0bfbc>"};
-final color CONNECTION_TYPE_COLORS[]={#a79970,#954b4b,#525448,#62a0ea,#c0bfbc};
-final float CONNECTION_TYPE_WIDTH[]={2,3.5,6.5,5,6.5};
+final int CONNECTION_TYPE_BUNGEE_ROPE=5;
+final int CONNECTION_MAX_TYPE=CONNECTION_TYPE_BUNGEE_ROPE;
+final String CONNECTION_TYPE_NAMES[]={"Rope <#a79970>","Wood <#954b4b>","Road <#525448>","Piston <#62a0ea>","Steel <#c0bfbc>","Bungee Rope <#c061cb>"};
+final color CONNECTION_TYPE_COLORS[]={#a79970,#954b4b,#525448,#62a0ea,#c0bfbc,#c061cb};
+final float CONNECTION_TYPE_WIDTH[]={2,3.5,6.5,5,6.5,2};
 
 final float CONNECTION_CREATE_LINE_DASH=25;
-final float CONNECTION_BREAK_TENSION_FACTOR[]={1.2,1.6,2.4,3.2,3.2};
-final float CONNECTION_BREAK_COMPRESSION_FACTOR[]={-1,0.6,0.8,0.5,0.5};
+final float CONNECTION_BREAK_TENSION_FACTOR[]={1.2,1.6,2.4,3.2,3.2,6};
+final float CONNECTION_BREAK_COMPRESSION_FACTOR[]={-1,0.6,0.8,0.5,0.5,-1};
 
 final String DEFUALT_OPEN_FILE_PATH="v7";
 

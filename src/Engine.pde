@@ -132,9 +132,7 @@ class Engine{
 			JSONObject connection_data=connections.getJSONObject(i);
 			Connection c=new Connection(this.points.get(connection_data.getInt("a")),this.points.get(connection_data.getInt("b")),connection_data.getFloat("length"));
 			c.set_type(this,connection_data.getInt("type"));
-			if (c.type==CONNECTION_TYPE_PISTON){
-				c.load_piston_data(connection_data);
-			}
+			c.load_data(connection_data);
 			this.connections.add(c);
 		}
 	}
@@ -165,9 +163,7 @@ class Engine{
 			connection_data.setInt("b",c.b._index);
 			connection_data.setFloat("length",c.length);
 			connection_data.setInt("type",c.type);
-			if (c.type==CONNECTION_TYPE_PISTON){
-				c.save_piston_data(connection_data);
-			}
+			c.save_data(connection_data);
 			connections.append(connection_data);
 		}
 		out.setFloat("wind",this._wind_time);

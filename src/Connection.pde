@@ -14,6 +14,7 @@ class Connection{
 	private float _piston_extended_time;
 	private float _piston_retracted_time;
 	private float _piston_movement_time;
+	private float _bungee_rope_strength;
 
 
 
@@ -31,30 +32,41 @@ class Connection{
 		this._piston_extended_time=1.5;
 		this._piston_retracted_time=0.5;
 		this._piston_movement_time=1;
+		this._bungee_rope_strength=0.0001;
 	}
 
 
 
-	void load_piston_data(JSONObject data){
-		this._raw_length=data.getFloat("piston_length");
-		this._piston_offset=data.getFloat("piston_offset");
-		this._piston_time=data.getFloat("piston_time");
-		this._piston_length_multiplier=data.getFloat("piston_length_multiplier");
-		this._piston_extended_time=data.getFloat("piston_extended_time");
-		this._piston_retracted_time=data.getFloat("piston_retracted_time");
-		this._piston_movement_time=data.getFloat("piston_movement_time");
+	void load_data(JSONObject data){
+		if (this.type==CONNECTION_TYPE_PISTON){
+			this._raw_length=data.getFloat("piston_length");
+			this._piston_offset=data.getFloat("piston_offset");
+			this._piston_time=data.getFloat("piston_time");
+			this._piston_length_multiplier=data.getFloat("piston_length_multiplier");
+			this._piston_extended_time=data.getFloat("piston_extended_time");
+			this._piston_retracted_time=data.getFloat("piston_retracted_time");
+			this._piston_movement_time=data.getFloat("piston_movement_time");
+		}
+		else if (this.type==CONNECTION_TYPE_BUNGEE_ROPE){
+			this._bungee_rope_strength=data.getFloat("bungee_strength");
+		}
 	}
 
 
 
-	void save_piston_data(JSONObject data){
-		data.setFloat("piston_length",this._raw_length);
-		data.setFloat("piston_offset",this._piston_offset);
-		data.setFloat("piston_time",this._piston_time);
-		data.setFloat("piston_length_multiplier",this._piston_length_multiplier);
-		data.setFloat("piston_extended_time",this._piston_extended_time);
-		data.setFloat("piston_retracted_time",this._piston_retracted_time);
-		data.setFloat("piston_movement_time",this._piston_movement_time);
+	void save_data(JSONObject data){
+		if (this.type==CONNECTION_TYPE_PISTON){
+			data.setFloat("piston_length",this._raw_length);
+			data.setFloat("piston_offset",this._piston_offset);
+			data.setFloat("piston_time",this._piston_time);
+			data.setFloat("piston_length_multiplier",this._piston_length_multiplier);
+			data.setFloat("piston_extended_time",this._piston_extended_time);
+			data.setFloat("piston_retracted_time",this._piston_retracted_time);
+			data.setFloat("piston_movement_time",this._piston_movement_time);
+		}
+		else if (this.type==CONNECTION_TYPE_BUNGEE_ROPE){
+			data.setFloat("bungee_strength",this._bungee_rope_strength);
+		}
 	}
 
 
@@ -104,7 +116,7 @@ class Connection{
 		if (this.a.fixed&&this.b.fixed){
 			return;
 		}
-		if (this.type==CONNECTION_TYPE_STRING&&this.distance<=this.length){
+		if ((this.type==CONNECTION_TYPE_ROPE||this.type==CONNECTION_TYPE_BUNGEE_ROPE)&&this.distance<=this.length){
 			return;
 		}
 		if (this.distance==0){
@@ -121,6 +133,9 @@ class Connection{
 		float adjust=1-this.length/this.distance;
 		if (!this.a.fixed&&!this.b.fixed){
 			adjust/=2;
+		}
+		if (this.type==CONNECTION_TYPE_BUNGEE_ROPE){
+			adjust*=this._bungee_rope_strength;
 		}
 		float adjust_x=distance_x*adjust;
 		float adjust_y=distance_y*adjust;
