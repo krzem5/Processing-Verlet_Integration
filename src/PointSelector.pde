@@ -173,8 +173,10 @@ class PointSelector{
 		}
 		else if (button==RIGHT){
 			this._is_mouse_down=false;
-			this.dragged_point.fixed=this._dragged_point_was_fixed;
-			this.dragged_point=null;
+			if (this.dragged_point!=null){
+				this.dragged_point.fixed=this._dragged_point_was_fixed;
+				this.dragged_point=null;
+			}
 		}
 	}
 
