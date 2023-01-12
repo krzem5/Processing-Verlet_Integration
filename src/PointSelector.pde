@@ -8,6 +8,7 @@ class PointSelector{
 	private int _region_start_y;
 	private float _drag_offset_x;
 	private float _drag_offset_y;
+	private PointSelectorCopyData _copy_data;
 
 
 
@@ -16,6 +17,7 @@ class PointSelector{
 		this.dragged_point=null;
 		this.dragged_points=null;
 		this._is_mouse_down=false;
+		this._copy_data=new PointSelectorCopyData();
 	}
 
 
@@ -244,6 +246,24 @@ class PointSelector{
 			point.prev_x=x;
 			point.prev_y=y;
 		}
+	}
+
+
+
+	void copy(){
+		this._copy_data.reset();
+		if (this.dragged_point!=null){
+			this._copy_data.from_point(this.dragged_point);
+		}
+		else if (this.dragged_points!=null){
+			this._copy_data.from_points(this.engine,this.dragged_points,this._get_selection_aabb());
+		}
+	}
+
+
+
+	void paste(){
+		this._copy_data.paste(this.engine,mouseX*SCALE,mouseY*SCALE);
 	}
 
 

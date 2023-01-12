@@ -100,6 +100,10 @@ class KeyboardHandler{
 				}
 				return;
 			case 'C':
+				if (this.is_ctrl_pressed){
+					this.engine.point_selector.copy();
+					return;
+				}
 				flag=FLAG_CREATE_CONNECTIONS;
 				this.engine.flags&=~FLAG_BREAK_CONNECTIONS;
 				break;
@@ -152,11 +156,22 @@ class KeyboardHandler{
 					}
 				}
 				return;
+			case 'V':
+				if (this.is_ctrl_pressed){
+					this.engine.point_selector.paste();
+				}
+				break;
 			case 'W':
 				flag=FLAG_ENABLE_WIND;
 				break;
 			case 'X':
-				this.engine.point_selector.toggle_collision(this.is_shift_pressed);
+				if (this.is_ctrl_pressed){
+					this.engine.point_selector.copy();
+					this.engine.point_selector.delete();
+				}
+				else{
+					this.engine.point_selector.toggle_collision(this.is_shift_pressed);
+				}
 				return;
 			case 'Y':
 				if ((this.engine.flags&FLAG_ENABLE_FORCES)==0){

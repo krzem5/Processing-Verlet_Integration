@@ -8,6 +8,7 @@ class Point{
 	int _index;
 	float prev_x;
 	float prev_y;
+	int copy_index;
 
 
 
@@ -19,6 +20,7 @@ class Point{
 		this._deleted=false;
 		this.prev_x=x;
 		this.prev_y=y;
+		this.copy_index=-1;
 	}
 
 
