@@ -145,7 +145,10 @@ class Connection{
 				this._animation_time=-1;
 			}
 		}
-		if ((flags&FLAG_ENABLE_FORCES)!=0&&this.type==CONNECTION_TYPE_PISTON&&(!this.a.fixed||!this.b.fixed)){
+		if (this.type!=CONNECTION_TYPE_PISTON){
+			return;
+		}
+		if ((flags&FLAG_ENABLE_FORCES)!=0&&(!this.a.fixed||!this.b.fixed)){
 			float total_time=this._piston_extended_time+this._piston_retracted_time+2*this._piston_movement_time;
 			this._piston_time=(this._piston_time+delta_time)%total_time;
 			float offset=this._piston_time-this._piston_offset+total_time;
@@ -164,6 +167,13 @@ class Connection{
 			else{
 				this.length=this._raw_length;
 			}
+		}
+		else if ((flags&FLAG_ENABLE_FORCES)==0){
+			float distance_x=this.b.x-this.a.x;
+			float distance_y=this.b.y-this.a.y;
+			this.distance=sqrt(distance_x*distance_x+distance_y*distance_y);
+			this.normal_x=-distance_y/this.distance;
+			this.normal_y=distance_x/this.distance;
 		}
 	}
 
