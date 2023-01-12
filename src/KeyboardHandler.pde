@@ -53,7 +53,7 @@ class KeyboardHandler{
 					this.engine.point_selector.flip_vertically();
 				}
 				else if (this.is_shift_pressed){
-					this.engine.point_selector.rotate_180();
+					this.engine.point_selector.rotate(PI);
 				}
 				return;
 			case DOWN:
@@ -64,7 +64,7 @@ class KeyboardHandler{
 					this.engine.point_selector.flip_vertically();
 				}
 				else if (this.is_shift_pressed){
-					this.engine.point_selector.rotate_180();
+					this.engine.point_selector.rotate(PI);
 				}
 				return;
 			case LEFT:

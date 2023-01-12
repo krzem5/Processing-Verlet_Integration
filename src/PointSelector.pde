@@ -246,21 +246,6 @@ class PointSelector{
 
 
 
-	void rotate_180(){
-		if (this.dragged_points==null||this.dragged_points.size()<2){
-			return;
-		}
-		AABB aabb=this._get_selection_aabb();
-		for (Point point:this.dragged_points){
-			point.x=map(point.x,aabb.ax,aabb.bx,aabb.bx,aabb.ax);
-			point.y=map(point.y,aabb.ay,aabb.by,aabb.by,aabb.ay);
-			point.prev_x=map(point.prev_x,aabb.ax,aabb.bx,aabb.bx,aabb.ax);
-			point.prev_y=map(point.prev_y,aabb.ay,aabb.by,aabb.by,aabb.ay);
-		}
-	}
-
-
-
 	void update(){
 		float x=mouseX*SCALE;
 		float y=mouseY*SCALE;
