@@ -33,7 +33,7 @@ class Engine{
 	void update(float delta_time){
 		this.point_selector.update();
 		for (Connection c:this.connections){
-			c.update_animation(delta_time);
+			c.update_animation(delta_time,this.flags);
 		}
 		if ((this.flags&FLAG_ENABLE_FORCES)!=0){
 			this._wind_time+=delta_time;
@@ -129,9 +129,12 @@ class Engine{
 			this.points.add(new Point(point_data.getFloat("x"),point_data.getFloat("y"),point_data.getBoolean("fixed"),point_data.getBoolean("collision")));
 		}
 		for (int i=0;i<connections.size();i++){
-			JSONObject connections_data=connections.getJSONObject(i);
-			Connection c=new Connection(this.points.get(connections_data.getInt("a")),this.points.get(connections_data.getInt("b")),connections_data.getFloat("length"));
-			c.set_type(this,connections_data.getInt("type"));
+			JSONObject connection_data=connections.getJSONObject(i);
+			Connection c=new Connection(this.points.get(connection_data.getInt("a")),this.points.get(connection_data.getInt("b")),connection_data.getFloat("length"));
+			c.set_type(this,connection_data.getInt("type"));
+			if (c.type==CONNECTION_TYPE_PISTON){
+				c.load_piston_data(connection_data);
+			}
 			this.connections.add(c);
 		}
 	}
@@ -162,6 +165,9 @@ class Engine{
 			connection_data.setInt("b",c.b._index);
 			connection_data.setFloat("length",c.length);
 			connection_data.setInt("type",c.type);
+			if (c.type==CONNECTION_TYPE_PISTON){
+				c.save_piston_data(connection_data);
+			}
 			connections.append(connection_data);
 		}
 		out.setFloat("wind",this._wind_time);
