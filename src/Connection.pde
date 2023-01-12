@@ -194,7 +194,12 @@ class Connection{
 		}
 		strokeWeight(CONNECTION_TYPE_WIDTH[this.type]+(this._animation_time==-1?0:8*sin(this._animation_time/RESIZE_ANIMATION_TIME*PI)));
 		if ((flags&(FLAG_ENABLE_FORCES|FLAG_DRAW_STRESS))!=(FLAG_ENABLE_FORCES|FLAG_DRAW_STRESS)){
-			stroke(CONNECTION_TYPE_COLORS[this.type]);
+			if (this.type==CONNECTION_TYPE_PISTON){
+				stroke(#c0bfbc);
+			}
+			else{
+				stroke(CONNECTION_TYPE_COLORS[this.type]);
+			}
 		}
 		else{
 			if (delta_distance>1){
