@@ -47,7 +47,7 @@ final float CONNECTION_TYPE_WIDTH[]={2,3.5,6.5,5,6.5,2,4.2};
 final float CONNECTION_BREAK_TENSION_FACTOR[]={1.2,1.6,2.4,3.2,3.2,6,4};
 final float CONNECTION_BREAK_COMPRESSION_FACTOR[]={-1,0.6,0.8,0.95,0.5,-1,0.2};
 
-final String DEFUALT_OPEN_FILE_PATH="v7";
+final String DEFUALT_OPEN_FILE_PATH="v9";
 
 
 

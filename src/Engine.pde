@@ -48,6 +48,13 @@ class Engine{
 					p.y+=wind*cos(this._wind_time*0.03)*0.1;
 				}
 			}
+			this.collision_line_collider.apply_deltas();
+			for (Point p:this.points){
+				if (p.has_collision){
+					this.collision_line_collider.collide(p);
+				}
+			}
+			this.collision_line_collider.apply_deltas();
 			for (int idx=0;idx<200;idx++){
 				for (Connection c:this.connections){
 					c.update();
@@ -56,10 +63,14 @@ class Engine{
 					p.constrain();
 					if (p.has_collision){
 						this.collision_grid.add(p);
-						this.collision_line_collider.collide(p);
 					}
 				}
 				this.collision_grid.update();
+			}
+			for (Point p:this.points){
+				if (p.has_collision){
+					this.collision_line_collider.collide(p);
+				}
 			}
 		}
 	}

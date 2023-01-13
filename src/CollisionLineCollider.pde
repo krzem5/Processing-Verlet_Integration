@@ -16,6 +16,7 @@ class CollisionLineCollider{
 
 
 	void add_connection(Connection c){
+		c.delta=0;
 		this.lines.add(c);
 	}
 
@@ -27,6 +28,22 @@ class CollisionLineCollider{
 				this.lines.remove(i);
 				return;
 			}
+		}
+	}
+
+
+
+	void apply_deltas(){
+		for (Connection c:this.lines){
+			if (!c.a.fixed){
+				c.a.x-=c.normal_x*c.delta;
+				c.a.y-=c.normal_y*c.delta;
+			}
+			if (!c.b.fixed){
+				c.b.x-=c.normal_x*c.delta;
+				c.b.y-=c.normal_y*c.delta;
+			}
+			c.delta=0;
 		}
 	}
 
@@ -52,6 +69,7 @@ class CollisionLineCollider{
 			if (abs(collision_factor)<abs(c.normal_y*factor)){
 				collision_factor=c.normal_y*factor;
 			}
+			c.delta+=factor;
 			has_collision=true;
 		}
 		if (has_collision){
