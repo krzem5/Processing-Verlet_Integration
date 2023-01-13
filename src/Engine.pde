@@ -43,7 +43,7 @@ class Engine{
 					continue;
 				}
 				if (p.last_line!=null){
-					println(p.last_line);
+					// println(p.last_line);
 				}
 				p.update(delta_time);
 				if ((this.flags&FLAG_ENABLE_WIND)!=0){
