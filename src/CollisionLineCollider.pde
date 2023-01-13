@@ -60,7 +60,7 @@ class CollisionLineCollider{
 			if (intersection==null){
 				continue;
 			}
-			float factor=RADIUS*SCALE;
+			float factor=RADIUS*SCALE*1.5;
 			if (!Util.is_counterclockwise(c.a.x,c.a.y,c.b.x,c.b.y,p.prev_x,p.prev_y)){
 				factor=-factor;
 			}
