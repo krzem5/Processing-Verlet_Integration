@@ -68,6 +68,7 @@ class CollisionLineCollider{
 			p.y=intersection.y+c.normal_y*factor;
 			if (abs(collision_factor)<abs(c.normal_y*factor)){
 				collision_factor=c.normal_y*factor;
+				p.last_line=c;
 			}
 			c.delta+=factor;
 			has_collision=true;

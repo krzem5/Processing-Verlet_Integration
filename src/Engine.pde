@@ -42,6 +42,9 @@ class Engine{
 				if (p.fixed){
 					continue;
 				}
+				if (p.last_line!=null){
+					println(p.last_line);
+				}
 				p.update(delta_time);
 				if ((this.flags&FLAG_ENABLE_WIND)!=0){
 					p.x+=wind;
@@ -68,6 +71,7 @@ class Engine{
 				this.collision_grid.update();
 			}
 			for (Point p:this.points){
+				p.last_line=null;
 				if (p.has_collision){
 					this.collision_line_collider.collide(p);
 				}
