@@ -16,7 +16,6 @@ class CollisionLineCollider{
 
 
 	void add_connection(Connection c){
-		c.delta=0;
 		this.lines.add(c);
 	}
 
@@ -33,22 +32,6 @@ class CollisionLineCollider{
 
 
 
-	void apply_deltas(){
-		for (Connection c:this.lines){
-			if (!c.a.fixed){
-				c.a.x-=c.normal_x*c.delta;
-				c.a.y-=c.normal_y*c.delta;
-			}
-			if (!c.b.fixed){
-				c.b.x-=c.normal_x*c.delta;
-				c.b.y-=c.normal_y*c.delta;
-			}
-			c.delta=0;
-		}
-	}
-
-
-
 	void collide(Point p){
 		boolean has_collision=false;
 		float collision_factor=0;
@@ -60,7 +43,7 @@ class CollisionLineCollider{
 			if (intersection==null){
 				continue;
 			}
-			float factor=RADIUS*SCALE*1.5;
+			float factor=RADIUS*SCALE;
 			if (!Util.is_counterclockwise(c.a.x,c.a.y,c.b.x,c.b.y,p.prev_x,p.prev_y)){
 				factor=-factor;
 			}
@@ -68,9 +51,7 @@ class CollisionLineCollider{
 			p.y=intersection.y+c.normal_y*factor;
 			if (abs(collision_factor)<abs(c.normal_y*factor)){
 				collision_factor=c.normal_y*factor;
-				p.last_line=c;
 			}
-			c.delta+=factor;
 			has_collision=true;
 		}
 		if (has_collision){

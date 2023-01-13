@@ -9,7 +9,6 @@ class Point{
 	float prev_x;
 	float prev_y;
 	int copy_index;
-	Connection last_line;
 
 
 
@@ -22,7 +21,6 @@ class Point{
 		this.prev_x=x;
 		this.prev_y=y;
 		this.copy_index=-1;
-		this.last_line=null;
 	}
 
 

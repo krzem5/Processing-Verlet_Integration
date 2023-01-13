@@ -6,7 +6,6 @@ class Connection{
 	int type;
 	float normal_x;
 	float normal_y;
-	float delta;
 	private float _animation_time;
 	private ExtraConnectionData _extra_data;
 
@@ -18,7 +17,6 @@ class Connection{
 		this.length=length;
 		this.distance=length;
 		this.type=-1;
-		this.delta=0;
 		this._animation_time=-1;
 		this._extra_data=new ExtraConnectionData(length);
 	}
