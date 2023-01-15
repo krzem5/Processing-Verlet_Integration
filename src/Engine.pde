@@ -24,7 +24,7 @@ class Engine{
 		this.snap_grid=new SnapGrid(this);
 		this.collision_line_collider=new CollisionLineCollider();
 		this.file_name=null;
-		this.flags=FLAG_ENABLE_WIND;
+		this.flags=FLAG_DRAW_GRID;
 		this.connection_type=CONNECTION_TYPE_WOOD;
 	}
 
