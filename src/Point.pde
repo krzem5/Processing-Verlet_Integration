@@ -40,7 +40,6 @@ class Point{
 		}
 		else if (this.y>(height-RADIUS-GROUND_Y_OFFSET)*SCALE){
 			this.y=(height-RADIUS-GROUND_Y_OFFSET)*SCALE;
-			this.prev_x=this.x;
 			this.prev_y=this.y;
 		}
 	}
